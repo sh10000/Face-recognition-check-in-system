@@ -19,6 +19,16 @@ from app1 import views
 urlpatterns = [
     #path("admin/", admin.site.urls),
     path("index/", views.index),
-    path("users/list/", views.user_list),
-    path("tpl/", views.tpl),
+
+    path("teacher", ),
+    path("teacher/publishSing",),
+    path("teacher/signResult",),
+
+    path("manager",),
+    path("manger/manageTeacher"),
+    path("manger/manageStudent"),
+    path("manage/manageCourse"),
+    path("manage/teacherCourse"),
+
+    path("studentQianDao",),
 ]
