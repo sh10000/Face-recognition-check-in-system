@@ -15,20 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app1 import views
+from qiandao.app1 import views
 urlpatterns = [
     #path("admin/", admin.site.urls),
     path("index/", views.index),
 
-    path("teacher", views.teacher),
-    path("teacher/publishSing", views.publishSign),
-    path("teacher/signResult",),
+#教师页面组
+    path("teacher/", views.teacher),
+    path("teacher/publishSing/", views.publishSign),
+    path("teacher/signResult/", views.signResult),
 
-    path("manager",),
-    path("manger/manageTeacher"),
-    path("manger/manageStudent"),
-    path("manage/manageCourse"),
-    path("manage/teacherCourse"),
+#管理员页面组
+    path("manger/", views.manageIndex),
+    path("manger/ManageTeacher/", views.manageTeacher),
+    path("manger/ManageStudent/", views.manageStudent),
+    path("manage/ManageCourse/", views.manageCourse),
 
-    path("studentQianDao",),
+#学生签到页面组
+    path("studentQianDao/",),
 ]
