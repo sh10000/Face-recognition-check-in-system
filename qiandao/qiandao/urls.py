@@ -17,8 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from app1 import views
 urlpatterns = [
-    #path("admin/", admin.site.urls),
+    # path("admin/", admin.site.urls),
+    path("", views.index),
     path("index/", views.index),
     path("users/list/", views.user_list),
     path("tpl/", views.tpl),
+    path("register/", views.register),
+    path("login/", views.login),
+    path("login/post", views.login_post)
 ]
