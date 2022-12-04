@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from app1 import models
+from django.core.files.base import ContentFile
 
 
 # Create your views here.
@@ -41,4 +43,18 @@ def login_post(request):
         print(username, password)
     return render(request, "ManageIndex.html")
 
+
+def pic_upload(request):
+    return render(request, "PicUploadTest.html")
+
+
+def updateinfo(request):
+    if request.method == 'POST':
+        new_img = models.mypicture(
+            photo=request.FILES.get('photo'),
+            user=request.FILES.get('photo').name
+        )
+        new_img.save()
+        return HttpResponse('上传成功！')
+    return render(request, 'PicUploadTest.html')
 
