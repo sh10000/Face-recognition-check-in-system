@@ -20,8 +20,8 @@ urlpatterns = [
     #path("admin/", admin.site.urls),
     path("index/", views.index),
 
-    path("teacher", ),
-    path("teacher/publishSing",),
+    path("teacher", views.teacher),
+    path("teacher/publishSing", views.publishSign),
     path("teacher/signResult",),
 
     path("manager",),

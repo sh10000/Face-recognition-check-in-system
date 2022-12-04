@@ -6,5 +6,15 @@ from django.http import HttpResponse
 def index(request):
     return  HttpResponse("欢迎使用")
 
-#
-def
+#教师功能组
+def teacher(request):
+    return render(request, "app1/templates/teacher/teacher.html")
+def publishSign(request):
+    return render(request, "qiandao/app1/templates/teacher/SignPublish.html")
+
+def signResult(request):
+    return  render(request, "app1/templates/teacher/SignResult.html")
+
+
+
+#管理员功能组
