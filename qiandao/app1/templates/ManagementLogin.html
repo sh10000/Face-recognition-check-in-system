@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -89,12 +88,14 @@
 		   	<nav class="navbar navbar-inverse">
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				    <ul class="nav navbar-nav">
-				      	<li><a href="test-studentdis.html">学生签到窗口</a></li>
+				      	<li class="active"><a href="#">管理员登录入口</a></li>
+				      	<li ><a href="TeacherLogin.html">教师登录入口</a></li>
 
 				        <li class="dropdown">
-				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">管理员登录入口(当前)<span class="caret"></span></a>
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></a>
 				          <ul class="dropdown-menu">
-				            <li><a href="TeacherLogin.html">教师登录入口</a></li>
+				            <li><a href="#">帮助信息</a></li>
+				            <li><a href="#">。。。。</a></li>
 				            <li role="separator" class="divider"></li>
 				          </ul>
 				        </li>
@@ -116,7 +117,8 @@
 		   	 	<div class="col-sm-4 col-sm-offset-8" style="height: 300px;border:5px solid gainsboro;background-color:whitesmoke;">
 		   	 		<!-- 表单部分 -->
 
-		   	 		<form class="form-horizontal" onsubmit="return checkForm()"  style="color:;">
+		   	 		<form class="form-horizontal" onsubmit="return checkForm()"  style="color:;" action="/login/post" method="post">
+						{% csrf_token %}
 		   	 			<div class="row" style="padding-top: 20px;">
 			   	 			<div class="col-sm-8 col-sm-offset-1">
 			   	 				<font color="#204D74" size="6">管理员登录</font>

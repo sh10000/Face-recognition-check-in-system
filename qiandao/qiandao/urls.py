@@ -15,10 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from qiandao.app1 import views
+from app1 import views
+from django.conf.urls.static import static
+from django.conf import settings
 urlpatterns = [
-    #path("admin/", admin.site.urls),
+    # path("admin/", admin.site.urls),
+    path("", views.index),
+    path('admin/', admin.site.urls),
+    path('updateinfo/', views.updateinfo),
     path("index/", views.index),
+    path("users/list/", views.user_list),
+    path("tpl/", views.tpl),
+    path("register/", views.register),
+    path("login/", views.login),
+    path("login/post", views.login_post),
+    path("pic_upload", views.pic_upload),
 
 #教师页面组
     path("teacher/", views.teacher),
@@ -32,5 +43,17 @@ urlpatterns = [
     path("manage/ManageCourse/", views.manageCourse),
 
 #学生签到页面组
-    path("studentQianDao/",),
-]
+    # path("studentQianDao/",),
+    path("teacher", views.teacher),
+    path("teacher/publishSing", views.publishSign),
+    # path("teacher/signResult",),
+
+    # path("manager",),
+    # path("manger/manageTeacher"),
+    # path("manger/manageStudent"),
+    # path("manage/manageCourse"),
+    # path("manage/teacherCourse"),
+
+    # path("studentQianDao",),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
