@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="18096b32-c63e-4b39-b8ef-6472e068b394" name="Changes" comment="" />
+    <list default="true" id="18096b32-c63e-4b39-b8ef-6472e068b394" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/qiandao/app1/templates/manger/ManageCourse.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/qiandao/app1/templates/manger/ManageIndex.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/qiandao/app1/templates/manger/ManageStudent.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/qiandao/app1/templates/manger/ManageTeacher.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/qiandao/app1/templates/manger/TeacherCourse.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/qiandao/app1/templates/teacher/SignPublish.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/qiandao/app1/templates/teacher/SignResult.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/static/css/1.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/static/css/carousel.css" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/static/css/carousel.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/static/css/doc.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/static/css/doc.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/static/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/static/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/static/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/static/css/theme.css" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/static/css/theme.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/static/img/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/static/js/1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/static/plugins/2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/templates/ManagementLogin.html" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/templates/ManagementLogin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/templates/TeacherLogin.html" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/templates/TeacherLogin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/templates/tpl.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/templates/user.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/qiandao/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/qiandao/urls.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,12 +49,6 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">
-    <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
