@@ -76,8 +76,13 @@ WSGI_APPLICATION = "qiandao.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "renLianShiBie",
+        "USER": "root",
+        "PASSWORD": "ad1597530.",
+        "HOST": "101.34.19.214",
+        'PORT': '3306',
+
     }
 }
 
