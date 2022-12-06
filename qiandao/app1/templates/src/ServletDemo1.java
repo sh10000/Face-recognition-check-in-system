@@ -10,7 +10,7 @@ import javax.servlet.ServletResponse;
  * @author jt
  *
  */
-public class ServletDemo1 implements Servlet{
+public class ServletDemo1 implements Servlet {
 
 	@Override
 	/**
@@ -19,6 +19,7 @@ public class ServletDemo1 implements Servlet{
 	public void init(ServletConfig config) throws ServletException {
 		System.out.println("ServletDemo1初始化了......");
 	}
+
 	@Override
 	/**
 	 * service方法:任何一次请求都会执行service方法。可以执行多次。
@@ -26,6 +27,7 @@ public class ServletDemo1 implements Servlet{
 	public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
 		System.out.println("ServletDemo1执行了......");
 	}
+
 	@Override
 	/**
 	 * Servlet从服务器中移除或者服务器关闭的时候销毁Servlet。执行一次。
@@ -33,11 +35,8 @@ public class ServletDemo1 implements Servlet{
 	public void destroy() {
 		System.out.println("ServletDemo1被销毁了.......");
 	}
-	
-	
-	
-	
-	
+
+
 	@Override
 	public ServletConfig getServletConfig() {
 		// TODO Auto-generated method stub
@@ -45,13 +44,9 @@ public class ServletDemo1 implements Servlet{
 	}
 
 
-
 	@Override
 	public String getServletInfo() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
 }
