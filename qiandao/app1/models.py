@@ -22,4 +22,4 @@ class teacher(models.Model):
 
 
 class lesson(models.Model):
-
+    pass

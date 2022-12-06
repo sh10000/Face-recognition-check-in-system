@@ -33,14 +33,14 @@ urlpatterns = [
 
     path("teacher", views.teacher),
     path("teacher/publishSing", views.publishSign),
-    path("teacher/signResult",),
+    # path("teacher/signResult",),
 
-    path("manager",),
-    path("manger/manageTeacher"),
-    path("manger/manageStudent"),
-    path("manage/manageCourse"),
-    path("manage/teacherCourse"),
+    # path("manager",),
+    # path("manger/manageTeacher"),
+    # path("manger/manageStudent"),
+    # path("manage/manageCourse"),
+    # path("manage/teacherCourse"),
 
-    path("studentQianDao",),
+    # path("studentQianDao",),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
