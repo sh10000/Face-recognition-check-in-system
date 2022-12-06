@@ -30,4 +30,17 @@ urlpatterns = [
     path("login/", views.login),
     path("login/post", views.login_post),
     path("pic_upload", views.pic_upload),
+
+    path("teacher", views.teacher),
+    path("teacher/publishSing", views.publishSign),
+    path("teacher/signResult",),
+
+    path("manager",),
+    path("manger/manageTeacher"),
+    path("manger/manageStudent"),
+    path("manage/manageCourse"),
+    path("manage/teacherCourse"),
+
+    path("studentQianDao",),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

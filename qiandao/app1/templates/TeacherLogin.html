@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -6,73 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>登录界面</title>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <script src="../js/jquery-1.11.3.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script>
-    
-    	//密码和确认密码一致性校验
-    	//前提：密码和确认密码必须填写
-    	function checkPwdAndRepwd(f1,f2){
-    		if(f1&&f2){
-    			//密码和确认密码不为空，进行非空校验
-    			//1、密码和确认密码 值拿到
-    			var pwd=document.getElementById("password").value;
-    			var repwd=document.getElementById("repassword").value;
-    			var msg=document.getElementById("repasswordMsg");
-    			var div=document.getElementById("repasswordDiv");
-    			//2、一致性判断
-    			if(pwd==repwd){
-    				div.className="form-group";
-    			  msg.innerHTML="";
-    				return true;
-    			}else{
-    				div.className+=" has-error";
-    			  msg.innerHTML="必须和密码一致";
-    				return false;
-    			}
-    		}else{
-    			//密码和确认密码有一个为空，直接返回false
-    			return false;
-    		}
-    	}
-    
-      //非空校验
-    	function checkNotNull(nid){
-    		//1、获取表单输入项 元素对象
-    		var nodex=document.getElementById(nid);
-    		//获取对应的错误信息回显 label元素
-    		var msg=document.getElementById(nid+"Msg");
-    		//获取对应的DIV
-    		var div=document.getElementById(nid+"Div");
-    		//2、对进行非空判断
-    		var reg = /^\s*$/;//如果有0~多个空白符，就为true
-    		if(reg.test(nodex.value)){
-    			//信息不合格
-    			div.className+=" has-error";
-    			msg.innerHTML="不能为空";
-    			return false;
-    		}else{
-    			//信息合格
-    			div.className="form-group";
-    			msg.innerHTML="";
-    			return true;
-    		}
-    	}
-    
-    	//表单校验方法
-    	function checkForm(){
-    		//用户名
-    		var flag1=checkNotNull("username");
-    		//密码
-    		var flag2=checkNotNull("password");
-    		//确认密码
-    		var flag3=checkNotNull("repassword");
-    		//一致性校验
-    		var flag4=checkPwdAndRepwd(flag2,flag3);
-    		return flag1&&flag2&&flag3&&flag4;
-    	}
-    </script>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../static/js/jquery-1.11.3.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
   </head>
 
   <body>
@@ -82,9 +17,9 @@
 		   	 	<div class="col-xs-12" style="border: 2px soid blueviolet;">
 		   	 		<h1>欢迎来到XX在线学习平台</h1>
 		   	 	</div>
-		   	</div> 
+		   	</div>
 
-		   	 
+
 		   	<!--  导航条 -->
 		   	<nav class="navbar navbar-inverse">
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -109,16 +44,17 @@
 				        <button type="submit" class="btn btn-default">Submit</button>
 				    </form>
 				 </div>
-				 
+
 			</nav>
 
 
 		   	<!-- 注册页面主体-->
-		   	<div class="row" style="height: 300px; background-image: url(./img/bgtp.gif)">
+		   	<div class="row" style="height: 300px; background-image: url(../static/img/bgtp.gif)">
 		   	 	<div class="col-sm-4 col-sm-offset-8" style="height: 300px;border:5px solid gainsboro;background-color:whitesmoke;">
 		   	 		<!-- 表单部分 -->
 
 		   	 		<form class="form-horizontal" onsubmit="return checkForm()"  style="color:;">
+		   	 			{% csrf_token %}
 		   	 			<div class="row" style="padding-top: 20px;">
 			   	 			<div class="col-sm-8 col-sm-offset-1">
 			   	 				<font color="#204D74" size="6">教师登录</font>
@@ -131,7 +67,7 @@
 						    </div>
 						    <label id="usernameMsg" class="col-sm-2 control-label"></label>
 						</div>
-						  
+
 						<div id="passwordDiv" class="form-group">
 						    <label class="col-sm-3 control-label">密码</label>
 						    <div class="col-sm-8">
@@ -139,9 +75,11 @@
 						    </div>
 						    <label id="passwordMsg" class="col-sm-2 control-label"></label>
 						</div>
-						
+
+						<div><span style="color:red;">{{error_msg}}</span></div>
+
 						<div class="form-group list-inline">
-						    <div class="col-sm-12 col-sm-offset-5 list-inline">						    	
+						    <div class="col-sm-12 col-sm-offset-5 list-inline">
 						        <input type="submit" class="btn btn-primary btn-lg" value=" 登 录 "/>
 						    </div>
 						</div>
@@ -151,7 +89,7 @@
 		    <!-- 网站底部 -->
 		   	<div class="row">
 		   	 	<div class="col-xs-12">
-		   	 		<img src="#"/>	
+		   	 		<img src="#"/>
 		   	 	</div>
 		   	</div>
 		   	<div class="row">
@@ -165,10 +103,10 @@
 		   	</div>
 		   	<div class="row">
 		   	 	<div class="col-xs-12 text-center">
-		   	 		Copyright © XXX版权所有 
+		   	 		Copyright © XXX版权所有
 		   	 	</div>
 		   	</div>
 	</div>
-		   
+
     </body>
 </html>

@@ -5,6 +5,8 @@ from django.core.files.base import ContentFile
 
 
 # Create your views here.
+
+# 主页，处理教师和管理员登录，学生签到
 def index(request):
     return render(request, "ManageIndex.html")
 
@@ -58,3 +60,15 @@ def updateinfo(request):
         return HttpResponse('上传成功！')
     return render(request, 'PicUploadTest.html')
 
+#教师功能组
+def teacher(request):
+    return render(request, "app1/templates/teacher/teacher.html")
+def publishSign(request):
+    return render(request, "qiandao/app1/templates/teacher/SignPublish.html")
+
+def signResult(request):
+    return  render(request, "app1/templates/teacher/SignResult.html")
+
+
+
+#管理员功能组
