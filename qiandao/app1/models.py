@@ -12,8 +12,7 @@ class Teacher(models.Model):
 class Student(models.Model):
     name = models.CharField(max_length=32)
     studentNo = models.CharField(max_length=32)
-    face = ?
-
+    photo = models.ImageField(upload_to='photos', default='user1.jpg')
 class Course(models.Model): # 课程
     courseNo = models.CharField(max_length=32)
     courseName = models.CharField(max_length=32)
@@ -36,7 +35,5 @@ class QianDaoMessage(models.Model):
 
 
 
-    
-class mypicture(models.Model):
-    user = models.CharField(max_length=64)
-    photo = models.ImageField(upload_to='photos', default='user1.jpg')
+
+
