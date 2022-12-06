@@ -43,8 +43,7 @@ urlpatterns = [
     path("manage/ManageCourse/", views.manageCourse),
 
 #学生签到页面组
-    path("studentQianDao/",),
-]
+    # path("studentQianDao/",),
     path("teacher", views.teacher),
     path("teacher/publishSing", views.publishSign),
     # path("teacher/signResult",),

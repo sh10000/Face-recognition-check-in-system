@@ -13,7 +13,7 @@ class Teacher(models.Model):
 class Student(models.Model):
     name = models.CharField(max_length=32)
     studentNo = models.CharField(max_length=32)
-    face = ?
+    # face = ?
 
 class Course(models.Model): # 课程
     courseNo = models.CharField(max_length=32)
