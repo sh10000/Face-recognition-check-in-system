@@ -107,7 +107,7 @@
 							<span> 课程信息管理 </span> 
 							<ul style="margin-top:10px;display:none;">
 								<li style="height:30px;">
-									<a href="../user.html"><i class="glyphicon glyphicon-check"></i> 课程信息设置</a>
+									<a href="user.html"><i class="glyphicon glyphicon-check"></i> 课程信息设置</a> 
 								</li>
 								<li style="height:30px;">
 									<a href="role.html"><i class="glyphicon glyphicon-check"></i> 课程总表</a> 
@@ -218,14 +218,24 @@
 		
 
 
-		<nav class="flex">
-		  <ul class="pagination justify-content-center">
-		    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-		  </ul>		
+		<nav aria-label="Page navigation" class="flex">
+		  <ul class="pagination pagination-lg">
+		    <li>
+		      <a href="#" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    <li><a href="#">1</a></li>
+		    <li><a href="#">2</a></li>
+		    <li><a href="#">3</a></li>
+		    <li><a href="#">4</a></li>
+		    <li><a href="#">5</a></li>
+		    <li>
+		      <a href="#" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
 		</nav>
 
 
@@ -244,28 +254,6 @@
 					}
 				});
             });
-
-    //         $("#searchbutton").click(function(){
-    //         	var userid = $(#"userid")
-    //         	var params = userid
-    //         	//1、创建对象
-    //         	const xhr = new XMLHttpRequest();
-    //         	//2、初始化，设置请求方法和URL
-		  //     	xhr.open('POST', 'http://127.0.0.1:8000/server');
-		  //     	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		  //     	//3、发送请求
-		  //    	xhr.send(params);
-		  //     	//4、绑定事件 处理客户端返回的结果
-		  //       xhr.onreadystatechange = function () {
-		  //       ///判断服务器端是否返回了全部的结果
-			 //        if (xhr.readyState === 4) {
-			 //          ///判断状态响应码
-			 //          if (xhr.status >= 200 && xhr.status < 300) {
-			 //            $("*box") = xhr.response; //class为box的标签显示返回结果
-			 //          }
-			 //        }
-		  //     	}
-    //         })
 
         </script>
 
