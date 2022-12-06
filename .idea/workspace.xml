@@ -26,6 +26,10 @@
       <change beforePath="$PROJECT_DIR$/qiandao/app1/templates/user.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/qiandao/app1/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/qiandao/qiandao/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/qiandao/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/qiandao/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/qiandao/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/qiandao/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/qiandao/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +53,12 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../1/1" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
