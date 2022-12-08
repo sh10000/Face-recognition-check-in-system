@@ -17,8 +17,8 @@ class Course(models.Model): # 课程
     grade = models.FloatField()
 
 class Class(models.Model): # 开课版
-    teacherNo = models.ForeignKey(Teacher, on_delete=models.CASCADE)
-    courseNo = models.ForeignKey(Course, on_delete=models.CASCADE)  # 课程号
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)  # 课程号
     classNo = models.CharField(max_length=32, primary_key=True) # 课程班号
     students = models.ManyToManyField(Student)
 class QianDao(models.Model):
@@ -30,6 +30,9 @@ class QianDao(models.Model):
 class QianDaoMessage(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     time = models.TimeField()
+
+
+
 
 
 
