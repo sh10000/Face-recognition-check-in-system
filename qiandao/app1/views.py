@@ -87,17 +87,17 @@ def teacher(request):
 def teacherlogin(request):
     if request.method == 'GET':
         return render(request, "TeacherLogin.html")
-    username = request.POST.get('username')
+    teacherNo = request.POST.get('teacherNo')
     password = request.POST.get('password')
-    print(username, password)
-    detailist = models.Teacher.objects.filter(user=username)
+    # print(teacherNo, password)
+    detailist = models.Teacher.objects.filter(teacherNo=teacherNo)
 
     print(detailist)
     for i in detailist:
         if password == i.password:
             return render(request, "ManageIndex.html")
         else:
-            return HttpResponse('用户名或密码错误')
+            return HttpResponse('职工号或密码错误')
             # return render(request, "ManageIndex.html")
 
 
