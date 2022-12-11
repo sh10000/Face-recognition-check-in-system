@@ -57,6 +57,7 @@ urlpatterns = [
     # path("manage/manageCourse"),
     # path("manage/teacherCourse"),
 
-    # path("studentQianDao",),
+    # path("studentQianDao", views.studentQiandao),
+    path("classInfo", views.classInfo),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

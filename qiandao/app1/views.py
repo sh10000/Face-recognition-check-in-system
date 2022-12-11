@@ -85,22 +85,32 @@ def teacher(request):
 
 
 def teacherlogin(request):
+    # request.session["is_login"]=True
     if request.method == 'GET':
         return render(request, "TeacherLogin.html")
+    if request.session.get("is_login", None):
+        return HttpResponse("您已登录！")
     teacherNo = request.POST.get('teacherNo')
     password = request.POST.get('password')
     # print(teacherNo, password)
     detailist = models.Teacher.objects.filter(teacherNo=teacherNo)
-
-    print(detailist)
+    if not detailist.exists():
+        return HttpResponse("该用户不存在！")
+    # print(detailist)
     for i in detailist:
         if password == i.password:
+            request.session["teacherNo"] = teacherNo
+            request.session["is_login"] = True
             return render(request, "ManageIndex.html")
         else:
             return HttpResponse('职工号或密码错误')
             # return render(request, "ManageIndex.html")
 
 
+def classInfo(request):
+    data_list = models.Class.objects.all()
+    print(data_list)
+    return render(request, "Classinfo.html", {"n1": data_list})
 
 def publishSign(request):
     return render(request, "app1/templates/teacher/SignPublish.html")
@@ -128,27 +138,26 @@ def manageStudent(request):
 
 
 def adminlogin(request):
+    # request.session["is_login"]=True
     if request.method == 'GET':
-        return render(request, "ManagementLogin.html")
-    username = request.POST.get('username')
+        return render(request, "TeacherLogin.html")
+    if request.session.get("is_login", None):
+        return HttpResponse("您已登录！")
+    username = request.POST.get('teacherNo')
     password = request.POST.get('password')
-    '''
-    user = authenticate(request, username=username, password=password)
-    print(user)
-    if user is not None:
-        login(request, user)
-        return HttpResponse('登陆成功')
-    else:
-        return HttpResponse('登陆失败')
-    '''
-    # print(username, password)
+    # print(teacherNo, password)
     detailist = models.Admin.objects.filter(username=username)
-    print(detailist)
+    if not detailist.exists():
+        return HttpResponse("该用户不存在！")
+    # print(detailist)
     for i in detailist:
         if password == i.password:
+            request.session["username"] = username
+            request.session["is_login"] = True
             return render(request, "ManageIndex.html")
         else:
-            return HttpResponse('用户名或密码错误')
+            return HttpResponse('职工号或密码错误')
             # return render(request, "ManageIndex.html")
 
 # 学生签到页面
+# def studentQiandao(request):
