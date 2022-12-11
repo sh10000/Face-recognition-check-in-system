@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="18096b32-c63e-4b39-b8ef-6472e068b394" name="Changes" comment="Changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qiandao/app1/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/qiandao/app1/migrations/0002_admin_class_course_qiandao_qiandaomessage_student_teacher.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/qiandao/app1/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,6 +17,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -84,7 +83,7 @@
       <updated>1670151710192</updated>
       <workItem from="1670494511578" duration="805000" />
       <workItem from="1670503311024" duration="346000" />
-      <workItem from="1670503677930" duration="60000" />
+      <workItem from="1670503677930" duration="1298000" />
     </task>
     <task id="LOCAL-00001" summary="Changes">
       <created>1670310723639</created>
@@ -93,7 +92,28 @@
       <option name="project" value="LOCAL" />
       <updated>1670310723639</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Changes">
+      <created>1670503763775</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1670503763775</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Changes">
+      <created>1670503834837</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1670503834837</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Changes">
+      <created>1670503849724</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1670503849724</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
