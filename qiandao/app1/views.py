@@ -49,7 +49,7 @@ def login(request):
     username = request.POST.get("username")
     password = request.POST.get("password")
     print(username, password)
-    return render(request, "ManagementLogin.html")
+    return render(request, "login.html")
 
 
 def login_post(request):
@@ -90,13 +90,13 @@ def teacherlogin(request):
         return render(request, "TeacherLogin.html")
     if request.session.get("is_login", None):
         return HttpResponse("您已登录！")
-    teacherNo = request.POST.get('teacherNo')
+    teacherNo = request.POST.get('username')
     password = request.POST.get('password')
     # print(teacherNo, password)
     detailist = models.Teacher.objects.filter(teacherNo=teacherNo)
+    print(detailist)
     if not detailist.exists():
         return HttpResponse("该用户不存在！")
-    # print(detailist)
     for i in detailist:
         if password == i.password:
             request.session["teacherNo"] = teacherNo
@@ -140,13 +140,14 @@ def manageStudent(request):
 def adminlogin(request):
     # request.session["is_login"]=True
     if request.method == 'GET':
-        return render(request, "TeacherLogin.html")
+        return render(request, "AdminLogin.html")
     if request.session.get("is_login", None):
         return HttpResponse("您已登录！")
-    username = request.POST.get('teacherNo')
+    username = request.POST.get('username')
     password = request.POST.get('password')
     # print(teacherNo, password)
     detailist = models.Admin.objects.filter(username=username)
+    print(detailist)
     if not detailist.exists():
         return HttpResponse("该用户不存在！")
     # print(detailist)
@@ -157,7 +158,7 @@ def adminlogin(request):
             return render(request, "ManageIndex.html")
         else:
             return HttpResponse('职工号或密码错误')
-            # return render(request, "ManageIndex.html")
+            return render(request, "login.html")
 
 # 学生签到页面
 # def studentQiandao(request):
