@@ -4,8 +4,6 @@ from app1 import models
 from django.core.files.base import ContentFile
 from django.contrib.auth import authenticate, login
 from functools import wraps
-STU = {"status":None}
-TEA = {"status":None}
 
 
 # Create your views here.
@@ -22,16 +20,18 @@ def check_login(func):
         #没有登录过的跳转登录界面
         else:
             print(456)
-            #获取当前访问的URl
-            next_url = request.path_info
-            print(next_url)
-            return redirect("/data/login/?next={}".format(next_url))
+            return redirect("/login")
+            # #获取当前访问的URl
+            # next_url = request.path_info
+            # print(next_url)
+            # return redirect("/login/?next={}".format(next_url))
     return inner
 # 主页，处理教师和管理员登录，学生签到
 
 @check_login
 def index(request):
-    return render(request, "test-studentdis.html")
+    stuName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "test-studentdis.html", {"stuName": stuName})
 
 
 @check_login
@@ -59,15 +59,15 @@ def login(request):
         if usertype == "学生":
             stu_obj = models.Student.objects.filter(studentNo=username, password=password)
             if stu_obj:
-                STU["status"] = username
                 if next_url:
                     rep = redirect(next_url)
                 else:
                     rep = redirect('/index/')
                 rep.set_signed_cookie("is_login", "1", salt="dsb", max_age=60 * 60 * 24 * 7)
+                rep.set_signed_cookie("username", username, salt="dsb", max_age=60 * 60 * 24 * 7)
                 return rep
             else:
-                return render(request, 'login.html', {"errmsg": "用户名或密码输入错误"})
+                errmsg="用户名或密码输入错误"
         # 管理员登录
         elif usertype == "管理员":
             object = models.Admin.objects.filter(adminNo=username, password=password)
@@ -77,23 +77,33 @@ def login(request):
                 else:
                     rep = redirect('/manager')
                 rep.set_signed_cookie("is_login", "1", salt="dsb", max_age=60 * 60 * 24 * 7)
+                rep.set_signed_cookie("username", username, salt="dsb", max_age=60 * 60 * 24 * 7)
                 return rep
             else:
-                return render(request, 'login.html', {"errmsg": "用户名或密码输入错误"})
+                errmsg="用户名或密码输入错误"
         # 教师登录
         else:
             object = models.Teacher.objects.filter(teacherNo=username, password=password)
             if object:
-                TEA["status"] = username
                 if next_url:
                     rep = redirect(next_url)
                 else:
-                    rep = redirect('/teacher', {"teaName": TEA["status"]})
+                    rep = redirect('/teacher')
                 rep.set_signed_cookie("is_login", "1", salt="dsb", max_age=60 * 60 * 24 * 7)
+                rep.set_signed_cookie("username", username, salt="dsb", max_age=60 * 60 * 24 * 7)
                 return rep
             else:
-                return render(request, 'login.html', {"errmsg": "用户名或密码输入错误"})
-    return render(request, 'login.html')
+                errmsg = "用户名或密码输入错误"
+    else:
+        errmsg = "您还未登录！"
+    return render(request, 'login.html',{"errmsg":errmsg})
+
+@check_login
+def logout(request):
+    rep = redirect("/login/")
+    rep.delete_cookie("is_login")
+    rep.delete_cookie("username")
+    return rep
 
 
 @check_login
@@ -116,7 +126,8 @@ def updateinfo(request):
 # 教师功能组
 @check_login
 def teacher(request):
-    return render(request, "TeacherCourse.html")
+    teaName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "TeacherCourse.html", {"teaName":teaName})
 
 @check_login
 def classInfo(request):
@@ -137,7 +148,8 @@ def signResult(request):
 # 管理员功能组
 @check_login
 def manageIndex(request):
-    return render(request, "ManageIndex.html")
+    admName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "ManageIndex.html", {"admName": admName})
 
 
 @check_login

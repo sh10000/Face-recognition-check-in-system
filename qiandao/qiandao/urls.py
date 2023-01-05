@@ -28,6 +28,7 @@ urlpatterns = [
     path("tpl/", views.tpl),
     path("login/", views.login),
     path("pic_upload", views.pic_upload),
+    path("logout", views.logout),
 
 #教师页面组
     path("teacher/", views.teacher),
