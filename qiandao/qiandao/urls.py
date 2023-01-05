@@ -26,15 +26,11 @@ urlpatterns = [
     path("index/", views.index),
     path("users/list/", views.user_list),
     path("tpl/", views.tpl),
-    path("register/", views.register),
     path("login/", views.login),
-    path("login/post", views.login_post),
     path("pic_upload", views.pic_upload),
-    path("teacher_register", views.teacher_register),
 
 #教师页面组
     path("teacher/", views.teacher),
-    path("teacherlogin/", views.teacherlogin),
     path("teacher/publishSing/", views.publishSign),
     path("teacher/signResult/", views.signResult),
 
@@ -43,10 +39,9 @@ urlpatterns = [
     path("manager/ManageTeacher/", views.manageTeacher),
     path("manager/ManageStudent/", views.manageStudent),
     path("manage/ManageCourse/", views.manageCourse),
-    path("adminlogin/", views.adminlogin),
 
 #学生签到页面组
-    # path("studentQianDao/",),
+    path("studentQianDao", views.studentQianDao),
     path("teacher", views.teacher),
     path("teacher/publishSing", views.publishSign),
     # path("teacher/signResult",),
