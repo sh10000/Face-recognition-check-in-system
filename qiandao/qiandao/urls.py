@@ -40,6 +40,9 @@ urlpatterns = [
     path("manager/ManageTeacher/", views.manageTeacher),
     path("manager/ManageStudent/", views.manageStudent),
     path("manage/ManageCourse/", views.manageCourse),
+    path("manage/student/delete/", views.manageStudentDelete),
+    path("manage/student/add/", views.manageStudentAdd),
+
 
 #学生签到页面组
     path("studentQianDao", views.studentQianDao),

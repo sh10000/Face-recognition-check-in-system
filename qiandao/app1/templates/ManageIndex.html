@@ -10,7 +10,6 @@
     <script src="../../static/js/jquery-1.11.3.min.js"></script>
     <script src="../../static/js/bootstrap.min.js"></script>
     <style type="text/css">
-    	// Class
 		.center-block {
 		  display: block;
 		  margin-left: auto;
@@ -180,38 +179,31 @@
 				</div>
 			</div>
 
-
+			<a href="/manage/student/add/">添加</a>
 			<div class="col-sm-10">				
 				<table class="table table-striped table-hover">
 					<!-- On rows -->
 					<tr class="active">
-						<td>{{XX信息}}</td>
-						<td>{{xxx}}</td>
-						<td>{{xxx}}</td>
-						<td>{{xxx}}</td>
+						<td>学生ID</td>
+						<td>学生学号</td>
+						<td>学生密码</td>
+						<td>学生照片</td>
 					</tr>
 
-				 	{% for i in views_list %}
-				 	{{ 					
-				 		<tr>
-							<td><a href="">i.id</a></td>
-							<td>i.name</td>
-							<td>i.xxx</td>
-							<td>i.xxx</td>					
-						</tr> 
-					}}
-				 	{% endfor %}	
-				 					
+				{% for obj in n1 %}
 					<tr>
-						<td><a href="">学生1</a></td>
-						<td>xxx</td>
-						<td>xxx</td>
-						<td>xxx</td>					
+						<td>{{ obj.studentNo }}</td>
+						<td>{{ obj.name }}</td>
+						<td>{{ obj.password }}</td>
+						<td>{{ obj.photo }}</td>
+						<td>
+							<a href="/manage/student/delete/?nid={{ obj.studentNo }}">删除</a>
+						</td>
 					</tr>
+				{% endfor %}
+				 					
 
 					<!--显示服务端返回的结果的标签-->
-					{{result}}
-
 					<tr>
 						<div class="box"></span></div>				
 					</tr>

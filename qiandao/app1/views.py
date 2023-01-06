@@ -149,8 +149,25 @@ def signResult(request):
 @check_login
 def manageIndex(request):
     admName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "ManageIndex.html", {"admName": admName})
+    student_list = models.Student.objects.all()
+    for i in student_list:
+      print(i.studentNo,i.name,i.password,i.photo)
+    return render(request, "ManageIndex.html", {"admName": admName,"n1": student_list})
 
+@check_login
+def manageStudentDelete(request):
+      nid=request.GET.get('nid')
+      models.Student.objects.filter(studentNo=nid).delete()
+      return redirect("/manager/")
+def  manageStudentAdd(request):
+      if request.method=='GET':
+            return render(request,"info_add.html")
+      print(request.POST)
+      user=request.POST.get("user")
+      pwd=request.POST.get("pwd")
+      studentNo=request.POST.get("studentNo")
+      models.Student.objects.create(studentNo=studentNo,name=user,password=pwd)
+      return redirect("/manager/")
 
 @check_login
 def manageCourse(request):
