@@ -1,1 +1,1 @@
-from app1 import models
+from qiandao.app1 import models

@@ -26,10 +26,26 @@ def check_login(func):
             # print(next_url)
             # return redirect("/login/?next={}".format(next_url))
     return inner
-# 主页，处理教师和管理员登录，学生签到
 
+# 主页，处理教师和管理员登录，学生签到
 @check_login
 def index(request):
+    if request.method == "GET":
+        return render(request, "login.html")
+    else:
+        userType =                   ##这里判断用户类型
+        account = request.POST.get("account")
+        pwd = request.POST.get("pwd")
+
+    #如果是管理员
+    if userType =
+
+    #如果是教师
+    if userType =
+
+    #如果是学生
+    if userType =
+
     stuName = request.get_signed_cookie("username", salt="dsb")
     return render(request, "test-studentdis.html", {"stuName": stuName})
 
