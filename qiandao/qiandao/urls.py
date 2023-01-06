@@ -39,9 +39,10 @@ urlpatterns = [
     path("manager/", views.manageIndex),
     path("manager/ManageTeacher/", views.manageTeacher),
     path("manager/ManageStudent/", views.manageStudent),
-    path("manage/ManageCourse/", views.manageCourse),
-    path("manage/student/delete/", views.manageStudentDelete),
-    path("manage/student/add/", views.manageStudentAdd),
+    path("manager/ManageCourse/", views.manageCourse),
+    path("manager/student/delete/", views.managerStudentDelete),
+    path("manager/student/add/", views.managerStudentAdd),
+    path("manager/student/modify/", views.managerStudentModify),
 
 
 #学生签到页面组

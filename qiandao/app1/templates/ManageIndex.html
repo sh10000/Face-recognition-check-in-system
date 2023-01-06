@@ -108,13 +108,13 @@
 							<span> 课程信息管理 </span> 
 							<ul style="margin-top:10px;display:none;">
 								<li style="height:30px;">
-									<a href="user.html"><i class="glyphicon glyphicon-check"></i> 课程信息设置</a> 
+									<a href="/manager/ManageCourse"><i class="glyphicon glyphicon-check"></i> 课程信息设置</a> 
 								</li>
 								<li style="height:30px;">
-									<a href="role.html"><i class="glyphicon glyphicon-check"></i> 课程总表</a> 
+									<a href="/manager/ManageCourse"><i class="glyphicon glyphicon-check"></i> 课程总表</a> 
 								</li>
 								<li style="height:30px;">
-									<a href="permission.html"><i class="glyphicon glyphicon-check"></i> XXX</a> 
+									<a href="/manager/ManageCourse"><i class="glyphicon glyphicon-check"></i> XXX</a> 
 								</li>
 							</ul>
 						</li>
@@ -179,13 +179,13 @@
 				</div>
 			</div>
 
-			<a href="/manage/student/add/">添加</a>
+			<a href="/manager/student/add/">添加</a>
 			<div class="col-sm-10">				
 				<table class="table table-striped table-hover">
 					<!-- On rows -->
 					<tr class="active">
 						<td>学生ID</td>
-						<td>学生学号</td>
+						<td>学生姓名</td>
 						<td>学生密码</td>
 						<td>学生照片</td>
 					</tr>
@@ -197,7 +197,10 @@
 						<td>{{ obj.password }}</td>
 						<td>{{ obj.photo }}</td>
 						<td>
-							<a href="/manage/student/delete/?nid={{ obj.studentNo }}">删除</a>
+							<a href="/manager/student/delete/?nid={{ obj.studentNo }}">删除</a>
+						</td>
+						<td>
+							<a href="/manager/student/modify/?nid={{ obj.studentNo }}">修改</a>
 						</td>
 					</tr>
 				{% endfor %}

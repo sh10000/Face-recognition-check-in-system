@@ -110,7 +110,6 @@ def logout(request):
 def pic_upload(request):
     return render(request, "PicUploadTest.html")
 
-
 @check_login
 def updateinfo(request):
     if request.method == 'POST':
@@ -154,12 +153,15 @@ def manageIndex(request):
       print(i.studentNo,i.name,i.password,i.photo)
     return render(request, "ManageIndex.html", {"admName": admName,"n1": student_list})
 
+#管理员删除学生信息
 @check_login
-def manageStudentDelete(request):
+def managerStudentDelete(request):
       nid=request.GET.get('nid')
       models.Student.objects.filter(studentNo=nid).delete()
       return redirect("/manager/")
-def  manageStudentAdd(request):
+
+#管理员增加学生信息
+def  managerStudentAdd(request):
       if request.method=='GET':
             return render(request,"info_add.html")
       print(request.POST)
@@ -167,6 +169,14 @@ def  manageStudentAdd(request):
       pwd=request.POST.get("pwd")
       studentNo=request.POST.get("studentNo")
       models.Student.objects.create(studentNo=studentNo,name=user,password=pwd)
+      return redirect("/manager/")
+def managerStudentModify(request):
+      if request.method=='GET':
+            return render(request,"info_add.html")
+      user=request.POST.get("user")
+      pwd=request.POST.get("pwd")
+      studentNo=request.POST.get("studentNo")
+      models.Student.objects.filter(studentNo=studentNo).update(name=user,password=pwd)
       return redirect("/manager/")
 
 @check_login
