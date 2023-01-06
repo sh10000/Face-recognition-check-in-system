@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="GB18030">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../static/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../static/css/main.css">
+	<style>
+	.tree li {
+        list-style-type: none;
+		cursor:pointer;
+	}
+	table tbody tr:nth-child(odd){background:#F4F4F4;}
+	table tbody td:nth-child(even){color:#C00;}
+	</style>
+  </head>
+
+  <body>
+ 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		  <div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <a class="navbar-brand" style="font-size:32px;" href="#">管理员界面-基本信息管理</a>
+		    </div>
+
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <form class="navbar-form navbar-left">
+		        <div class="form-group">
+		          <input type="text" class="form-control" placeholder="">
+		        </div>
+		        <button type="submit" class="btn btn-default searchbutton">search</button>
+		      </form>
+		      <ul class="nav navbar-nav navbar-right">
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">设置 <span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+		            <li><a href="#">管理员信息</a></li>
+		            <li role="separator" class="divider"></li>
+		            <li><a href="#">退出系统</a></li>
+		          </ul>
+		        </li>
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+ 	</nav>
+
+ 	<div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+			<div class="tree">
+				<ul style="padding-left:0px;" class="list-group">
+					<li class="list-group-item tree-closed" >
+						<a href="main.html"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
+					</li>
+					<li class="list-group-item tree-closed">
+						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 基本信息管理 <span class="badge" style="float:right">3</span></span> 
+						<ul style="margin-top:10px;">
+							<li style="height:30px;">
+								<a href="ManageCourse.html"><i class="glyphicon glyphicon glyphicon-tasks"></i> 课程基本信息</a> 
+							</li>
+							<li style="height:30px;">
+								<a href="ManageTeacher.html"><i class="glyphicon glyphicon-user"></i> 教师基本信息</a> 
+							</li>
+							<li style="height:30px;">
+								<a href="ManageStudent.html" style="color:red;"><i class="glyphicon glyphicon-user"></i> 学生基本信息</a> 
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+        </div>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<ol class="breadcrumb">
+			  <li><a href="#">管理面板</a></li>
+			  <li><a href="#">学生基本信息</a></li>
+			  <li class="active">添加学生</li>
+			</ol>
+			<div class="panel panel-default">
+              <div class="panel-heading">新增学生信息<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
+			  <div class="panel-body">
+				<form role="form">
+				  <div class="form-group">
+					<label>学生学号</label>
+					<input type="text" class="form-control" id="teacherId" placeholder="请输入学生学号">
+				  </div>
+				  <div class="form-group">
+					<label>学生姓名</label>
+					<input type="text" class="form-control" id="teacherName" placeholder="请输入学生姓名">
+				  </div>
+				  <div class="form-group">
+					<label>学生照片</label>
+					<input type="file" name="image"><br>
+				  </div>
+				  <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+				  <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
+				</form>
+			  </div>
+			</div>
+        </div>
+
+      </div>
+	</div>
+    <script src="../../static/jquery/jquery-2.1.1.min.js"></script>
+    <script src="../../static/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../../static/script/docs.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+		    $(".list-group-item").click(function(){
+			    if ( $(this).find("ul") ) {
+					$(this).toggleClass("tree-closed");
+					if ( $(this).hasClass("tree-closed") ) {
+						$("ul", this).hide("fast");
+					} else {
+						$("ul", this).show("fast");
+					}
+				}
+			});
+        });
+        $("tbody .btn-success").click(function(){
+            window.location.href = "assignRole.html";
+        });
+        $("tbody .btn-primary").click(function(){
+            window.location.href = "edit.html";
+        });
+    </script>	
+  </body>
+</html>
