@@ -48,8 +48,8 @@ urlpatterns = [
     path("addcourse/", views.addcourse),
     path("addteacher/", views.addteacher),
     path("addstudent/", views.addstudent),
-    path("manage/student/delete/", views.manageStudentDelete),
-    path("manage/student/add/", views.manageStudentAdd),
+    path("manage/student/delete/", views.managerStudentDelete),
+    path("manage/student/add/", views.managerStudentAdd),
 
     path("manager/ManageCourse/", views.manageCourse),
     path("manager/student/delete/", views.managerStudentDelete),
