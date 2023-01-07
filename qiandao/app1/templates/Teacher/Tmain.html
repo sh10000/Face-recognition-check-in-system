@@ -44,7 +44,7 @@
 		          <ul class="dropdown-menu">
 		            <li><a href="#">教师个人信息</a></li>
 		            <li role="separator" class="divider"></li>
-		            <li><a href="#">退出系统</a></li>
+		            <li><a href="../login.html">退出系统</a></li>
 		          </ul>
 		        </li>
 		      </ul>
@@ -105,18 +105,18 @@
 				  <thead>
 				    <tr>				  
 				      <th width="30">#</th>
-				      <th>课程号</th>
-				      <th>课程名称</th>
-				      <th>xxx</th>
+				      <th id="courseNo">课程号</th>
+				      <th id="courseName">课程名称</th>
+				      <th id="grade">开课年级</th>
 				      <th width="100">操作</th>
 				    </tr>
 				  </thead>
 				  <tbody>
 					<tr>
 					  <td>1</td>
-					  <td><a href="/tcourse">C001</a></td>
+					  <td><a href="Tcourse.html">C001</a></td>
 					  <td>软件文档写作</td>
-					  <td>dolor</td>
+					  <td>3</td>
 					  <td>
 					      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
 					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
@@ -165,6 +165,7 @@
 				}
 			});
         });
+        //按下左边菜单栏“结束考勤”
         $("#finish").click(function(){
         	alert("已终止考勤");
         })
