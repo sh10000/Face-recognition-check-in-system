@@ -26,12 +26,11 @@ def check_login(func):
             # print(next_url)
             # return redirect("/login/?next={}".format(next_url))
     return inner
-# 主页，处理教师和管理员登录，学生签到
 
+# 主页，处理教师和管理员登录，学生签到
 @check_login
 def index(request):
-    stuName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "test-studentdis.html", {"stuName": stuName})
+    return redirect("/login")
 
 
 @check_login
@@ -62,7 +61,7 @@ def login(request):
                 if next_url:
                     rep = redirect(next_url)
                 else:
-                    rep = redirect('/index/')
+                    rep = redirect('/student')
                 rep.set_signed_cookie("is_login", "1", salt="dsb", max_age=60 * 60 * 24 * 7)
                 rep.set_signed_cookie("username", username, salt="dsb", max_age=60 * 60 * 24 * 7)
                 return rep
@@ -96,7 +95,10 @@ def login(request):
                 errmsg = "用户名或密码输入错误"
     else:
         errmsg = "您还未登录！"
-    return render(request, 'login.html',{"errmsg":errmsg})
+    return render(request, 'login.html', {"errmsg":errmsg})
+
+def register(request):
+    return render(request, "register.html")
 
 @check_login
 def logout(request):
@@ -109,7 +111,6 @@ def logout(request):
 @check_login
 def pic_upload(request):
     return render(request, "PicUploadTest.html")
-
 
 @check_login
 def updateinfo(request):
@@ -127,7 +128,7 @@ def updateinfo(request):
 @check_login
 def teacher(request):
     teaName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "TeacherCourse.html", {"teaName":teaName})
+    return render(request, "Teacher/Tmain.html", {"teaName": teaName})
 
 @check_login
 def classInfo(request):
@@ -136,37 +137,123 @@ def classInfo(request):
     return render(request, "Classinfo.html", {"n1": data_list})
 
 @check_login
-def publishSign(request):
-    return render(request, "app1/templates/teacher/SignPublish.html")
-
+def signpublish(request):
+    teaName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "Teacher/SignPublish.html", {"teaName": teaName})
 
 @check_login
-def signResult(request):
-    return render(request, "app1/templates/teacher/SignResult.html")
+def signresult(request):
+    teaName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "Teacher/SignResult.html", {"teaName": teaName})
+
+@check_login
+def tcourse(request):
+    teaName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "Teacher/Tcourse.html", {"teaName": teaName})
 
 
 # 管理员功能组
 @check_login
 def manageIndex(request):
     admName = request.get_signed_cookie("username", salt="dsb")
+<<<<<<< HEAD
+<<<<<<< Updated upstream
     return render(request, "ManageIndex.html", {"admName": admName})
 
+=======
+    student_list = models.Student.objects.all()
+    for i in student_list:
+      print(i.studentNo,i.name,i.password,i.photo)
+    return render(request, "Manage/main.html", {"admName": admName,"n1": student_list})
+
+@check_login
+def manageStudentDelete(request):
+=======
+    student_list = models.Student.objects.all()
+    for i in student_list:
+      print(i.studentNo,i.name,i.password,i.photo)
+    return render(request, "ManageIndex.html", {"admName": admName,"n1": student_list})
+
+#管理员删除学生信息
+@check_login
+def managerStudentDelete(request):
+>>>>>>> a28f940748729ac6b9b3c3a99064556452d96332
+      nid=request.GET.get('nid')
+      models.Student.objects.filter(studentNo=nid).delete()
+      return redirect("/manager/")
+
+<<<<<<< HEAD
+@check_login
+def  manageStudentAdd(request):
+=======
+#管理员增加学生信息
+def  managerStudentAdd(request):
+>>>>>>> a28f940748729ac6b9b3c3a99064556452d96332
+      if request.method=='GET':
+            return render(request,"info_add.html")
+      print(request.POST)
+      user=request.POST.get("user")
+      pwd=request.POST.get("pwd")
+      studentNo=request.POST.get("studentNo")
+      models.Student.objects.create(studentNo=studentNo,name=user,password=pwd)
+      return redirect("/manager/")
+<<<<<<< HEAD
+>>>>>>> Stashed changes
+=======
+def managerStudentModify(request):
+      if request.method=='GET':
+            return render(request,"info_add.html")
+      user=request.POST.get("user")
+      pwd=request.POST.get("pwd")
+      studentNo=request.POST.get("studentNo")
+      models.Student.objects.filter(studentNo=studentNo).update(name=user,password=pwd)
+      return redirect("/manager/")
+>>>>>>> a28f940748729ac6b9b3c3a99064556452d96332
 
 @check_login
 def manageCourse(request):
-    return render(request, "ManageCourse.html")
+    admName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "Manage/ManageCourse.html", {"admName": admName})
 
 
 @check_login
 def manageTeacher(request):
-    return render(request, "ManageTeacher.html")
+    admName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "Manage/ManageTeacher.html", {"admName": admName})
 
 
 @check_login
 def manageStudent(request):
-    return render(request, "ManageTeacher.html")
+    admName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "Manage/ManageStudent.html", {"admName": admName})
+
+@check_login
+def addcourse(request):
+    admName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "Manage/add-course.html", {"admName": admName})
+
+@check_login
+def addteacher(request):
+    admName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "Manage/add-teacher.html", {"admName": admName})
+
+@check_login
+def addstudent(request):
+    admName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "Manage/add-student.html", {"admName": admName})
 
 # 学生签到页面
 @check_login
-def studentQianDao(request):
-    return render(request,"StudentSign.html")
+def student(request):
+    stuName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "Student/Smain.html", {"stuName": stuName})
+
+@check_login
+def sign(request):
+    stuName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "Student/Sign.html")
+
+@check_login
+def signinfo(request):
+    stuName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "Student/SignInfo.html")

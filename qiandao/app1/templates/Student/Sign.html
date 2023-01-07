@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="GB18030">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../static/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../static/css/main.css">
+	<style>
+	.tree li {
+        list-style-type: none;
+		cursor:pointer;
+	}
+	table tbody tr:nth-child(odd){background:#F4F4F4;}
+	table tbody td:nth-child(even){color:#C00;}
+	</style>
+  </head>
+
+  <body>
+ 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		  <div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <a class="navbar-brand" style="font-size:32px;" href="#">学生界面-考勤系统</a>
+		    </div>
+
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <form class="navbar-form navbar-left">
+		        <div class="form-group">
+		          <input type="text" class="form-control" placeholder="">
+		        </div>
+		        <button type="submit" class="btn btn-default searchbutton">search</button>
+		      </form>
+		      <ul class="nav navbar-nav navbar-right">
+				  <li><a href="#">欢迎用户：{{stuName}}</a></li>
+				  <li><a href="/logout">退出登录</a></li>
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">设置 <span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+		            <li><a href="#">学生个人信息</a></li>
+		            <li role="separator" class="divider"></li>
+		            <li><a href="#">退出系统</a></li>
+		          </ul>
+		        </li>
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+ 	</nav>
+
+ 	<div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+			<div class="tree">
+				<ul style="padding-left:0px;" class="list-group">
+					<li class="list-group-item tree-closed" >
+						<a href="/student"><i class="glyphicon glyphicon-dashboard"></i> 学生主页</a>
+					</li>
+					<li class="list-group-item tree-closed">
+						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 考勤管理 <span class="badge" style="float:right">2</span></span> 
+						<ul style="margin-top:10px;">
+							<li style="height:30px;">
+								<a href="#" style="color:red;"><i class="glyphicon glyphicon glyphicon-tasks"></i> 参与考勤</a> 
+							</li>
+							<li style="height:30px;">
+								<a href="/signinfo"><i class="glyphicon glyphicon glyphicon-tasks"></i> 查看考勤状况</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+        </div>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		  	<video id="video" style="width:480px;height:320px"></video>
+		  	<h3 class="txt1">识别中，请保持合适距离，将面部置于画面中央</h3>
+		  	<canvas id="canvas" style="display: none"></canvas>
+		  	<div>
+		  		<img id="output" src="">
+		  	</div>
+		  	<br>		   	
+		    <button id="submit" class="btn btn-lg btn-success">确认</button>
+        </div>
+
+      </div>
+	</div>
+    <script src="../../static/jquery/jquery-2.1.1.min.js"></script>
+    <script src="../../static/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../../static/script/docs.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+		    $(".list-group-item").click(function(){
+			    if ( $(this).find("ul") ) {
+					$(this).toggleClass("tree-closed");
+					if ( $(this).hasClass("tree-closed") ) {
+						$("ul", this).hide("fast");
+					} else {
+						$("ul", this).show("fast");
+					}
+				}
+			});
+        });
+
+		const width = 480;
+		const height = 320;
+		var video = document.getElementById('video');
+
+		//访问摄像头
+		if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
+		  //调用用户媒体设备, 访问摄像头
+		  getUserMedia({video: {width: width, height: height}}, success, error);
+		} else {
+		  alert('不支持访问用户媒体');
+		}
+
+		//访问用户媒体设备的兼容方法
+		function getUserMedia(constraints, success, error) {
+		  if (navigator.mediaDevices.getUserMedia) {
+		      //最新的标准API
+		      navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error);
+		  } else if (navigator.webkitGetUserMedia) {
+		      //webkit核心浏览器
+		      navigator.webkitGetUserMedia(constraints, success, error)
+		  } else if (navigator.mozGetUserMedia) {
+		      //firfox浏览器
+		      navigator.mozGetUserMedia(constraints, success, error);
+		  } else if (navigator.getUserMedia) {
+		      //旧版API
+		      navigator.getUserMedia(constraints, success, error);
+		  }
+		}
+
+
+
+		//成功回调
+		function success(stream) {
+		  console.log('成功');
+		  //兼容webkit核心浏览器
+		  // const CompatibleURL = window.URL || window.webkitURL;
+		  //将视频流设置为video元素的源
+		  // video.src = CompatibleURL.createObjectURL(stream);
+		  video.srcObject = stream;
+		  video.play();
+
+		}
+
+		//失败回调
+		function error(error) {
+		  console.log('失败');
+		  console.log("访问用户媒体设备失败", error);
+		}
+
+		var captureImage = function() {
+			var canvas = document.getElementById("canvas");
+			canvas.width = video.videoWidth * 0.8;
+			canvas.height = video.videoHeight * 0.8;
+			canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+			var output = document.getElementById("output");
+			output.src = canvas.toDataURL("image/png")
+
+		}
+
+		setInterval(captureImage,3000);
+
+		// setTimeout(function(){alert("已成功签到！")},10000)
+
+    </script>	
+  </body>
+</html>

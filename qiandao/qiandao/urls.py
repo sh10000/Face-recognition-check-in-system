@@ -21,30 +21,55 @@ from django.conf import settings
 urlpatterns = [
     # path("admin/", admin.site.urls),
     path("", views.index),
+    path("index/", views.index),
     path('admin/', admin.site.urls),
     path('updateinfo/', views.updateinfo),
-    path("index/", views.index),
     path("users/list/", views.user_list),
     path("tpl/", views.tpl),
     path("login/", views.login),
     path("pic_upload", views.pic_upload),
     path("logout", views.logout),
+    path("register/",views.register),
 
 #教师页面组
     path("teacher/", views.teacher),
-    path("teacher/publishSing/", views.publishSign),
-    path("teacher/signResult/", views.signResult),
+    path("signpublish/", views.signpublish),
+    path("signresult/", views.signresult),
+    path("tcourse/", views.tcourse),
 
 #管理员页面组
     path("manager/", views.manageIndex),
+<<<<<<< Updated upstream
     path("manager/ManageTeacher/", views.manageTeacher),
     path("manager/ManageStudent/", views.manageStudent),
+<<<<<<< HEAD
     path("manage/ManageCourse/", views.manageCourse),
+=======
+    path("manageteacher/", views.manageTeacher),
+    path("managestudent/", views.manageStudent),
+    path("managecourse/", views.manageCourse),
+    path("addcourse/", views.addcourse),
+    path("addteacher/", views.addteacher),
+    path("addstudent/", views.addstudent),
+    path("manage/student/delete/", views.manageStudentDelete),
+    path("manage/student/add/", views.manageStudentAdd),
+
+>>>>>>> Stashed changes
+=======
+    path("manager/ManageCourse/", views.manageCourse),
+    path("manager/student/delete/", views.managerStudentDelete),
+    path("manager/student/add/", views.managerStudentAdd),
+    path("manager/student/modify/", views.managerStudentModify),
+
+>>>>>>> a28f940748729ac6b9b3c3a99064556452d96332
 
 #学生签到页面组
-    path("studentQianDao", views.studentQianDao),
-    path("teacher", views.teacher),
-    path("teacher/publishSing", views.publishSign),
+    path("student/", views.student),
+    path("sign/", views.sign),
+    path("signinfo/",views.signinfo),
+
+    # path("teacher", views.teacher),
+    # path("teacher/publishSing", views.publishSign),
     # path("teacher/signResult",),
 
     # path("manager",),
