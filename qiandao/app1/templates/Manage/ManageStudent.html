@@ -58,7 +58,7 @@
 			<div class="tree">
 				<ul style="padding-left:0px;" class="list-group">
 					<li class="list-group-item tree-closed" >
-						<a href="/manager"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a>
+						<a href="/manage"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a>
 					</li>
 					<li class="list-group-item tree-closed">
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 基本信息管理 <span class="badge" style="float:right">3</span></span> 
@@ -119,7 +119,7 @@
 						<td>{{ obj.photo }}</td>
 						<td>
 					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-						  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"><a href="/info/delete/?nid={{ obj.id }}"></a></i></button>
+						  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"><a href="/manage/student/delete/?nid={{ obj.id }}"></a></i></button>
 					  </td>
 					</tr>	
 					{% endfor %}			  	

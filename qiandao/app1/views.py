@@ -96,16 +96,17 @@ def login(request):
     else:
         errmsg = "您还未登录！"
     return render(request, 'login.html', {"errmsg":errmsg})
-
-def register(request):
-    return render(request, "register.html")
-
 @check_login
 def logout(request):
     rep = redirect("/login/")
     rep.delete_cookie("is_login")
     rep.delete_cookie("username")
     return rep
+
+
+
+def register(request):
+    return render(request, "register.html")
 
 
 @check_login
@@ -156,18 +157,25 @@ def tcourse(request):
 @check_login
 def manageIndex(request):
     admName = request.get_signed_cookie("username", salt="dsb")
-    student_list = models.Student.objects.all()
-    for i in student_list:
-      print(i.studentNo,i.name,i.password,i.photo)
-    return render(request, "Manage/main.html", {"admName": admName,"n1": student_list})
+    return render(request, "Manage/main.html", {"admName": admName})
 
+@check_login
+def addstudent(request):
+    admName = request.get_signed_cookie("username", salt="dsb")
+    if request.method=='GET':
+            return render(request,"Manage/add-Student.html")
+    print(request.POST)
+    user=request.POST.get("name")
+    pwd=request.POST.get("password")
+    studentNo=request.POST.get("studentNo")
+    models.Student.objects.create(studentNo=studentNo,name=user,password=pwd)
+    return redirect("/managestudent/")
 #管理员删除学生信息
 @check_login
 def manageStudentDelete(request):
       nid=request.GET.get('nid')
       models.Student.objects.filter(studentNo=nid).delete()
       return redirect("/manager/")
-
 #管理员增加学生信息
 @check_login
 def  manageStudentAdd(request):
@@ -219,17 +227,6 @@ def addteacher(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     return render(request, "Manage/add-teacher.html", {"admName": admName})
 
-@check_login
-def addstudent(request):
-    admName = request.get_signed_cookie("username", salt="dsb")
-    if request.method=='GET':
-            return render(request,"Manage/add-Student.html")
-    print(request.POST)
-    user=request.POST.get("name")
-    pwd=request.POST.get("password")
-    studentNo=request.POST.get("studentNo")
-    models.Student.objects.create(studentNo=studentNo,name=user,password=pwd)
-    return redirect("/managestudent/")
 
 # 学生签到页面
 @check_login
