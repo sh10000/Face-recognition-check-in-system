@@ -39,17 +39,10 @@ urlpatterns = [
 
 #管理员页面组
     path("manager/", views.manageIndex),
-    path("manager/ManageTeacher/", views.manageTeacher),
-    path("manager/ManageStudent/", views.manageStudent),
-    path("manage/ManageCourse/", views.manageCourse),
+
     path("manageteacher/", views.manageTeacher),
     path("managestudent/", views.manageStudent),
     path("managecourse/", views.manageCourse),
-    path("addcourse/", views.addcourse),
-    path("addteacher/", views.addteacher),
-    path("addstudent/", views.addstudent),
-    path("manage/student/delete/", views.managerStudentDelete),
-    path("manage/student/add/", views.managerStudentAdd),
 
     path("manager/ManageCourse/", views.manageCourse),
     path("manager/student/delete/", views.managerStudentDelete),
