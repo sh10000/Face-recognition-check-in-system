@@ -74,7 +74,7 @@ def login(request):
                 if next_url:
                     rep = redirect(next_url)
                 else:
-                    rep = redirect('/manager')
+                    rep = redirect('/manage')
                 rep.set_signed_cookie("is_login", "1", salt="dsb", max_age=60 * 60 * 24 * 7)
                 rep.set_signed_cookie("username", username, salt="dsb", max_age=60 * 60 * 24 * 7)
                 return rep
@@ -175,7 +175,7 @@ def addstudent(request):
 def manageStudentDelete(request):
       nid=request.GET.get('nid')
       models.Student.objects.filter(studentNo=nid).delete()
-      return redirect("/manager/")
+      return redirect("/managestudent/")
 #管理员增加学生信息
 @check_login
 def  manageStudentAdd(request):
@@ -186,7 +186,7 @@ def  manageStudentAdd(request):
       pwd=request.POST.get("pwd")
       studentNo=request.POST.get("studentNo")
       models.Student.objects.create(studentNo=studentNo,name=user,password=pwd)
-      return redirect("/manager/")
+      return redirect("/manage/")
 #管理员修改学生信息
 def manageStudentModify(request):
       if request.method=='GET':
@@ -195,7 +195,7 @@ def manageStudentModify(request):
       pwd=request.POST.get("pwd")
       studentNo=request.POST.get("studentNo")
       models.Student.objects.filter(studentNo=studentNo).update(name=user,password=pwd)
-      return redirect("/manager/")
+      return redirect("/manage/")
 
 @check_login
 def manageCourse(request):
