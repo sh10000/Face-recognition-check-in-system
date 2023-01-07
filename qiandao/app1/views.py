@@ -229,7 +229,7 @@ def addstudent(request):
     pwd=request.POST.get("password")
     studentNo=request.POST.get("studentNo")
     models.Student.objects.create(studentNo=studentNo,name=user,password=pwd)
-    return redirect("/manager/")
+    return redirect("/managestudent/")
 
 # 学生签到页面
 @check_login

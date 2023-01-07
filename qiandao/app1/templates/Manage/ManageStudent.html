@@ -116,11 +116,10 @@
 						<td>{{ obj.studentNo }}</td>c
 						<td>{{ obj.name }}</td>
 						<td>{{ obj.password }}</td>
-						<td>{{ obj.age }}</td>
+						<td>{{ obj.photo }}</td>
 						<td>
-					      <button type="button" class="btn btn-success btn-xs"><a href="/info/delete/?nid={{ obj.id }}">删除<i class=" glyphicon glyphicon-check">删除</i></a></button>
 					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-						  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
+						  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"><a href="/info/delete/?nid={{ obj.id }}"></a></i></button>
 					  </td>
 					</tr>	
 					{% endfor %}			  	
