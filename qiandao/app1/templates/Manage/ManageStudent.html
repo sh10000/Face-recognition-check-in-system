@@ -118,7 +118,7 @@
 						<td>{{ obj.password }}</td>
 						<td>{{ obj.photo }}</td>
 						<td>
-					      <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/student/modify'"><i class=" glyphicon glyphicon-pencil"></i></button>
+					      <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/student/{{ obj.studentNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i></button>
 						  <button type="button" class="btn btn-danger btn-xs delete" value="{{ obj.studentNo }}"><i class=" glyphicon glyphicon-remove"></i></button>
 					  </td>
 					</tr>	

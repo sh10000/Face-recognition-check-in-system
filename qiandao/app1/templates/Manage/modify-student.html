@@ -89,23 +89,23 @@
 			  <div class="panel-body">
 				<form role="form" method="post">
 					{% csrf_token %}
-				  <div class="form-group">
-					<label for="studentNo">学生学号</label>
-					<input type="text" class="form-control"  placeholder="请输入学生学号" name="studentNo">
-				  </div>
+				    <div class="form-group">
+						<label for="studentName">学生学号:{{ nid }}</label>
+						
+					  </div>
 				  <div class="form-group">
 					<label for="studentName">学生姓名</label>
-					<input type="text" class="form-control"  placeholder="请输入学生姓名" name="name">
+					<input type="text" class="form-control"   name="name" value="{{ n1.name }}">
 				  </div>
 				  <div class="form-group">
 					<label for="studentName">学生密码</label>
-					<input type="text" class="form-control"  placeholder="请输入学生密码" name="password">
+					<input type="text" class="form-control"  name="password" value="{{ n1.password }}">
 				  </div>
 				  <div class="form-group">
 					<label for="photo">学生照片</label>
 					<input type="file" name="image" name="photo"><br>
 				  </div>
-				  <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+				  <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 修改</button>
 				</form>
 			  </div>
 			</div>

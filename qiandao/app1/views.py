@@ -181,13 +181,15 @@ def manageStudentDelete(request):
       return redirect("/managestudent/")
 #管理员修改学生信息
 @check_login
-def manageStudentModify(request):
+def manageStudentModify(request,nid):
+      admName = request.get_signed_cookie("username", salt="dsb")
       if request.method=='GET':
-            return render(request,"Manage/add-Student.html")
-      user=request.POST.get("user")
-      pwd=request.POST.get("pwd")
+            studentNo=models.Student.objects.filter(studentNo=nid).first()
+            return render(request,"Manage/modify-student.html",{"n1":studentNo,"nid":nid})
+      user=request.POST.get("name")
+      pwd=request.POST.get("password")
       studentNo=request.POST.get("studentNo")
-      models.Student.objects.filter(studentNo=studentNo).update(name=user,password=pwd)
+      models.Student.objects.filter(studentNo=nid).update(name=user,password=pwd)
       return redirect("/managestudent/")
 #管理员课程
 @check_login
@@ -212,6 +214,17 @@ def manageCourseDelete(request):
       nid=request.GET.get('nid')
       models.Course.objects.filter(courseNo=nid).delete()
       return redirect("/managecourse/")
+@check_login
+def manageCourseModify(request,nid):
+      admName = request.get_signed_cookie("username", salt="dsb")
+      if request.method=='GET':
+            studentNo=models.Course.objects.filter(courseNo=nid).first()
+            return render(request,"Manage/modify-course.html",{"n1":studentNo,"nid":nid})
+      nid=request.POST.get("nid")
+      name=request.POST.get("courseName")
+      pwd=request.POST.get("password")
+      models.Course.objects.filter(courseNo=nid).update(courseName=name,grade=pwd)
+      return redirect("/managestudent/")
 #管理员教师
 @check_login
 def manageTeacher(request):
@@ -235,6 +248,18 @@ def addteacher(request):
 def manageTeacherDelete(request):
       nid=request.GET.get('nid')
       models.Teacher.objects.filter(teacherNo=nid).delete()
+      return redirect("/manageteacher/")
+@check_login
+def manageTeacherModify(request,nid):
+      admName = request.get_signed_cookie("username", salt="dsb")
+      if request.method=='GET':
+            studentNo=models.Teacher.objects.filter(teacherNo=nid).first()
+            return render(request,"Manage/modify-teacher.html",{"n1":studentNo,"nid":nid})
+      nid=request.POST.get("nid")
+      name=request.POST.get("name")
+      user=request.POST.get("user")
+      password=request.POST.get("password")
+      models.Course.objects.filter(teacherNo=nid).update(name=name,password=password,user=user)
       return redirect("/manageteacher/")
 #管理员教师
 # 学生签到页面

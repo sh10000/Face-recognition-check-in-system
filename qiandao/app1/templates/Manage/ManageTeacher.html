@@ -119,7 +119,7 @@
 							<td>{{ obj.user }}</td>
 							<td>{{ obj.password }}</td>
 							<td>
-							  <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
+							  <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/teacher/{{ obj.teacherNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i></button>
 							  <button type="button" class="btn btn-danger btn-xs delete" value="{{ obj.teacherNo }}"><i class=" glyphicon glyphicon-remove"></i></button>
 						  </td>
 						</tr>	

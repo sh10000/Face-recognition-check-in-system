@@ -117,8 +117,8 @@
 							<td>{{ obj.courseName }}</td>
 							<td>{{ obj.grade }}</td>
 							<td>
-							  <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-							  <button type="button" class="btn btn-danger btn-xs delete" value="{{ obj.courseNo }}"><i class=" glyphicon glyphicon-remove"><a href="/manage/course/delete/?nid={{ obj.cousreNo}}"></a></i></button>
+							  <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/course/{{ obj.courseNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i></button>
+							  <button type="button" class="btn btn-danger btn-xs delete" value="{{ obj.courseNo }}"><i class=" glyphicon glyphicon-remove"></i></button>
 						  </td>
 						</tr>	
 						{% endfor %}	
