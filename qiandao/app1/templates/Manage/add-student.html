@@ -89,16 +89,16 @@
 			  <div class="panel-body">
 				<form role="form">
 				  <div class="form-group">
-					<label>学生学号</label>
-					<input type="text" class="form-control" id="teacherId" placeholder="请输入学生学号">
+					<label for="studentNo">学生学号</label>
+					<input type="text" class="form-control" id="studentNo" placeholder="请输入学生学号">
 				  </div>
 				  <div class="form-group">
-					<label>学生姓名</label>
-					<input type="text" class="form-control" id="teacherName" placeholder="请输入学生姓名">
+					<label for="studentName">学生姓名</label>
+					<input type="text" class="form-control" id="studentName" placeholder="请输入学生姓名">
 				  </div>
 				  <div class="form-group">
-					<label>学生照片</label>
-					<input type="file" name="image"><br>
+					<label for="photo">学生照片</label>
+					<input type="file" name="image" id="photo"><br>
 				  </div>
 				  <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 				  <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
@@ -125,11 +125,14 @@
 				}
 			});
         });
+		//新增功能
         $("tbody .btn-success").click(function(){
             window.location.href = "assignRole.html";
         });
+
+		//重置功能
         $("tbody .btn-primary").click(function(){
-            window.location.href = "edit.html";
+            window.location.href = "add-student.html";
         });
     </script>	
   </body>
