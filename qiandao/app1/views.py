@@ -163,14 +163,14 @@ def manageIndex(request):
 
 #管理员删除学生信息
 @check_login
-def managerStudentDelete(request):
+def manageStudentDelete(request):
       nid=request.GET.get('nid')
       models.Student.objects.filter(studentNo=nid).delete()
       return redirect("/manager/")
 
 #管理员增加学生信息
 @check_login
-def  managerStudentAdd(request):
+def  manageStudentAdd(request):
       if request.method=='GET':
             return render(request,"info_add.html")
       print(request.POST)
@@ -180,7 +180,7 @@ def  managerStudentAdd(request):
       models.Student.objects.create(studentNo=studentNo,name=user,password=pwd)
       return redirect("/manager/")
 #管理员修改学生信息
-def managerStudentModify(request):
+def manageStudentModify(request):
       if request.method=='GET':
             return render(request,"info_add.html")
       user=request.POST.get("user")
@@ -204,7 +204,10 @@ def manageTeacher(request):
 @check_login
 def manageStudent(request):
     admName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "Manage/ManageStudent.html", {"admName": admName})
+    student_list = models.Student.objects.all()
+    for i in student_list:
+      print(i.studentNo,i.name,i.password,i.photo)
+    return render(request, "Manage/ManageStudent.html", {"admName": admName,"n1": student_list})
 
 @check_login
 def addcourse(request):
@@ -219,7 +222,14 @@ def addteacher(request):
 @check_login
 def addstudent(request):
     admName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "Manage/add-student.html", {"admName": admName})
+    if request.method=='GET':
+            return render(request,"Manage/add-Student.html")
+    print(request.POST)
+    user=request.POST.get("user")
+    pwd=request.POST.get("pwd")
+    studentNo=request.POST.get("studentNo")
+    models.Student.objects.create(studentNo=studentNo,name=user,password=pwd)
+    return redirect("/manager/")
 
 # 学生签到页面
 @check_login

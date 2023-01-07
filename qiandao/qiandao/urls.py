@@ -42,19 +42,18 @@ urlpatterns = [
     path("manager/ManageTeacher/", views.manageTeacher),
     path("manager/ManageStudent/", views.manageStudent),
     path("manage/ManageCourse/", views.manageCourse),
-    path("manageteacher/", views.manageTeacher),
+    #管理员管理学生
     path("managestudent/", views.manageStudent),
+    path("addstudent/", views.addstudent),
+    path("manager/ManageCourse/", views.manageCourse),
+    path("manager/student/delete/", views.manageStudentDelete),
+    path("manager/student/modify/", views.manageStudentModify),
+    #管理员管理老师
+    path("manageteacher/", views.manageTeacher),
+    path("addteacher/", views.addteacher),
+    #管理员管理课程
     path("managecourse/", views.manageCourse),
     path("addcourse/", views.addcourse),
-    path("addteacher/", views.addteacher),
-    path("addstudent/", views.addstudent),
-    path("manage/student/delete/", views.managerStudentDelete),
-    path("manage/student/add/", views.managerStudentAdd),
-
-    path("manager/ManageCourse/", views.manageCourse),
-    path("manager/student/delete/", views.managerStudentDelete),
-    path("manager/student/add/", views.managerStudentAdd),
-    path("manager/student/modify/", views.managerStudentModify),
 
 
 #学生签到页面组
