@@ -89,16 +89,20 @@
 			  <div class="panel-body">
 				<form role="form">
 				  <div class="form-group">
-					<label>教师编号</label>
-					<input type="text" class="form-control" id="teacherId" placeholder="请输入教师编号">
+					<label for="teacherNo">教师编号</label>
+					<input type="text" class="form-control" id="teacherNo" placeholder="请输入教师编号">
 				  </div>
 				  <div class="form-group">
-					<label>教师姓名</label>
+					<label for="teacherName">教师姓名</label>
 					<input type="text" class="form-control" id="teacherName" placeholder="请输入教师姓名">
 				  </div>
 				  <div class="form-group">
-					<label>XXX</label>
-					<input type="email" class="form-control" id="" placeholder="请输入XXX">
+					<label for="user">用户名</label>
+					<input type="text" class="form-control" id="user" placeholder="请输入用户名">
+				  </div>
+				  <div class="form-group">
+					<label for="user">密码</label>
+					<input type="password" class="form-control" id="password" placeholder="请输入密码">
 				  </div>
 				  <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 				  <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
@@ -125,11 +129,15 @@
 				}
 			});
         });
+
+		//新增功能
         $("tbody .btn-success").click(function(){
             window.location.href = "assignRole.html";
         });
+
+		//重置功能
         $("tbody .btn-primary").click(function(){
-            window.location.href = "edit.html";
+            window.location.href = "add-teacher.html";
         });
     </script>	
   </body>
