@@ -179,7 +179,7 @@ def  managerStudentAdd(request):
       studentNo=request.POST.get("studentNo")
       models.Student.objects.create(studentNo=studentNo,name=user,password=pwd)
       return redirect("/manager/")
-
+#管理员修改学生信息
 def managerStudentModify(request):
       if request.method=='GET':
             return render(request,"info_add.html")
