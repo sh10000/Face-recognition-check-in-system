@@ -42,7 +42,7 @@
 		          <ul class="dropdown-menu">
 		            <li><a href="#">教师个人信息</a></li>
 		            <li role="separator" class="divider"></li>
-		            <li><a href="#">退出系统</a></li>
+		            <li><a href="../login.html">退出系统</a></li>
 		          </ul>
 		        </li>
 		      </ul>
@@ -103,9 +103,8 @@
 				  <thead>
 				    <tr >
 				      <th width="30">#</th>
-				      <th>学生学号</th>
-				      <th>学生姓名</th>
-				      <th>xxx</th>
+				      <th id="studentNo">学生学号</th>
+				      <th id="name">学生姓名</th>
 				      <th width="100">操作</th>
 				    </tr>
 				  </thead>
@@ -114,7 +113,6 @@
 					  <td>1</td>
 					  <td>Lorem</td>
 					  <td>ipsum</td>
-					  <td>dolor</td>
 					  <td>
 					      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
 					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
@@ -169,9 +167,8 @@
         $("tbody .btn-primary").click(function(){
             window.location.href = "edit.html";
         });
-        $("#publish").click(function(){
-        	alert("考勤发布成功！");
-        })
+
+
         $("#finish").click(function(){
         	alert("已终止考勤");
         })
