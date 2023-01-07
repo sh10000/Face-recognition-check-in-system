@@ -15,11 +15,9 @@ def check_login(func):
         #已经登录过的继续执行
         ret = request.get_signed_cookie("is_login", default="0", salt="dsb")
         if ret == "1":
-            print(123)
             return func(request,*args,**kwargs)
         #没有登录过的跳转登录界面
         else:
-            print(456)
             return redirect("/login")
             # #获取当前访问的URl
             # next_url = request.path_info
@@ -170,7 +168,6 @@ def addstudent(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method=='GET':
             return render(request,"Manage/add-Student.html")
-    print(request.POST)
     user=request.POST.get("name")
     pwd=request.POST.get("password")
     studentNo=request.POST.get("studentNo")
@@ -208,6 +205,12 @@ def addcourse(request):
     grade=request.POST.get("grade")
     models.Course.objects.create(courseNo=courseNo,courseName=courseName,grade=grade)
     return redirect("/managecourse/")
+#管理员删除学生信息
+@check_login
+def manageCourseDelete(request):
+      nid=request.GET.get('nid')
+      models.Course.objects.filter(courseNo=nid).delete()
+      return redirect("/managecourse/")
 #管理员教师
 @check_login
 def manageTeacher(request):
@@ -227,7 +230,12 @@ def addteacher(request):
     password=request.POST.get("password")
     models.Teacher.objects.create(teacherNo=teacherNo,name=name,user=user,password=password)
     return redirect("/manageteacher/")
-
+@check_login
+def manageTeacherDelete(request):
+      nid=request.GET.get('nid')
+      models.Teacher.objects.filter(teacherNo=nid).delete()
+      return redirect("/manageteacher/")
+#管理员教师
 # 学生签到页面
 @check_login
 def student(request):

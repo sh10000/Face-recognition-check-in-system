@@ -119,7 +119,7 @@
 						<td>{{ obj.photo }}</td>
 						<td>
 					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-						  <button type="button" class="btn btn-danger btn-xs delete"><i class=" glyphicon glyphicon-remove"></i></button>
+						  <button type="button" class="btn btn-danger btn-xs delete" value="{{ obj.studentNo }}"><i class=" glyphicon glyphicon-remove"></i></button>
 					  </td>
 					</tr>	
 					{% endfor %}			  	
@@ -166,7 +166,13 @@
 			});
         });
 		$(".delete").click(function(){
-			window.location.herf="/manage/student/delete/?nid={{ obj.studentNo}}";
+			var val = $(this).val();
+			$.ajax({
+				type:"GET",
+				url:"/manage/student/delete/",
+				data:{'nid':val},
+				
+			})
 		})
 	    
 		//修改信息、删除信息功能
