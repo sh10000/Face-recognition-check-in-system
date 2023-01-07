@@ -47,10 +47,17 @@
 
 		   	 		<form class="form-horizontal" onsubmit="return checkForm()"  style="color:;">
 		   	 			<div class="row" style="padding-top: 20px;">
-			   	 			<div class="col-sm-8 col-sm-offset-1">
-			   	 				<font color="#204D74" size="6">登录入口</font>
-			   	 			</div>
 			   	 		</div>
+						<div id="statusDiv" class="form-group" style="padding-top: 20px;">
+						    <label class="col-sm-3 control-label">身份</label>
+						    <div class="col-sm-8">
+						    	<select class="form-control" id="status" name="status" placeholder="请选择身份">
+									  <option>教师</option>
+									  <option>学生</option>
+									  <option>管理员</option>
+									</select>
+						    </div>
+						</div>
 						<div id="usernameDiv" class="form-group" style="padding-top: 20px;">
 						    <label class="col-sm-3 control-label">账号</label>
 						    <div class="col-sm-8">
@@ -84,8 +91,9 @@
 	</div>
     <script src="../static/jquery/jquery-2.1.1.min.js"></script>
     <script src="../static/bootstrap/js/bootstrap.min.js"></script>
-	<script src="../static/script/docs.min.js"></script>	
-	<script type="text/javascript">
-	</script>   
-    </body>
+		<script src="../static/script/docs.min.js"></script>	
+		<script type="text/javascript">
+			//表单验证、跳转等功能实现
+	  </script>   
+  </body>
 </html>
