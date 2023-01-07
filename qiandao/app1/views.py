@@ -225,8 +225,8 @@ def addstudent(request):
     if request.method=='GET':
             return render(request,"Manage/add-Student.html")
     print(request.POST)
-    user=request.POST.get("user")
-    pwd=request.POST.get("pwd")
+    user=request.POST.get("name")
+    pwd=request.POST.get("password")
     studentNo=request.POST.get("studentNo")
     models.Student.objects.create(studentNo=studentNo,name=user,password=pwd)
     return redirect("/manager/")

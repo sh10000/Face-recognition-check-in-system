@@ -87,21 +87,25 @@
 			<div class="panel panel-default">
               <div class="panel-heading">新增学生信息<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
 			  <div class="panel-body">
-				<form role="form">
+				<form role="form" method="post">
 				  <div class="form-group">
+					{% csrf_token %}
 					<label for="studentNo">学生学号</label>
-					<input type="text" class="form-control" id="studentNo" placeholder="请输入学生学号">
+					<input type="text" class="form-control"  placeholder="请输入学生学号" name="studentNo">
 				  </div>
 				  <div class="form-group">
 					<label for="studentName">学生姓名</label>
-					<input type="text" class="form-control" id="studentName" placeholder="请输入学生姓名">
+					<input type="text" class="form-control"  placeholder="请输入学生姓名" name="name">
+				  </div>
+				  <div class="form-group">
+					<label for="studentName">学生密码</label>
+					<input type="text" class="form-control"  placeholder="请输入学生密码" name="password">
 				  </div>
 				  <div class="form-group">
 					<label for="photo">学生照片</label>
-					<input type="file" name="image" id="photo"><br>
+					<input type="file" name="image" name="photo"><br>
 				  </div>
 				  <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
-				  <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
 				</form>
 			  </div>
 			</div>
