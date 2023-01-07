@@ -44,7 +44,7 @@
 		          <ul class="dropdown-menu">
 		            <li><a href="#">管理员信息</a></li>
 		            <li role="separator" class="divider"></li>
-		            <li><a href="#">退出系统</a></li>
+		            <li><a href="../login.html">退出系统</a></li>
 		          </ul>
 		        </li>
 		      </ul>
@@ -104,20 +104,18 @@
 				  <thead>
 				    <tr >
 				      <th width="30">#</th>
-					  <th width="30"><input type="checkbox"></th>
-				      <th>学号</th>
-				      <th>姓名</th>
-				      <th>邮箱地址</th>
+				      <th id="studentNo">学生学号</th>
+				      <th id="studentName">学生姓名</th>
+				      <th id="photo">学生照片</th>
 				      <th width="100">操作</th>
 				    </tr>
 				  </thead>
 				  <tbody>
 					<tr>
 					  <td>1</td>
-					  <td><input type="checkbox"></td>
-					  <td>Lorem</td>
-					  <td>ipsum</td>
-					  <td>dolor</td>
+					  <td>20000001</td>
+					  <td>xxx</td>
+					  <td></td>
 					  <td>
 					      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
 					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
@@ -166,12 +164,15 @@
 				}
 			});
         });
-        $("tbody .btn-success").click(function(){
-            window.location.href = "assignRole.html";
-        });
-        $("tbody .btn-primary").click(function(){
-            window.location.href = "edit.html";
-        });
+	    
+		//修改信息、删除信息功能
+		
+        // $("tbody .btn-success").click(function(){
+        //     window.location.href = "assignRole.html";
+        // });
+        // $("tbody .btn-primary").click(function(){
+        //     window.location.href = "edit.html";
+        // });
     </script>	
   </body>
 </html>
