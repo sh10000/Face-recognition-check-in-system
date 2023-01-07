@@ -45,15 +45,18 @@ urlpatterns = [
     #管理员管理学生
     path("managestudent/", views.manageStudent),
     path("addstudent/", views.addstudent),
-    path("manage/ManageCourse/", views.manageCourse),
     path("manage/student/delete/", views.manageStudentDelete),
     path("manage/student/modify/", views.manageStudentModify),
     #管理员管理老师
     path("manageteacher/", views.manageTeacher),
     path("addteacher/", views.addteacher),
+    path("manage/student/delete/", views.manageStudentDelete),
+    path("manage/student/modify/", views.manageStudentModify),
     #管理员管理课程
     path("managecourse/", views.manageCourse),
     path("addcourse/", views.addcourse),
+    path("manage/course/delete/", views.manageStudentDelete),
+    path("manage/course/modify/", views.manageStudentModify),
 
 
 #学生签到页面组

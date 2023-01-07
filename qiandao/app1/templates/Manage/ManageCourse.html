@@ -103,7 +103,6 @@
 				<table class="table  table-bordered">
 				  <thead>
 				    <tr >
-				      <th width="30">#</th>
 				      <th id="courseNo">课程号</th>
 				      <th id="courseName">课程名称</th>
 				      <th id="grade">开课年级</th>
@@ -112,15 +111,17 @@
 				  </thead>
 				  <tbody>
 					<tr>
-					  <td>1</td>
-					  <td>C001</td>
-					  <td>软件文档写作</td>
-					  <td>3</td>
-					  <td>
-					      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-						  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-					  </td>
+						{% for obj in n1 %}
+						<tr>
+							<td>{{ obj.courseNo }}</td>
+							<td>{{ obj.courseName }}</td>
+							<td>{{ obj.grade }}</td>
+							<td>
+							  <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
+							  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"><a href="/manage/course/delete/?nid={{ obj.cousreNo}}"></a></i></button>
+						  </td>
+						</tr>	
+						{% endfor %}	
 					</tr>				  	
 				  </tbody>
 				  <tfoot>

@@ -103,9 +103,9 @@
 				<table class="table  table-bordered">
 				  <thead>
 				    <tr >
-				      <th width="30">#</th>
 				      <th id="studentNo">学生学号</th>
 				      <th id="studentName">学生姓名</th>
+					  <th id="password">学生密码</th>
 				      <th id="photo">学生照片</th>
 				      <th width="100">操作</th>
 				    </tr>
@@ -113,13 +113,13 @@
 				  <tbody>
 					{% for obj in n1 %}
 					<tr>
-						<td>{{ obj.studentNo }}</td>c
+						<td>{{ obj.studentNo }}</td>
 						<td>{{ obj.name }}</td>
 						<td>{{ obj.password }}</td>
 						<td>{{ obj.photo }}</td>
 						<td>
 					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-						  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"><a href="/manage/student/delete/?nid={{ obj.studentNo}}"></a></i></button>
+						  <button type="button" class="btn btn-danger btn-xs delete"><i class=" glyphicon glyphicon-remove"></i></button>
 					  </td>
 					</tr>	
 					{% endfor %}			  	
@@ -165,6 +165,9 @@
 				}
 			});
         });
+		$(".delete").click(function(){
+			window.location.herf="/manage/student/delete/?nid={{ obj.studentNo}}";
+		})
 	    
 		//修改信息、删除信息功能
 		

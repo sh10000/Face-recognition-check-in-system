@@ -160,6 +160,12 @@ def manageIndex(request):
     return render(request, "Manage/main.html", {"admName": admName})
 
 @check_login
+def manageStudent(request):
+    admName = request.get_signed_cookie("username", salt="dsb")
+    student_list = models.Student.objects.all()
+    return render(request, "Manage/ManageStudent.html", {"admName": admName,"n1": student_list})
+#管理员增加学生信息
+@check_login
 def addstudent(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method=='GET':
@@ -176,17 +182,6 @@ def manageStudentDelete(request):
       nid=request.GET.get('nid')
       models.Student.objects.filter(studentNo=nid).delete()
       return redirect("/managestudent/")
-#管理员增加学生信息
-@check_login
-def  manageStudentAdd(request):
-      if request.method=='GET':
-            return render(request,"info_add.html")
-      print(request.POST)
-      user=request.POST.get("user")
-      pwd=request.POST.get("pwd")
-      studentNo=request.POST.get("studentNo")
-      models.Student.objects.create(studentNo=studentNo,name=user,password=pwd)
-      return redirect("/manage/")
 #管理员修改学生信息
 def manageStudentModify(request):
       if request.method=='GET':
@@ -196,37 +191,42 @@ def manageStudentModify(request):
       studentNo=request.POST.get("studentNo")
       models.Student.objects.filter(studentNo=studentNo).update(name=user,password=pwd)
       return redirect("/manage/")
-
+#管理员课程
 @check_login
 def manageCourse(request):
     admName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "Manage/ManageCourse.html", {"admName": admName})
-
-
-@check_login
-def manageTeacher(request):
-    admName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "Manage/ManageTeacher.html", {"admName": admName})
-
-
-@check_login
-def manageStudent(request):
-    admName = request.get_signed_cookie("username", salt="dsb")
-    student_list = models.Student.objects.all()
-    for i in student_list:
-      print(i.studentNo,i.name,i.password,i.photo)
-    return render(request, "Manage/ManageStudent.html", {"admName": admName,"n1": student_list})
-
+    course_list = models.Course.objects.all()
+    return render(request, "Manage/ManageCourse.html", {"admName": admName,"n1": course_list})
 @check_login
 def addcourse(request):
     admName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "Manage/add-course.html", {"admName": admName})
+    if request.method=='GET':
+            return render(request,"Manage/add-course.html")
+    print(request.POST)
+    courseNo=request.POST.get("courseNo")
+    courseName=request.POST.get("courseName")
+    grade=request.POST.get("grade")
+    models.Course.objects.create(courseNo=courseNo,courseName=courseName,grade=grade)
+    return redirect("/managecourse/")
+#管理员教师
+@check_login
+def manageTeacher(request):
+    admName = request.get_signed_cookie("username", salt="dsb")
+    teacher_list = models.Teacher.objects.all()
+    return render(request, "Manage/ManageTeacher.html", {"admName": admName,"n1": teacher_list})
 
 @check_login
 def addteacher(request):
     admName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "Manage/add-teacher.html", {"admName": admName})
-
+    if request.method=='GET':
+            return render(request,"Manage/add-teacher.html")
+    print(request.POST)
+    teacherNo=request.POST.get("teacherNo")
+    name=request.POST.get("name")
+    user=request.POST.get("user")
+    password=request.POST.get("password")
+    models.Teacher.objects.create(teacherNo=teacherNo,name=name,user=user,password=password)
+    return redirect("/manageteacher/")
 
 # 学生签到页面
 @check_login

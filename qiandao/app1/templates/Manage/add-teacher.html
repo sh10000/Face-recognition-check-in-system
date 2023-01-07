@@ -87,25 +87,25 @@
 			<div class="panel panel-default">
               <div class="panel-heading">新增教师信息<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
 			  <div class="panel-body">
-				<form role="form">
+				<form role="form" method="post">
+				       {% csrf_token %}>
 				  <div class="form-group">
 					<label for="teacherNo">教师编号</label>
-					<input type="text" class="form-control" id="teacherNo" placeholder="请输入教师编号">
+					<input type="text" class="form-control" id="teacherNo" placeholder="请输入教师编号" name="teacherNo">
 				  </div>
 				  <div class="form-group">
 					<label for="teacherName">教师姓名</label>
-					<input type="text" class="form-control" id="teacherName" placeholder="请输入教师姓名">
+					<input type="text" class="form-control" id="teacherName" placeholder="请输入教师姓名" name="name">
 				  </div>
 				  <div class="form-group">
 					<label for="user">用户名</label>
-					<input type="text" class="form-control" id="user" placeholder="请输入用户名">
+					<input type="text" class="form-control" id="user" placeholder="请输入用户名" name="user">
 				  </div>
 				  <div class="form-group">
 					<label for="user">密码</label>
-					<input type="password" class="form-control" id="password" placeholder="请输入密码">
+					<input type="password" class="form-control" id="password" placeholder="请输入密码" name="password">
 				  </div>
-				  <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
-				  <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
+				  <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 				</form>
 			  </div>
 			</div>
