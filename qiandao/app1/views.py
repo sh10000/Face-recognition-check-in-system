@@ -156,39 +156,21 @@ def tcourse(request):
 @check_login
 def manageIndex(request):
     admName = request.get_signed_cookie("username", salt="dsb")
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    return render(request, "ManageIndex.html", {"admName": admName})
-
-=======
     student_list = models.Student.objects.all()
     for i in student_list:
       print(i.studentNo,i.name,i.password,i.photo)
     return render(request, "Manage/main.html", {"admName": admName,"n1": student_list})
 
-@check_login
-def manageStudentDelete(request):
-=======
-    student_list = models.Student.objects.all()
-    for i in student_list:
-      print(i.studentNo,i.name,i.password,i.photo)
-    return render(request, "ManageIndex.html", {"admName": admName,"n1": student_list})
-
 #管理员删除学生信息
 @check_login
 def managerStudentDelete(request):
->>>>>>> a28f940748729ac6b9b3c3a99064556452d96332
       nid=request.GET.get('nid')
       models.Student.objects.filter(studentNo=nid).delete()
       return redirect("/manager/")
 
-<<<<<<< HEAD
-@check_login
-def  manageStudentAdd(request):
-=======
 #管理员增加学生信息
+@check_login
 def  managerStudentAdd(request):
->>>>>>> a28f940748729ac6b9b3c3a99064556452d96332
       if request.method=='GET':
             return render(request,"info_add.html")
       print(request.POST)
@@ -197,9 +179,7 @@ def  managerStudentAdd(request):
       studentNo=request.POST.get("studentNo")
       models.Student.objects.create(studentNo=studentNo,name=user,password=pwd)
       return redirect("/manager/")
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
+
 def managerStudentModify(request):
       if request.method=='GET':
             return render(request,"info_add.html")
@@ -208,7 +188,6 @@ def managerStudentModify(request):
       studentNo=request.POST.get("studentNo")
       models.Student.objects.filter(studentNo=studentNo).update(name=user,password=pwd)
       return redirect("/manager/")
->>>>>>> a28f940748729ac6b9b3c3a99064556452d96332
 
 @check_login
 def manageCourse(request):

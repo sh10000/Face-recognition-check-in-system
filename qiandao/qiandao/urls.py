@@ -39,12 +39,9 @@ urlpatterns = [
 
 #管理员页面组
     path("manager/", views.manageIndex),
-<<<<<<< Updated upstream
     path("manager/ManageTeacher/", views.manageTeacher),
     path("manager/ManageStudent/", views.manageStudent),
-<<<<<<< HEAD
     path("manage/ManageCourse/", views.manageCourse),
-=======
     path("manageteacher/", views.manageTeacher),
     path("managestudent/", views.manageStudent),
     path("managecourse/", views.manageCourse),
@@ -54,14 +51,11 @@ urlpatterns = [
     path("manage/student/delete/", views.manageStudentDelete),
     path("manage/student/add/", views.manageStudentAdd),
 
->>>>>>> Stashed changes
-=======
     path("manager/ManageCourse/", views.manageCourse),
     path("manager/student/delete/", views.managerStudentDelete),
     path("manager/student/add/", views.managerStudentAdd),
     path("manager/student/modify/", views.managerStudentModify),
 
->>>>>>> a28f940748729ac6b9b3c3a99064556452d96332
 
 #学生签到页面组
     path("student/", views.student),
