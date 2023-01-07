@@ -182,12 +182,12 @@ def manageStudentDelete(request):
 #管理员修改学生信息
 def manageStudentModify(request):
       if request.method=='GET':
-            return render(request,"info_add.html")
+            return render(request,"Manage/add-Student.html")
       user=request.POST.get("user")
       pwd=request.POST.get("pwd")
       studentNo=request.POST.get("studentNo")
       models.Student.objects.filter(studentNo=studentNo).update(name=user,password=pwd)
-      return redirect("/manage/")
+      return redirect("/managestudent/")
 #管理员课程
 @check_login
 def manageCourse(request):
