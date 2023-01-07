@@ -167,7 +167,7 @@ def manageStudent(request):
 def addstudent(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method=='GET':
-            return render(request,"Manage/add-Student.html")
+            return render(request,"Manage/modify-student.html")
     user=request.POST.get("name")
     pwd=request.POST.get("password")
     studentNo=request.POST.get("studentNo")
@@ -180,6 +180,7 @@ def manageStudentDelete(request):
       models.Student.objects.filter(studentNo=nid).delete()
       return redirect("/managestudent/")
 #管理员修改学生信息
+@check_login
 def manageStudentModify(request):
       if request.method=='GET':
             return render(request,"Manage/add-Student.html")

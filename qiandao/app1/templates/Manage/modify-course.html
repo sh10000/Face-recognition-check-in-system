@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="GB18030">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../static/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../static/css/main.css">
+	<style>
+	.tree li {
+        list-style-type: none;
+		cursor:pointer;
+	}
+	table tbody tr:nth-child(odd){background:#F4F4F4;}
+	table tbody td:nth-child(even){color:#C00;}
+	</style>
+  </head>
+
+  <body>
+ 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		  <div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <a class="navbar-brand" style="font-size:32px;" href="#">管理员界面-基本信息管理</a>
+		    </div>
+
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <form class="navbar-form navbar-left">
+		        <div class="form-group">
+		          <input type="text" class="form-control" placeholder="">
+		        </div>
+		        <button type="submit" class="btn btn-default searchbutton">search</button>
+		      </form>
+		      <ul class="nav navbar-nav navbar-right">
+				  <li><a href="#">欢迎用户：{{admName}}</a></li>
+				  <li><a href="/logout">退出登录</a></li>
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">设置 <span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+		            <li><a href="#">管理员信息</a></li>
+		            <li role="separator" class="divider"></li>
+		            <li><a href="#">退出系统</a></li>
+		          </ul>
+		        </li>
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+ 	</nav>
+
+ 	<div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+			<div class="tree">
+				<ul style="padding-left:0px;" class="list-group">
+					<li class="list-group-item tree-closed" >
+						<a href="/manage"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a>
+					</li>
+					<li class="list-group-item tree-closed">
+						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 基本信息管理 <span class="badge" style="float:right">3</span></span> 
+						<ul style="margin-top:10px;">
+							<li style="height:30px;">
+								<a href="/managecourse" style="color:red;"><i class="glyphicon glyphicon glyphicon-tasks"></i> 课程基本信息</a>
+							</li>
+							<li style="height:30px;">
+								<a href="/manageteacher"><i class="glyphicon glyphicon-user"></i> 教师基本信息</a>
+							</li>
+							<li style="height:30px;">
+								<a href="/managestudent"><i class="glyphicon glyphicon-user"></i> 学生基本信息</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+        </div>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<ol class="breadcrumb">
+			  <li><a href="#">管理面板</a></li>
+			  <li><a href="#">课程基本信息</a></li>
+			  <li class="active">修改课程</li>
+			</ol>
+			<div class="panel panel-default">
+              <div class="panel-heading">修改课程信息<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
+			  <div class="panel-body">
+				<form role="form" method="post">
+					{% csrf_token %}
+				  <div class="form-group">
+					<label for="courseNo">课程号</label>
+					<input type="text" class="form-control" id="courseNo" placeholder="请输入课程号" name="courseNo">
+				  </div>
+				  <div class="form-group">
+					<label for="courseName">课程名称</label>
+					<input type="text" class="form-control" id="courseName" placeholder="请输入课程名称" name="courseName">
+				  </div>
+				  <div class="form-group">
+					<label for="grade">开课年级</label>
+					<input type="text" class="form-control" id="grade" placeholder="请输入开课年级" name="grade" >
+				  </div>
+				  <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+				</form>
+			  </div>
+			</div>
+        </div>
+
+      </div>
+	</div>
+    <script src="../../static/jquery/jquery-2.1.1.min.js"></script>
+    <script src="../../static/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../../static/script/docs.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+		    $(".list-group-item").click(function(){
+			    if ( $(this).find("ul") ) {
+					$(this).toggleClass("tree-closed");
+					if ( $(this).hasClass("tree-closed") ) {
+						$("ul", this).hide("fast");
+					} else {
+						$("ul", this).show("fast");
+					}
+				}
+			});
+        });
+		//新增功能
+        $("tbody .btn-success").click(function(){
+            // window.location.href = "assignRole.html";
+        });
+
+		//重置功能
+        $("tbody .btn-primary").click(function(){
+            window.location.href = "add-course.html";
+        });
+    </script>	
+  </body>
+</html>
