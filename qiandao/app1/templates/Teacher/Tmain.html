@@ -60,20 +60,7 @@
 					<li class="list-group-item tree-closed" >
 						<a href="#"><i class="glyphicon glyphicon-dashboard"></i> 教师主页</a>
 					</li>
-					<li class="list-group-item tree-closed">
-						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 考勤管理 <span class="badge" style="float:right">3</span></span> 
-						<ul style="margin-top:10px;display:none;">
-							<li style="height:30px;">
-								<a href="/signpublish" id="publish"><i class="glyphicon glyphicon glyphicon-tasks"></i> 发布考勤</a>
-							</li>
-							<li style="height:30px;">
-								<a href="#" id="finish"><i class="glyphicon glyphicon-user"></i> 结束考勤</a> 
-							</li>
-							<li style="height:30px;">
-								<a href="/signresult"><i class="glyphicon glyphicon-user"></i> 查看考勤统计</a>
-							</li>
-						</ul>
-					</li>
+
 				</ul>
 			</div>
         </div>
@@ -118,9 +105,8 @@
 					  <td>软件文档写作</td>
 					  <td>3</td>
 					  <td>
-					      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-						  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
+						  <a href="SignPublish.html" class="btn btn-success btn-xs" role="button">发布签到</a>
+						  <a href="Tcourse.html" class="btn btn-primary btn-xs" role="button">进入课程</a>
 					  </td>
 					</tr>				  	
 				  </tbody>
@@ -165,10 +151,7 @@
 				}
 			});
         });
-        //按下左边菜单栏“结束考勤”
-        $("#finish").click(function(){
-        	alert("已终止考勤");
-        })
+
     </script>	
   </body>
 </html>
