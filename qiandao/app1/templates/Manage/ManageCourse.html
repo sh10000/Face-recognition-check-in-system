@@ -118,7 +118,7 @@
 							<td>{{ obj.grade }}</td>
 							<td>
 							  <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/course/{{ obj.courseNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i></button>
-							  <button type="button" class="btn btn-danger btn-xs delete" value="{{ obj.courseNo }}"><i class=" glyphicon glyphicon-remove"></i></button>
+							  <button type="button" class="btn btn-danger btn-xs"  onclick="window.location.href='/manage/course/delete/?nid={{ obj.courseNo }}'"><i class=" glyphicon glyphicon-remove"></i></button>
 						  </td>
 						</tr>	
 						{% endfor %}	
@@ -165,15 +165,6 @@
 				}
 			});
         });
-		$(".delete").click(function(){
-			var val = $(this).val();
-			$.ajax({
-				type:"GET",
-				url:"/manage/course/delete/",
-				data:{'nid':val},
-				
-			})
-		})
 	    
 		//修改信息、删除信息功能
 

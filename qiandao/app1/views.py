@@ -167,7 +167,7 @@ def manageStudent(request):
 def addstudent(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method=='GET':
-            return render(request,"Manage/modify-student.html")
+            return render(request,"Manage/add-student.html")
     user=request.POST.get("name")
     pwd=request.POST.get("password")
     studentNo=request.POST.get("studentNo")
