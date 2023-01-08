@@ -160,8 +160,13 @@ def manageIndex(request):
 @check_login
 def manageStudent(request):
     admName = request.get_signed_cookie("username", salt="dsb")
-    student_list = models.Student.objects.all()
-    return render(request, "Manage/ManageStudent.html", {"admName": admName,"n1": student_list})
+    ask=request.GET.get("ask")
+    if(ask!=None):
+        studentNo=models.Student.objects.filter(studentNo__contains=ask)
+        return render(request, "Manage/ManageStudent.html", {"admName": admName,"n1": studentNo})
+    if(ask==None):
+        student_list = models.Student.objects.all()
+        return render(request, "Manage/ManageStudent.html", {"admName": admName,"n1":student_list})
 #管理员增加学生信息
 @check_login
 def addstudent(request):
@@ -195,8 +200,13 @@ def manageStudentModify(request,nid):
 @check_login
 def manageCourse(request):
     admName = request.get_signed_cookie("username", salt="dsb")
-    course_list = models.Course.objects.all()
-    return render(request, "Manage/ManageCourse.html", {"admName": admName,"n1": course_list})
+    ask=request.GET.get("ask")
+    if(ask!=None):
+        courseNo=models.Course.objects.filter(courseNo__contains=ask)
+        return render(request, "Manage/ManageCourse.html", {"admName": admName,"n1": courseNo})
+    if(ask==None):
+        course_list = models.Course.objects.all()
+        return render(request, "Manage/ManageCourse.html", {"admName": admName,"n1": course_list})
 @check_login
 def addcourse(request):
     admName = request.get_signed_cookie("username", salt="dsb")
@@ -229,8 +239,13 @@ def manageCourseModify(request,nid):
 @check_login
 def manageTeacher(request):
     admName = request.get_signed_cookie("username", salt="dsb")
-    teacher_list = models.Teacher.objects.all()
-    return render(request, "Manage/ManageTeacher.html", {"admName": admName,"n1": teacher_list})
+    ask=request.GET.get("ask")
+    if(ask!=None):
+        teacherNo=models.Teacher.objects.filter(teacherNo__contains=ask)
+        return render(request, "Manage/ManageTeacher.html", {"admName": admName,"n1": teacherNo})
+    if(ask==None):
+        teacher_list = models.Teacher.objects.all()
+        return render(request, "Manage/ManageTeacher.html", {"admName": admName,"n1": teacher_list})
 
 @check_login
 def addteacher(request):
