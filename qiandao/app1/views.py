@@ -162,7 +162,7 @@ def manageStudent(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     ask=request.GET.get("ask")
     if(ask!=None):
-        studentNo=models.Student.objects.filter(studentNo__contains=ask)
+        studentNo=models.Student.objects.filter(name__contains=ask)
         return render(request, "Manage/ManageStudent.html", {"admName": admName,"n1": studentNo})
     if(ask==None):
         student_list = models.Student.objects.all()
@@ -202,7 +202,7 @@ def manageCourse(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     ask=request.GET.get("ask")
     if(ask!=None):
-        courseNo=models.Course.objects.filter(courseNo__contains=ask)
+        courseNo=models.Course.objects.filter(courseName__contains=ask)
         return render(request, "Manage/ManageCourse.html", {"admName": admName,"n1": courseNo})
     if(ask==None):
         course_list = models.Course.objects.all()
@@ -241,7 +241,7 @@ def manageTeacher(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     ask=request.GET.get("ask")
     if(ask!=None):
-        teacherNo=models.Teacher.objects.filter(teacherNo__contains=ask)
+        teacherNo=models.Teacher.objects.filter(name__contains=ask)
         return render(request, "Manage/ManageTeacher.html", {"admName": admName,"n1": teacherNo})
     if(ask==None):
         teacher_list = models.Teacher.objects.all()
