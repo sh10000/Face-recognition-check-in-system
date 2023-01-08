@@ -89,9 +89,9 @@
 			  <div class="panel-body">
 				<form role="form" method="post">
 					{% csrf_token %}
-				    <div class="form-group">
-						<label for="studentName">学生学号:{{ nid }}</label>
-						
+					  <div class="form-group">
+						<label for="studentName">学生号</label>
+						<input type="text" class="form-control"   name="studentNo" value="{{ nid }}">
 					  </div>
 				  <div class="form-group">
 					<label for="studentName">学生姓名</label>

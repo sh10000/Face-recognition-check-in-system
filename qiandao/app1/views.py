@@ -189,7 +189,7 @@ def manageStudentModify(request,nid):
       user=request.POST.get("name")
       pwd=request.POST.get("password")
       studentNo=request.POST.get("studentNo")
-      models.Student.objects.filter(studentNo=nid).update(name=user,password=pwd)
+      models.Student.objects.filter(studentNo=nid).update(studentNo=nid,name=user,password=pwd)
       return redirect("/managestudent/")
 #管理员课程
 @check_login
@@ -223,7 +223,7 @@ def manageCourseModify(request,nid):
       nid=request.POST.get("nid")
       name=request.POST.get("courseName")
       pwd=request.POST.get("password")
-      models.Course.objects.filter(courseNo=nid).update(courseName=name,grade=pwd)
+      models.Course.objects.filter(courseNo=nid).update(courseNo=nid,courseName=name,grade=pwd)
       return redirect("/managestudent/")
 #管理员教师
 @check_login
@@ -259,7 +259,7 @@ def manageTeacherModify(request,nid):
       name=request.POST.get("name")
       user=request.POST.get("user")
       password=request.POST.get("password")
-      models.Course.objects.filter(teacherNo=nid).update(name=name,password=password,user=user)
+      models.Course.objects.filter(teacherNo=nid).update(teacherNo=nid,name=name,password=password,user=user)
       return redirect("/manageteacher/")
 #管理员教师
 # 学生签到页面

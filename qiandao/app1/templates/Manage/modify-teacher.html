@@ -90,7 +90,8 @@
 				<form role="form" method="post">
 				       {% csrf_token %}
 				  <div class="form-group">
-					<label for="teacherNo">教师编号:{{ nid }}</label>
+					<label for="teacherName">教师编号</label>
+					<input type="text" class="form-control" id="teacherName"  value="{{ nid }}" name="name">
 				  </div>
 				  <div class="form-group">
 					<label for="teacherName">教师姓名</label>
