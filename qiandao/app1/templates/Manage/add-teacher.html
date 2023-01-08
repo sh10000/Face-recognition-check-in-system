@@ -80,15 +80,15 @@
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<ol class="breadcrumb">
-			  <li><a href="#">管理面板</a></li>
-			  <li><a href="#">教师基本信息</a></li>
+			  <li><a href="/manage/">管理面板</a></li>
+			  <li><a href="/manageteacher/">教师基本信息</a></li>
 			  <li class="active">添加教师</li>
 			</ol>
 			<div class="panel panel-default">
               <div class="panel-heading">新增教师信息<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
 			  <div class="panel-body">
 				<form role="form" method="post">
-				       {% csrf_token %}>
+				       {% csrf_token %}
 				  <div class="form-group">
 					<label for="teacherNo">教师编号</label>
 					<input type="text" class="form-control" id="teacherNo" placeholder="请输入教师编号" name="teacherNo">
