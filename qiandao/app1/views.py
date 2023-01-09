@@ -176,7 +176,10 @@ def addstudent(request):
     user=request.POST.get("name")
     pwd=request.POST.get("password")
     studentNo=request.POST.get("studentNo")
-    models.Student.objects.create(studentNo=studentNo,name=user,password=pwd)
+    img = request.FILES.get('img')
+    img_name=img.name
+    print('打印图片',img)
+    models.Student.objects.create(studentNo=studentNo,name=user,password=pwd,photo=img,img_name=img_name)
     return redirect("/managestudent/")
 #管理员删除学生信息
 @check_login
@@ -194,7 +197,14 @@ def manageStudentModify(request,nid):
       user=request.POST.get("name")
       pwd=request.POST.get("password")
       studentNo=request.POST.get("studentNo")
-      models.Student.objects.filter(studentNo=nid).update(studentNo=nid,name=user,password=pwd)
+      img = request.FILES.get('img')
+      print('打印图片',img)
+      if (img!=None):
+           img_name=img.name 
+           models.StudentPhoto.objects.create(photo=img)
+           models.Student.objects.filter(studentNo=nid).update(studentNo=nid,name=user,password=pwd,photo=img,img_name=img_name)
+      else:
+            models.Student.objects.filter(studentNo=nid).update(studentNo=nid,name=user,password=pwd)
       return redirect("/managestudent/")
 #管理员课程
 @check_login
