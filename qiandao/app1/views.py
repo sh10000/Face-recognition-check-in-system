@@ -187,6 +187,11 @@ def signresult(request):
     return render(request, "Teacher/SignResult.html", {"teaName": teaName})
 
 @check_login
+def unsign(request):
+    teaName = request.get_signed_cookie("username", salt="dsb")
+    return render(request, "Teacher/UnsignResult.html", {"teaName": teaName})
+
+@check_login
 def tcourse(request):
     teaName = request.get_signed_cookie("username", salt="dsb")
     return render(request, "Teacher/Tcourse.html", {"teaName": teaName})
