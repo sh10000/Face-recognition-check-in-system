@@ -87,10 +87,10 @@
 			<div class="panel panel-default">
               <div class="panel-heading">修改学生信息<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
 			  <div class="panel-body">
-				<form role="form" method="post">
+				<form role="form" method="post" enctype="multipart/form-data">
 					{% csrf_token %}
 					  <div class="form-group">
-						<label for="studentName">学生号</label>
+						<label for="studentNo">学生号</label>
 						<input type="text" class="form-control"   name="studentNo" value="{{ nid }}">
 					  </div>
 				  <div class="form-group">
@@ -103,7 +103,7 @@
 				  </div>
 				  <div class="form-group">
 					<label for="photo">学生照片</label>
-					<input type="file" name="image" name="photo"><br>
+					<input type="file" name="img">
 				  </div>
 				  <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 修改</button>
 				</form>

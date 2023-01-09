@@ -116,7 +116,7 @@
 						<td>{{ obj.studentNo }}</td>
 						<td>{{ obj.name }}</td>
 						<td>{{ obj.password }}</td>
-						<td>{{ obj.photo }}</td>
+						<td><img src="../../../media/photos/{{ obj.img_name }}" style="width:90px;height: 90px;"></td>
 						<td>
 					      <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/student/{{ obj.studentNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i></button>
 						  <button type="button" class="btn btn-danger btn-xs"  onclick="window.location.href='/manage/student/delete/?nid={{ obj.studentNo }}'"><i class=" glyphicon glyphicon-remove"></i></button>

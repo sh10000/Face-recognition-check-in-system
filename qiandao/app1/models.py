@@ -24,7 +24,10 @@ class Student(models.Model):
     password = models.CharField(max_length=32)
     name = models.CharField(max_length=32)
     photo = models.ImageField(upload_to='photos', default='user1.jpg')
+    img_name = models.CharField(max_length=100)
 
+class StudentPhoto(models.Model):
+    photo = models.ImageField(upload_to='photos', default='user1.jpg')
 # 学生权限联系
 class Stu_Auth(models.Model):
     studentNo = models.ForeignKey(Student, on_delete=models.CASCADE)
