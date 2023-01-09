@@ -178,7 +178,7 @@ def signpublish(request):
         duetime=dueTime
     )
     new_qiandao.save()
-    return redirect("/teacher")
+    return redirect("/signresult")
 
 
 @check_login
