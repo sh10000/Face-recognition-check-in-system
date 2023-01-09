@@ -56,13 +56,13 @@
 			<div class="tree">
 				<ul style="padding-left:0px;" class="list-group">
 					<li class="list-group-item tree-closed" >
-						<a href="Tmain.html"><i class="glyphicon glyphicon-dashboard"></i> 学生主页</a> 
+						<a href="/student"><i class="glyphicon glyphicon-dashboard"></i> 学生主页</a> 
 					</li>
 					<li class="list-group-item tree-closed">
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 考勤管理 <span class="badge" style="float:right">2</span></span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="Sign.html" id="publish"><i class="glyphicon glyphicon glyphicon-tasks"></i> 参与考勤</a> 
+								<a href="/sign" id="publish"><i class="glyphicon glyphicon glyphicon-tasks"></i> 参与考勤</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="#" style="color:red"><i class="glyphicon glyphicon glyphicon-tasks"></i> 查看考勤状况</a> 
@@ -76,7 +76,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<div class="panel panel-default">
 			  <div class="panel-heading">
-				<h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 学生考勤信息</h3>
+				<h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> <a href="/student"> 学生课程信息列表</a>/学生考勤信息</h3>
 			  </div>
 
 			  <div class="panel-body">
@@ -89,6 +89,7 @@
 				  </div>
 				  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 				</form>	
+				<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"onclick="window.location.href='Smain.html'"><i class=" glyphicon glyphicon-remove"></i> 返回</button>
 
 				<hr style="clear:both;">
 
@@ -100,6 +101,7 @@
 				      <th id="classNo">班级号</th>
 					  <th id="courseName">课程名称</th>
 				      <th id="time">考勤时间</th>
+				      <th id="info">考勤状态</th>
 				      <th width="100">操作</th>
 				    </tr>
 				  </thead>
@@ -109,6 +111,7 @@
 					  <td>c00101</td>
 					  <td>软件文档写作</td>
 					  <td>15:00</td>
+					  <td>已签</td>
 					  <td>
 					      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
 					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
