@@ -53,9 +53,17 @@ class Class(models.Model):
 
 # 签到
 class QianDao(models.Model):
+    id = models.AutoField(primary_key=True)
+    pubtime = models.DateTimeField(auto_now_add=True)
+    duetime = models.DateTimeField()
     qianDaoName = models.CharField(max_length=32)
     courseName = models.CharField(max_length=32)
     class1 = models.ForeignKey(Class, on_delete=models.CASCADE)
+
+# 学生-签到联系
+class StuQianDao(models.Model):
+    studentNo = models.ForeignKey(Student, on_delete=models.CASCADE)
+    QianDaoId = models.ForeignKey(QianDao, on_delete=models.CASCADE)
 
 
 class QianDaoMessage(models.Model):

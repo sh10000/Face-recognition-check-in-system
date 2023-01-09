@@ -91,7 +91,7 @@
 				<table class="table  table-bordered">
 				  <thead>
 				    <tr>				  
-				      <th width="30">#</th>
+				      <th id="classNo">开课班</th>
 				      <th id="courseNo">课程号</th>
 				      <th id="courseName">课程名称</th>
 				      <th id="grade">开课年级</th>
@@ -99,16 +99,18 @@
 				    </tr>
 				  </thead>
 				  <tbody>
+				  	{% for obj in res %}
 					<tr>
-					  <td>1</td>
-					  <td><a href="Tcourse.html">C001</a></td>
-					  <td>软件文档写作</td>
-					  <td>3</td>
+					  <td>{{obj.0}}</td>
+					  <td><a href="Tcourse.html">{{obj.1}}</a></td>
+					  <td>{{obj.2}}</td>
+					  <td>{{obj.3}}</td>
 					  <td>
-						  <a href="SignPublish.html" class="btn btn-success btn-xs" role="button">发布签到</a>
+						  <button type="button" class="btn btn-success btn-xs"  onclick="window.location.href='/signpublish/?classNo={{ obj.0 }}&courseNo={{ obj.1 }}'">发布考勤</button>
 						  <a href="Tcourse.html" class="btn btn-primary btn-xs" role="button">进入课程</a>
 					  </td>
-					</tr>				  	
+					</tr>
+				  	{% endfor %}
 				  </tbody>
 				  <tfoot>
 				     <tr >
@@ -151,6 +153,17 @@
 				}
 			});
         });
+        function click(id) {
+        var courseNo = id;    //获取要传到后台的数据
+        $.ajax({
+            type: "POST",
+            url: "signpublish/",    //后台处理函数的url
+            data: courseNo,
+            success: function (result) {  //获取后台处理后传过来的result
+                alert(result)
+            },
+        });
+    }
 
     </script>	
   </body>

@@ -4,6 +4,8 @@ from app1 import models
 from django.core.files.base import ContentFile
 from django.contrib.auth import authenticate, login
 from functools import wraps
+from django.db import connection
+import datetime
 
 
 # Create your views here.
@@ -127,7 +129,13 @@ def updateinfo(request):
 @check_login
 def teacher(request):
     teaName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "Teacher/Tmain.html", {"teaName": teaName})
+    cursor = connection.cursor()
+    sql = "SELECT classNo, courseNo, courseName, grade " \
+          "FROM renLianShiBie1.app1_class a, renLianShiBie1.app1_course b " \
+          "WHERE a.course_id = b.courseNo AND a.teacher_id = " + teaName + ";"
+    cursor.execute(sql)
+    res = cursor.fetchall()
+    return render(request, "Teacher/Tmain.html", {"teaName": teaName, "res": res})
 
 @check_login
 def classInfo(request):
@@ -138,7 +146,40 @@ def classInfo(request):
 @check_login
 def signpublish(request):
     teaName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "Teacher/SignPublish.html", {"teaName": teaName})
+    courseNo = request.GET.get("courseNo")
+    classNo = request.GET.get("classNo")
+    print(courseNo, classNo)
+    course = models.Course.objects.get(courseNo=courseNo)
+    courseName = course.courseName
+    if request.method == "GET":
+        return render(request, "Teacher/SignPublish.html", {"teaName": teaName, "courseName": courseName, "datetime": datetime.datetime.now(), "courseNo": courseNo, "classNo": classNo})
+    qianDaoName = request.POST.get("qianDaoName")
+    pubtime = datetime.datetime.now()
+    dueTime = request.POST.get("dueTime")
+    courseNo = request.POST.get("courseNo")
+    classNo = request.POST.get("classNo")
+    if dueTime == "5min":
+        timedelta = datetime.timedelta(minutes=5)
+    elif dueTime == "10min":
+        timedelta = datetime.timedelta(minutes=10)
+    elif dueTime == "15min":
+        timedelta = datetime.timedelta(minutes=15)
+    elif dueTime == "30min":
+        timedelta = datetime.timedelta(minutes=30)
+    elif dueTime == "1h":
+        timedelta = datetime.timedelta(minutes=60)
+    dueTime = pubtime+timedelta
+    print("123", qianDaoName, pubtime, dueTime, courseNo, classNo)
+    new_qiandao = models.QianDao(
+        qianDaoName=qianDaoName,
+        courseName=courseName,
+        class1_id=classNo,
+        pubtime=pubtime,
+        duetime=dueTime
+    )
+    new_qiandao.save()
+    return redirect("/teacher")
+
 
 @check_login
 def signresult(request):

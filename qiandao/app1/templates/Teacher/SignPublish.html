@@ -37,6 +37,8 @@
 		        <button type="submit" class="btn btn-default searchbutton">search</button>
 		      </form>
 		      <ul class="nav navbar-nav navbar-right">
+				  <li><a href="#">欢迎用户：{{teaName}}</a></li>
+				  <li><a href="/logout">退出登录</a></li>
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">设置 <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
@@ -84,12 +86,23 @@
 			<div class="panel panel-default">
               <div class="panel-heading">考勤设置<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
 			  <div class="panel-body">
-				<form role="form">
+				<form role="form" method="post">
+					{% csrf_token %}
 				  <div class="form-group">
 					<label for="qianDaoName">签到名称</label>
-					<input type="text" class="form-control" id="qianDaoName" placeholder="请输入签到名称">
+					<input type="text" class="form-control" id="qianDaoName" name="qianDaoName" value="{{courseName}}{{datetime}}">
+					<label for="qianDaoName">有效时长</label>
+					<input type="hidden" class="form-control" id="courseNo" name="courseNo" value="{{courseNo}}">
+					<input type="hidden" class="form-control" id="classNo" name="classNo" value="{{classNo}}">
+						<select class="form-control" name="dueTime" id="dueTime">
+            				<option selected="selected">5min</option>
+							<option>10min</option>
+            				<option>15min</option>>
+            				<option>30min</option>>
+            				<option>1h</option>
+        				</select>
 				  </div>				  				  
-				  <button type="button" class="btn btn-success" id="publish"><i class="glyphicon glyphicon-plus"></i> 发布考勤</button>
+				  <input type="submit" class="btn btn-primary btn-lg" value="发布考勤"/>
 				</form>
 			  </div>
 			</div>
@@ -122,8 +135,8 @@
         });
         $("#publish").click(function(){
         	alert("考勤发布成功！");
-        	href="Tmain.html";
-        	window.location.replace("Tmain.html");
+        	href="/signpublish";
+        	window.location.replace("/signpublish");
         })
         $("#finish").click(function(){
         	alert("已终止考勤");
