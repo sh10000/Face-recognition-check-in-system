@@ -61,13 +61,10 @@
 						<a href="Tmain.html"><i class="glyphicon glyphicon-dashboard"></i> 教师主页</a> 
 					</li>
 					<li class="list-group-item tree-closed">
-						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 考勤管理 <span class="badge" style="float:right">3</span></span> 
+						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 考勤管理 <span class="badge" style="float:right">2</span></span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
 								<a href="#" style="color:red;"><i class="glyphicon glyphicon glyphicon-tasks"></i> 发布考勤</a> 
-							</li>
-							<li style="height:30px;">
-								<a href="#" id="finish"><i class="glyphicon glyphicon-user"></i> 结束考勤</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="SignResult.html"><i class="glyphicon glyphicon-user"></i> 查看考勤统计</a> 
@@ -79,12 +76,10 @@
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<ol class="breadcrumb">
-			  <li><a href="#">考勤管理</a></li>
-			  <li class="active"><a href="#">发布考勤</a></li>
-			</ol>
 			<div class="panel panel-default">
-              <div class="panel-heading">考勤设置<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
+              <div class="panel-heading">
+				<h3 class="panel-title"><i class="glyphicon glyphicon-th"></i><a href="Tmain.html">考勤管理</a>/发布考勤</h3>
+			  </div>
 			  <div class="panel-body">
 				<form role="form" method="post">
 					{% csrf_token %}

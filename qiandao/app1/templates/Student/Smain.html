@@ -30,12 +30,13 @@
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		      <form class="navbar-form navbar-left">
+		    	<form class="navbar-form navbar-left">
 		        <div class="form-group">
 		          <input type="text" class="form-control" placeholder="">
 		        </div>
 		        <button type="submit" class="btn btn-default searchbutton">search</button>
 		      </form>
+		      
 		      <ul class="nav navbar-nav navbar-right">
 				  <li><a href="#">欢迎用户：{{stuName}}</a></li>
 				  <li><a href="/logout">退出登录</a></li>
@@ -54,26 +55,6 @@
 
  	<div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-			<div class="tree">
-				<ul style="padding-left:0px;" class="list-group">
-					<li class="list-group-item tree-closed" >
-						<a href="#"><i class="glyphicon glyphicon-dashboard"></i> 学生主页</a> 
-					</li>
-					<li class="list-group-item tree-closed">
-						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 考勤管理 <span class="badge" style="float:right">2</span></span> 
-						<ul style="margin-top:10px;display:none;">
-							<li style="height:30px;">
-								<a href="/sign"><i class="glyphicon glyphicon glyphicon-tasks"></i> 参与考勤</a>
-							</li>
-							<li style="height:30px;">
-								<a href="/signinfo"><i class="glyphicon glyphicon glyphicon-tasks"></i> 查看考勤状况</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-        </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<div class="panel panel-default">
@@ -91,6 +72,7 @@
 				  </div>
 				  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 				</form>	
+				<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add-course.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 
 				<hr style="clear:both;">
 
@@ -109,14 +91,13 @@
 				  <tbody>
 					<tr>
 					  <td>1</td>
-					  <td>C001</td>
+					  <td><a href="/sign">C001</a></td>
 					  <td>软件文档写作</td>
 					  <td>c00101</td>
 					  <td>zxq</td>
 					  <td>
-					      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-						  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
+					      <button type="button" class="btn btn-success btn-xs"id="None"onclick="window.location.href='Sign.html'"><i class=" glyphicon glyphicon-check"> </i>进入签到</button>
+					      <button type="button" class="btn btn-success btn-xs"onclick="window.location.href='SignInfo.html'"><i class=" glyphicon glyphicon-pencil"></i>查看状态</button>
 					  </td>
 					</tr>				  	
 				  </tbody>
@@ -161,6 +142,12 @@
 				}
 			});
         });
+        // $("#None").click(function(){
+        // 	alert("当前课程尚未发布签到！");
+        // 	href="Smain.html";
+        // 	window.location.replace("Smain.html");
+        // })
+
     </script>	
   </body>
 </html>
