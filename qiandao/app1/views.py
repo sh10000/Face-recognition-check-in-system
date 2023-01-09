@@ -177,10 +177,13 @@ def addstudent(request):
     pwd=request.POST.get("password")
     studentNo=request.POST.get("studentNo")
     img = request.FILES.get('img')
-    img_name=img.name
-    print('打印图片',img)
-    models.Student.objects.create(studentNo=studentNo,name=user,password=pwd,photo=img,img_name=img_name)
-    return redirect("/managestudent/")
+    if img!=None:
+        img_name=img.name
+        print('打印图片',img)
+        models.Student.objects.create(studentNo=studentNo,name=user,password=pwd,photo=img,img_name=img_name)
+        return redirect("/managestudent/")
+    else:
+        return render(request,"Manage/add-student.html")
 #管理员删除学生信息
 @check_login
 def manageStudentDelete(request):
