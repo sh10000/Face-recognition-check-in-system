@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from app1 import models
 from django.core.files.base import ContentFile
@@ -178,13 +178,23 @@ def signpublish(request):
         duetime=dueTime
     )
     new_qiandao.save()
-    return redirect("/signresult")
+    return redirect("/signresult/?Qid=" + str(new_qiandao.id))
 
 
 @check_login
 def signresult(request):
+    Qid = request.GET.get("Qid")
+    print(Qid)
+    if Qid is None:
+        pass
+    else:
+        cursor = connection.cursor()
+        sql = "SELECT studentNo, `name`, QTime from renLianShiBie1.app1_student a, renLianShiBie1.app1_stuqiandao b " \
+              "where a.studentNo = b.studentNo_id and b.QianDaoId_id= 21; "
+        cursor.execute(sql)
+        res = cursor.fetchall()
     teaName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "Teacher/SignResult.html", {"teaName": teaName})
+    return render(request, "Teacher/SignResult.html", {"teaName": teaName, "res": res})
 
 @check_login
 def unsign(request):

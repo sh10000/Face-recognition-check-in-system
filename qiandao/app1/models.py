@@ -28,6 +28,7 @@ class Student(models.Model):
 
 class StudentPhoto(models.Model):
     photo = models.ImageField(upload_to='photos', default='user1.jpg')
+
 # 学生权限联系
 class Stu_Auth(models.Model):
     studentNo = models.ForeignKey(Student, on_delete=models.CASCADE)
@@ -48,7 +49,7 @@ class Course(models.Model):
 class Class(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)  # 课程号
-    classNo = models.CharField(max_length=32, primary_key=True) # 课程班号
+    classNo = models.CharField(max_length=32, primary_key=True)  # 课程班号
     students = models.ManyToManyField(Student)
 
 # 签到
@@ -64,6 +65,7 @@ class QianDao(models.Model):
 class StuQianDao(models.Model):
     studentNo = models.ForeignKey(Student, on_delete=models.CASCADE)
     QianDaoId = models.ForeignKey(QianDao, on_delete=models.CASCADE)
+    QTime = models.DateTimeField(auto_now_add=True)
 
 
 class QianDaoMessage(models.Model):
