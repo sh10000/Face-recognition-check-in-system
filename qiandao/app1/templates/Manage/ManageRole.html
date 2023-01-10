@@ -84,9 +84,7 @@
 							<li style="height:30px;">
 								<a href="#" style="color:red;"><i class="glyphicon glyphicon-user"></i> 角色权限信息</a> 
 							</li>
-							<li style="height:30px;">
-								<a href="ManageUser.html"><i class="glyphicon glyphicon-user"></i> 用户角色信息</a> 
-							</li>
+							
 						</ul>
 					</li>
 				</ul>
@@ -111,7 +109,7 @@
 				</form>	
 
 				<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-				<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add-role.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+				
 				<br>
 				<hr style="clear:both;">
 
@@ -131,9 +129,8 @@
 				  <td><input type="checkbox"></td>
                   <td>管理员</td>
                   <td>
-				      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-					  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
+				      <button type="button" class="btn btn-success btn-xs"onclick="window.location.href='ManageUser1.html'"><i class=" glyphicon glyphicon-check"></i>管理权限</button>
+
 				  </td>
                 </tr>
                 <tr>
@@ -141,9 +138,8 @@
 				  <td><input type="checkbox"></td>
                   <td>教师</td>
                   <td>
-				      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-					  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
+				      <button type="button" class="btn btn-success btn-xs"onclick="window.location.href='ManageUser2.html'"><i class=" glyphicon glyphicon-check"></i>管理权限</button>
+
 				  </td>
                 </tr>
                 <tr>
@@ -151,9 +147,8 @@
 				  <td><input type="checkbox"></td>
                   <td>学生</td>
                   <td>
-				      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-					  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
+				      <button type="button" class="btn btn-success btn-xs"onclick="window.location.href='ManageUser3.html'"><i class=" glyphicon glyphicon-check"></i>管理权限</button>
+
 				  </td>
                 </tr>
               </tbody>
@@ -199,12 +194,9 @@
 				}
 			});
         });
-        $("tbody .btn-success").click(function(){
-            window.location.href = "assignPermission.html";
-        });
-        $("tbody .btn-primary").click(function(){
-            window.location.href = "edit.html";
-        });
+        // $("tbody .btn-success").click(function(){
+        //     window.location.href = "assignPermission.html";
+        //});
     </script>	
   </body>
 </html>
