@@ -106,7 +106,8 @@ def logout(request):
 
 
 def register(request):
-    return render(request, "register.html")
+    if request.method == 'GET':
+       return render(request, "register.html")
 
 
 @check_login
@@ -389,7 +390,7 @@ def addCourse(request):
 @check_login
 def sign(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
-    
+
     return render(request, "Student/Sign.html")
 
 @check_login
