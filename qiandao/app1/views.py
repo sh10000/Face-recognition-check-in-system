@@ -402,8 +402,15 @@ def addCourse(request):
 def sign(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
     classNo=request.GET.get('classNo')
-    
-    return render(request, "Student/Sign.html",{"stuName": stuName,'classNo': classNo})
+    cursor = connection.cursor()
+    sql ="SELECT  a.id,now()  FROM  renLianShiBie1.app1_qiandao a,renLianShiBie1.app1_class_students b WHERE pubtime <= now() AND duetime >= now() and class1_id="+classNo+" and a.class1_id=b.class_id and student_id ="+stuName
+    cursor.execute(sql)
+    res = cursor.fetchall()
+    print(len(res))
+    if len(res)==0 :
+        return redirect("/student")
+    else:
+        return render(request, "Student/Sign.html",{"stuName": stuName,'classNo': classNo})
 
 @check_login
 def signinfo(request):
