@@ -373,7 +373,7 @@ def manageTeacherModify(request,nid):
 def student(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
     cursor = connection.cursor()
-    sql = "SELECT classNo,courseName,classNo,`name` from  renLianShiBie1.app1_class a, renLianShiBie1.app1_course b ,renLianShiBie1.app1_class_students c,renLianShiBie1.app1_teacher d WHERE a.teacher_id=d.teacherNo and a.course_id=b.courseNo and a.classNo=c.class_id and c.student_id="+stuName
+    sql = "SELECT course_id,courseName,classNo,`name` from  renLianShiBie1.app1_class a, renLianShiBie1.app1_course b ,renLianShiBie1.app1_class_students c,renLianShiBie1.app1_teacher d WHERE a.teacher_id=d.teacherNo and a.course_id=b.courseNo and a.classNo=c.class_id and c.student_id="+stuName
     cursor.execute(sql)
     res = cursor.fetchall()
     print(res)
@@ -383,7 +383,7 @@ def student(request):
 def addCourselist(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
     cursor = connection.cursor()
-    sql = "SELECT  classNo, courseName,classNo,`name` From   renLianShiBie1.app1_class a, renLianShiBie1.app1_course b ,renLianShiBie1.app1_teacher d where    a.teacher_id=d.teacherNo and a.course_id=b.courseNo  and classNo not in ( SELECT classNo from  renLianShiBie1.app1_class a, renLianShiBie1.app1_course b ,renLianShiBie1.app1_class_students c,renLianShiBie1.app1_teacher d WHERE a.teacher_id=d.teacherNo and a.course_id=b.courseNo and a.classNo=c.class_id and student_id="+stuName+")"
+    sql = "SELECT  course_id, courseName,classNo,`name` From   renLianShiBie1.app1_class a, renLianShiBie1.app1_course b ,renLianShiBie1.app1_teacher d where    a.teacher_id=d.teacherNo and a.course_id=b.courseNo  and classNo not in ( SELECT classNo from  renLianShiBie1.app1_class a, renLianShiBie1.app1_course b ,renLianShiBie1.app1_class_students c,renLianShiBie1.app1_teacher d WHERE a.teacher_id=d.teacherNo and a.course_id=b.courseNo and a.classNo=c.class_id and student_id="+stuName+")"
     cursor.execute(sql)
     res = cursor.fetchall()
     return render(request, "Student/add-course.html", {"stuName": stuName,"n1":res})
@@ -401,9 +401,15 @@ def addCourse(request):
 @check_login
 def sign(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "Student/Sign.html")
+    return render(request, "Student/Sign.html",{"stuName": stuName})
 
 @check_login
 def signinfo(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "Student/SignInfo.html")
+    classNo=request.GET.get('classNo')
+    cursor = connection.cursor()
+    sql ="select classNo,b.courseName,QTime from renLianShiBie1.app1_class a,renLianShiBie1.app1_course b,renLianShiBie1.app1_stuqiandao c,renLianShiBie1.app1_qiandao d where a.course_id=b.courseNo and c.QianDaoId_id=d.id and d.class1_id =a.classNo and studentNo_id="+stuName+" and classNo="+classNo
+    cursor.execute(sql)
+    res = cursor.fetchall()
+    a="已签到"
+    return render(request, "Student/SignInfo.html",{"stuName": stuName,"n1":a,"res":res})

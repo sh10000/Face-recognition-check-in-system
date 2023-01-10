@@ -37,6 +37,8 @@
 		        <button type="submit" class="btn btn-default searchbutton">search</button>
 		      </form>
 		      <ul class="nav navbar-nav navbar-right">
+				<li><a href="#">欢迎用户：{{stuName}}</a></li>
+				<li><a href="/logout">退出登录</a></li>
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">设置 <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
@@ -78,7 +80,7 @@
 				  </div>
 				  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 				</form>	
-				<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"onclick="window.location.href='Smain.html'"><i class=" glyphicon glyphicon-remove"></i> 返回</button>
+				<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"onclick="window.location.href='/student'"><i class=" glyphicon glyphicon-remove"></i> 返回</button>
 
 				<hr style="clear:both;">
 
@@ -86,27 +88,23 @@
 				<table class="table  table-bordered">
 				  <thead>
 				    <tr>				  
-				      <th width="30">#</th>
 				      <th id="classNo">班级号</th>
 					  <th id="courseName">课程名称</th>
 				      <th id="time">考勤时间</th>
 				      <th id="info">考勤状态</th>
-				      <th width="100">操作</th>
 				    </tr>
 				  </thead>
 				  <tbody>
 					<tr>
-					  <td>1</td>
-					  <td>c00101</td>
-					  <td>软件文档写作</td>
-					  <td>15:00</td>
-					  <td>已签</td>
-					  <td>
-					      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-						  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-					  </td>
-					</tr>				  	
+						{% for obj in res %}
+						<tr>
+							<td>{{ obj.0 }}</td>
+							<td>{{ obj.1 }}</td>
+							<td> {{ obj.2 }}</td>
+							<td>{{ n1 }}</td>
+						</tr>	
+						{% endfor %}
+					</tr>			  	
 				  </tbody>
 				  <tfoot>
 				     <tr >
