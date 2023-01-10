@@ -390,10 +390,17 @@ def student(request):
 def addCourselist(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
     cursor = connection.cursor()
-    sql = "SELECT  course_id, courseName,classNo,`name` From   renLianShiBie1.app1_class a, renLianShiBie1.app1_course b ,renLianShiBie1.app1_teacher d where    a.teacher_id=d.teacherNo and a.course_id=b.courseNo  and classNo not in ( SELECT classNo from  renLianShiBie1.app1_class a, renLianShiBie1.app1_course b ,renLianShiBie1.app1_class_students c,renLianShiBie1.app1_teacher d WHERE a.teacher_id=d.teacherNo and a.course_id=b.courseNo and a.classNo=c.class_id and student_id="+stuName+")"
-    cursor.execute(sql)
-    res = cursor.fetchall()
-    return render(request, "Student/add-course.html", {"stuName": stuName,"n1":res})
+    ask=request.GET.get("ask")
+    if(ask==None):
+        sql = "SELECT  course_id, courseName,classNo,`name` From   renLianShiBie1.app1_class a, renLianShiBie1.app1_course b ,renLianShiBie1.app1_teacher d where    a.teacher_id=d.teacherNo and a.course_id=b.courseNo  and classNo not in ( SELECT classNo from  renLianShiBie1.app1_class a, renLianShiBie1.app1_course b ,renLianShiBie1.app1_class_students c,renLianShiBie1.app1_teacher d WHERE a.teacher_id=d.teacherNo and a.course_id=b.courseNo and a.classNo=c.class_id and student_id="+stuName+")"
+        cursor.execute(sql)
+        res = cursor.fetchall()
+        return render(request, "Student/add-course.html", {"stuName": stuName,"n1":res})
+    else:
+        sql = "SELECT  course_id, courseName,classNo,`name` From   renLianShiBie1.app1_class a, renLianShiBie1.app1_course b ,renLianShiBie1.app1_teacher d where    a.teacher_id=d.teacherNo and a.course_id=b.courseNo  and courseName like '%"+ask+"%' and classNo not in ( SELECT classNo from  renLianShiBie1.app1_class a, renLianShiBie1.app1_course b ,renLianShiBie1.app1_class_students c,renLianShiBie1.app1_teacher d WHERE a.teacher_id=d.teacherNo and a.course_id=b.courseNo and a.classNo=c.class_id and student_id="+stuName+ ")"
+        cursor.execute(sql)
+        res = cursor.fetchall()
+        return render(request, "Student/add-course.html", {"stuName": stuName,"n1":res})
 #学生增加课程
 @check_login
 def addCourse(request): 
@@ -413,7 +420,6 @@ def sign(request):
     sql ="SELECT  a.id,now()  FROM  renLianShiBie1.app1_qiandao a,renLianShiBie1.app1_class_students b WHERE pubtime <= now() AND duetime >= now() and class1_id="+classNo+" and a.class1_id=b.class_id and student_id ="+stuName
     cursor.execute(sql)
     res = cursor.fetchall()
-    print(len(res))
     if len(res)==0 :
         return  redirect("/student/?Qid=" + str(1))
     else:
