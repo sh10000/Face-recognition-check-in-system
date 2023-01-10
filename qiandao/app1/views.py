@@ -175,7 +175,8 @@ def signpublish(request):
         courseName=courseName,
         class1_id=classNo,
         pubtime=pubtime,
-        duetime=dueTime
+        duetime=dueTime,
+        teacherNo_id=teaName
     )
     new_qiandao.save()
     return redirect("/signresult/?Qid=" + str(new_qiandao.id))
@@ -186,15 +187,25 @@ def signresult(request):
     Qid = request.GET.get("Qid")
     print(Qid)
     if Qid is None:
-        pass
+        return redirect("/teasigninfo/")
     else:
         cursor = connection.cursor()
         sql = "SELECT studentNo, `name`, QTime from renLianShiBie1.app1_student a, renLianShiBie1.app1_stuqiandao b " \
-              "where a.studentNo = b.studentNo_id and b.QianDaoId_id= 21; "
+              "where a.studentNo = b.studentNo_id and b.QianDaoId_id= " + Qid + ";"
         cursor.execute(sql)
         res = cursor.fetchall()
     teaName = request.get_signed_cookie("username", salt="dsb")
     return render(request, "Teacher/SignResult.html", {"teaName": teaName, "res": res})
+
+@check_login
+def teasigninfo(request):
+    teaName = request.get_signed_cookie("username", salt="dsb")
+    cursor = connection.cursor()
+    sql = "SELECT id, qianDaoName, courseName, class1_id, pubtime from renLianShiBie1.app1_qiandao a where " \
+          "teacherNo_id=" + teaName + " order by pubtime desc;"
+    cursor.execute(sql)
+    res = cursor.fetchall()
+    return render(request, "Teacher/Signrecord.html", {"teaName": teaName, "res": res})
 
 @check_login
 def unsign(request):
@@ -333,6 +344,7 @@ def manageTeacherDelete(request):
       nid=request.GET.get('nid')
       models.Teacher.objects.filter(teacherNo=nid).delete()
       return redirect("/manageteacher/")
+
 @check_login
 def manageTeacherModify(request,nid):
       admName = request.get_signed_cookie("username", salt="dsb")
