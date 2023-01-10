@@ -401,6 +401,7 @@ def addCourse(request):
 @check_login
 def sign(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
+    
     return render(request, "Student/Sign.html",{"stuName": stuName})
 
 @check_login
