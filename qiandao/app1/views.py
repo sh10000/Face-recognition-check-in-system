@@ -401,8 +401,9 @@ def addCourse(request):
 @check_login
 def sign(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
+    classNo=request.GET.get('classNo')
     
-    return render(request, "Student/Sign.html",{"stuName": stuName})
+    return render(request, "Student/Sign.html",{"stuName": stuName,'classNo': classNo})
 
 @check_login
 def signinfo(request):
