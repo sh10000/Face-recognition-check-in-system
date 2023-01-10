@@ -350,8 +350,12 @@ def manageTeacherModify(request,nid):
 @check_login
 def student(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
-    
-    return render(request, "Student/Smain.html", {"stuName": stuName})
+    cursor = connection.cursor()
+    sql = "SELECT classNo,courseName,classNo,`name` from  renLianShiBie1.app1_class a, renLianShiBie1.app1_course b ,renLianShiBie1.app1_class_students c,renLianShiBie1.app1_teacher d WHERE a.teacher_id=d.teacherNo and a.course_id=b.courseNo and a.classNo=c.class_id and c.student_id="+stuName
+    cursor.execute(sql)
+    res = cursor.fetchall()
+    print(res)
+    return render(request, "Student/Smain.html", {"stuName": stuName,"n1":res})
 
 @check_login
 def addCourselist(request):
@@ -373,6 +377,7 @@ def addCourse(request):
 @check_login
 def sign(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
+    
     return render(request, "Student/Sign.html")
 
 @check_login
