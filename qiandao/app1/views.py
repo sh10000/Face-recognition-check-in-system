@@ -108,6 +108,16 @@ def logout(request):
 def register(request):
     if request.method == 'GET':
        return render(request, "register.html")
+    user=request.POST.get("name")
+    pwd=request.POST.get("password")
+    studentNo=request.POST.get("studentNo")
+    img = request.FILES.get('img')
+    if img!=None:
+        img_name=img.name
+        models.Student.objects.create(studentNo=studentNo,name=user,password=pwd,photo=img,img_name=img_name)
+        return redirect("/login/")
+    else:
+        return render(request,"register.html")
 
 
 @check_login
@@ -247,7 +257,6 @@ def addstudent(request):
     img = request.FILES.get('img')
     if img!=None:
         img_name=img.name
-        print('打印图片',img)
         models.Student.objects.create(studentNo=studentNo,name=user,password=pwd,photo=img,img_name=img_name)
         return redirect("/managestudent/")
     else:
