@@ -408,7 +408,7 @@ def sign(request):
     res = cursor.fetchall()
     print(len(res))
     if len(res)==0 :
-        return redirect("/student")
+        return  redirect("/student/?Qid=" + str(1))
     else:
         return render(request, "Student/Sign.html",{"stuName": stuName,'classNo': classNo})
 
