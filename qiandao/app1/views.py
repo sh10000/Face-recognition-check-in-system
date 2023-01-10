@@ -340,8 +340,26 @@ def manageTeacherModify(request,nid):
 @check_login
 def student(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
+    
     return render(request, "Student/Smain.html", {"stuName": stuName})
 
+@check_login
+def addCourselist(request):
+    stuName = request.get_signed_cookie("username", salt="dsb")
+    cursor = connection.cursor()
+    sql = "SELECT  classNo, courseName,classNo,`name` From   renLianShiBie1.app1_class a, renLianShiBie1.app1_course b ,renLianShiBie1.app1_teacher d where    a.teacher_id=d.teacherNo and a.course_id=b.courseNo  and classNo not in ( SELECT classNo from  renLianShiBie1.app1_class a, renLianShiBie1.app1_course b ,renLianShiBie1.app1_class_students c,renLianShiBie1.app1_teacher d WHERE a.teacher_id=d.teacherNo and a.course_id=b.courseNo and a.classNo=c.class_id and student_id="+stuName+")"
+    cursor.execute(sql)
+    res = cursor.fetchall()
+    return render(request, "Student/add-course.html", {"stuName": stuName,"n1":res})
+@check_login
+def addCourse(request): 
+    classid=request.GET.get('classid')
+    name=request.GET.get('name')
+    cursor = connection.cursor()
+    sql ="insert into renLianShiBie1.app1_class_students(class_id,student_id) values ("+classid+","+name+")"
+    cursor.execute(sql)
+    res = cursor.fetchall()
+    return redirect("/addstudentcourselist")
 @check_login
 def sign(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
