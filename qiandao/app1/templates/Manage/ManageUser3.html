@@ -82,9 +82,8 @@
 								<a href="ManageClass.html"><i class="glyphicon glyphicon-user"></i> 班级基本信息</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="#" style="color:red;"><i class="glyphicon glyphicon-user"></i> 角色权限信息</a> 
+								<a href="ManageRole.html"style="color:red;"><i class="glyphicon glyphicon-user"></i> 角色权限信息</a> 
 							</li>
-							
 						</ul>
 					</li>
 				</ul>
@@ -94,7 +93,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<div class="panel panel-default">
 			  <div class="panel-heading">
-				<h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 权限分配管理</h3>
+				<h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> <a href="ManageRole.html">角色权限信息</a>/学生用户信息</h3>
 			  </div>
 
 			  <div class="panel-body">
@@ -108,67 +107,49 @@
 				  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 				</form>	
 
-				<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
+				<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"onclick="window.location.href='ManageRole.html'"><i class=" glyphicon glyphicon-remove"></i> 返回</button>
 				
 				<br>
 				<hr style="clear:both;">
 
 				<div class="table-responsive">
 				<table class="table  table-bordered">
-              <thead>
-                <tr >
-                  <th width="30">#</th>
-				  <th width="30"><input type="checkbox"></th>
-                  <th>角色</th>
-                  <th width="100">操作</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-				  <td><input type="checkbox"></td>
-                  <td>管理员</td>
-                  <td>
-				      <button type="button" class="btn btn-success btn-xs"onclick="window.location.href='ManageUser1.html'"><i class=" glyphicon glyphicon-check"></i>管理权限</button>
-
-				  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-				  <td><input type="checkbox"></td>
-                  <td>教师</td>
-                  <td>
-				      <button type="button" class="btn btn-success btn-xs"onclick="window.location.href='ManageUser2.html'"><i class=" glyphicon glyphicon-check"></i>管理权限</button>
-
-				  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-				  <td><input type="checkbox"></td>
-                  <td>学生</td>
-                  <td>
-				      <button type="button" class="btn btn-success btn-xs"onclick="window.location.href='ManageUser3.html'"><i class=" glyphicon glyphicon-check"></i>管理权限</button>
-
-				  </td>
-                </tr>
-              </tbody>
-			  <tfoot>
-			     <tr >
-				     <td colspan="6" align="center">
-						<ul class="pagination">
-								<li class="disabled"><a href="#">上一页</a></li>
-								<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">下一页</a></li>
-							 </ul>
-					 </td>
-				 </tr>
-
-			  </tfoot>
-            </table>
+				  <thead>
+				    <tr >
+				      <th width="30">#</th>
+				      <th>用户名</th>
+				      <th>密码</th>
+				      <th>角色</th>
+				      <th width="100">操作</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+					<tr>
+					  <td>1</td>
+					  <td>Lorem</td>
+					  <td>ipsum</td>
+					  <td>dolor</td>
+					  <td>
+					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i>编辑权限</button>
+					  </td>
+					</tr>				  	
+				  </tbody>
+				  <tfoot>
+				     <tr >
+					     <td colspan="6" align="center">
+							<ul class="pagination">
+									<li class="disabled"><a href="#">上一页</a></li>
+									<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+									<li><a href="#">2</a></li>
+									<li><a href="#">3</a></li>
+									<li><a href="#">4</a></li>
+									<li><a href="#">5</a></li>
+									<li><a href="#">下一页</a></li>
+								 </ul>
+						 </td>
+					 </tr>
+				  </tfoot>				  
+				  </table>
 				</div>						  	
 
 			  </div>
@@ -194,9 +175,9 @@
 				}
 			});
         });
-        // $("tbody .btn-success").click(function(){
-        //     window.location.href = "assignPermission.html";
-        //});
+        $("tbody .btn-primary").click(function(){
+            window.location.href ="assignPermission.html";
+        });
     </script>	
   </body>
 </html>
