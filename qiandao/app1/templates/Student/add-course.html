@@ -71,7 +71,7 @@
 				  </div>
 				  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 				</form>	
-				<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"onclick="window.location.href='Smain.html'"><i class=" glyphicon glyphicon-remove"></i> 返回</button>
+				<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"onclick="window.location.href='/student'"><i class=" glyphicon glyphicon-remove"></i> 返回</button>
 
 				<hr style="clear:both;">
 
@@ -79,7 +79,6 @@
 				<table class="table  table-bordered">
 				  <thead>
 				    <tr>				  
-				      <th width="30">#</th>
 				      <th id="courseNo">课程号</th>
 				      <th id="courseName">课程名称</th>
 				      <th id="classNo">班级号</th>
@@ -89,14 +88,19 @@
 				  </thead>
 				  <tbody>
 					<tr>
-					  <td>1</td>
-					  <td>C001</td>
-					  <td>软件文档写作</td>
-					  <td>c00101</td>
-					  <td>zxq</td>
-					  <td>
-					      <button type="button" class="btn btn-success btn-xs"id="add"><i class=" glyphicon glyphicon-check"></i>增选课程
-					  </td>
+						<tr>
+							{% for obj in n1 %}
+							<tr>
+								<td>{{ obj.0 }}</td>
+								<td>{{ obj.1 }}</td>
+								<td>{{ obj.2 }}</td>
+								<td>{{ obj.3 }}</td>
+								<td>
+                                <button type="button" class="btn btn-success btn-xs"id="add" onclick="window.location.href='/addstudentcourse/?classid={{ obj.0 }}&name={{ stuName }}'"><i class=" glyphicon glyphicon-check">增选课程</i>
+							  </td>
+							</tr>	
+							{% endfor %}	
+						</tr>				 
 					</tr>				  	
 				  </tbody>
 				  <tfoot>
@@ -140,11 +144,6 @@
 				}
 			});
         });
-        $("#add").click(function(){
-        	alert("课程添加成功！");
-        	href="Smain.html";
-        	window.location.replace("Smain.html");
-        })
     </script>	
   </body>
 </html>

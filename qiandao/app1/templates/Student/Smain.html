@@ -72,7 +72,7 @@
 				  </div>
 				  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 				</form>	
-				<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add-course.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+				<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='/addstudentcourselist'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 
 				<hr style="clear:both;">
 
@@ -80,7 +80,6 @@
 				<table class="table  table-bordered">
 				  <thead>
 				    <tr>				  
-				      <th width="30">#</th>
 				      <th id="courseNo">课程号</th>
 				      <th id="courseName">课程名称</th>
 				      <th id="classNo">班级号</th>
@@ -90,14 +89,19 @@
 				  </thead>
 				  <tbody>
 					<tr>
-					  <td>1</td>
-					  <td><a href="/sign">C001</a></td>
-					  <td>软件文档写作</td>
-					  <td>c00101</td>
-					  <td>zxq</td>
-					  <td>
-					      <button type="button" class="btn btn-success btn-xs"id="None"onclick="window.location.href='Sign.html'"><i class=" glyphicon glyphicon-check"> </i>进入签到</button>
-					      <button type="button" class="btn btn-success btn-xs"onclick="window.location.href='SignInfo.html'"><i class=" glyphicon glyphicon-pencil"></i>查看状态</button>
+						<tr>
+							{% for obj in n1 %}
+							<tr>
+								<td>{{ obj.0 }}</td>
+								<td>{{ obj.1 }}</td>
+								<td>{{ obj.2 }}</td>
+								<td>{{ obj.3 }}</td>
+								<td>
+								<button type="button" class="btn btn-success btn-xs"id="None"onclick="window.location.href='Sign.html'"><i class=" glyphicon glyphicon-check"> </i>进入签到</button>
+								<button type="button" class="btn btn-success btn-xs"onclick="window.location.href='SignInfo.html'"><i class=" glyphicon glyphicon-pencil"></i>查看状态</button>
+							</tr>	
+							{% endfor %}
+						</tr>
 					  </td>
 					</tr>				  	
 				  </tbody>
