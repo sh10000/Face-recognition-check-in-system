@@ -368,7 +368,7 @@ def manageTeacherModify(request,nid):
       models.Course.objects.filter(teacherNo=nid).update(teacherNo=nid,name=name,password=password,user=user)
       return redirect("/manageteacher/")
 #管理员教师
-# 学生签到页面
+# 学生课程界面
 @check_login
 def student(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
@@ -378,7 +378,7 @@ def student(request):
     res = cursor.fetchall()
     print(res)
     return render(request, "Student/Smain.html", {"stuName": stuName,"n1":res})
-
+#学生添加课程界面
 @check_login
 def addCourselist(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
@@ -387,6 +387,7 @@ def addCourselist(request):
     cursor.execute(sql)
     res = cursor.fetchall()
     return render(request, "Student/add-course.html", {"stuName": stuName,"n1":res})
+#学生增加课程
 @check_login
 def addCourse(request): 
     classid=request.GET.get('classid')
@@ -396,10 +397,10 @@ def addCourse(request):
     cursor.execute(sql)
     res = cursor.fetchall()
     return redirect("/addstudentcourselist")
+#签到界面
 @check_login
 def sign(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
-
     return render(request, "Student/Sign.html")
 
 @check_login
