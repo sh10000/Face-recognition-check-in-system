@@ -108,17 +108,19 @@
 				    </tr>
 				  </thead>
 				  <tbody>
+				  {% for obj in res %}
 					<tr>
-					  <td>1</td>
-					  <td>20000001</td>
-					  <td>ipsum</td>
-					  <td>15:00</td>
+					  <td>{{forloop.counter}}</td>
+					  <td>{{obj.0}}</td>
+					  <td>{{obj.1}}</td>
+					  <td>{{obj.2}}</td>
 					  <td>
 					      <!-- <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
 					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button> -->
 						  <button type="button" class="btn btn-danger btn-xs" id="Unsigned"><i class=" glyphicon glyphicon-remove"></i>取消签到</button>
 					  </td>
-					</tr>				  	
+					</tr>
+				  {% endfor %}
 				  </tbody>
 				  <tfoot>
 				     <tr >

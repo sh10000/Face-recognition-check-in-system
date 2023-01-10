@@ -58,6 +58,8 @@ class Migration(migrations.Migration):
                 ('qianDaoName', models.CharField(max_length=32)),
                 ('courseName', models.CharField(max_length=32)),
                 ('class1', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app1.class')),
+                ('pubtime', models.DateTimeField(auto_now_add=True)),
+                ('duetime', models.DateTimeField()),
             ],
         ),
         migrations.AddField(
