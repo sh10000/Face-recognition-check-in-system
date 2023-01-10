@@ -37,6 +37,7 @@ urlpatterns = [
     path("signresult/", views.signresult),
     path("tcourse/", views.tcourse),
     path("unsignresult/",views.unsign),
+    path("teasigninfo/",views.teasigninfo),
 
 #管理员页面组
     path("manage/", views.manageIndex),

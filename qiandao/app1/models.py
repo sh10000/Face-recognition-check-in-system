@@ -60,6 +60,7 @@ class QianDao(models.Model):
     qianDaoName = models.CharField(max_length=32)
     courseName = models.CharField(max_length=32)
     class1 = models.ForeignKey(Class, on_delete=models.CASCADE)
+    teacherNo = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 
 # 学生-签到联系
 class StuQianDao(models.Model):
