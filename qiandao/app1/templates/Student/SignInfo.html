@@ -92,11 +92,7 @@
 							<td>{{ obj.0 }}</td>
 							<td>{{ obj.1 }}</td>
 							<td> {{ obj.2 }}</td>
-							{ % if obj.3==1 % }
-							<td>已签到</td>
-							{ % else % }
-							<td>未签到</td>
-							{ % endif % }
+							<td>{{ obj.3 }}</td>
 						</tr>	
 						{% endfor %}
 					</tr>			  	
