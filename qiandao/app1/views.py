@@ -285,9 +285,10 @@ def manageStudentModify(request,nid):
            img_name=img.name 
            models.StudentPhoto.objects.create(photo=img)
            models.Student.objects.filter(studentNo=nid).update(studentNo=nid,name=user,password=pwd,photo=img,img_name=img_name)
+           return redirect("/managestudent/?Qid=" + str(1))
       else:
             models.Student.objects.filter(studentNo=nid).update(studentNo=nid,name=user,password=pwd)
-      return redirect("/managestudent/")
+            return redirect("/managestudent/?Qid=" + str(1))
 #管理员课程
 @check_login
 def manageCourse(request):
