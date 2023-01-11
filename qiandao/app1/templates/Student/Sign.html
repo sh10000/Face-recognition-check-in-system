@@ -171,7 +171,7 @@
 			$.ajax({
 				url:"/signed",//改为后台对应地址
 				type: "post",
-				data: {"photo": cur_src}, //上传图片，格式为base64的字符串形式
+				data: {photo: cur_src}, //上传图片，格式为base64的字符串形式
 				success: function(res){
 					json_res=JSON.parse(res);
 					console.log(json_res);
