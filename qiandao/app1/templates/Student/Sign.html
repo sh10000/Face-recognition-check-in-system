@@ -77,9 +77,12 @@
 		  	<video id="video" style="width:480px;height:320px"></video>
 		  	<h3 class="txt1">识别中，请保持合适距离，将面部置于画面中央</h3>
 		  	<canvas id="canvas" style="display: none"></canvas>
-		  	<div>
-		  		<img id="output" src="" name="photo">
-		  	</div>
+			{% csrf_token %}
+			<form role="form" action="" method="post" enctype="multipart/form-data">
+				<img id="output" src="">
+				<input type="submit" value="提交">
+			</form>
+			{% csrf_token %}
 		  	<br>		   	
 		    <button id="submit" class="btn btn-lg btn-success">确认</button>
         </div>
