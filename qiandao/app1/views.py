@@ -63,7 +63,7 @@ def login(request):
                 if next_url:
                     rep = redirect(next_url)
                 else:
-                    rep = redirect('/student/')
+                    rep = redirect('/student')
                 rep.set_signed_cookie("is_login", "1", salt="dsb", max_age=60 * 60 * 24 * 7)
                 rep.set_signed_cookie("username", username, salt="dsb", max_age=60 * 60 * 24 * 7)
                 return rep
