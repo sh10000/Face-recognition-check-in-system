@@ -66,7 +66,7 @@ urlpatterns = [
     path("addstudentcourse/", views.addCourse),
     path("addstudentcourselist/", views.addCourselist),
     path("sign/", views.sign),
-    path("signed",views.signed),
+    path("signed/",views.signed),
     path("signinfo/",views.signinfo),
 
     # path("teacher", views.teacher),
