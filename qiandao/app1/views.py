@@ -5,7 +5,9 @@ from django.core.files.base import ContentFile
 from django.contrib.auth import authenticate, login
 from functools import wraps
 from django.db import connection
+from django.views.decorators.csrf import csrf_exempt
 import datetime
+import json
 
 
 # Create your views here.
@@ -425,12 +427,13 @@ def sign(request):
     else:
         return render(request, "Student/Sign.html",{"stuName": stuName,'classNo': classNo})
 @check_login
+@csrf_exempt
 def signed(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
     photo=request.POST.get("photo")
     print(photo)
     classNo=request.GET.get('classNo')
-    
+    return HttpResponse("success!!")   
 
 @check_login
 def signinfo(request):
@@ -444,3 +447,12 @@ def signinfo(request):
         return render(request, "Student/SignInfo.html",{"stuName": stuName,"n1":"未签到","res":res})
     else:
         return render(request, "Student/SignInfo.html",{"stuName": stuName,"n1":"已签到","res":res})
+    
+# 前端测试类
+@csrf_exempt
+def ajaxtest(request):
+    photo = request.POST.get("photo")
+    print(photo)
+    res = json.dumps(photo)
+    # classNo=request.GET.get('classNo')
+    return HttpResponse(res)
