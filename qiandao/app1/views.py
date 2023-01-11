@@ -427,7 +427,8 @@ def sign(request):
 @check_login
 def signed(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
-    
+    photo=request.POST.get("photo")
+    print(photo)
     classNo=request.GET.get('classNo')
     
 
