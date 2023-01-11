@@ -326,7 +326,7 @@ def manageCourseModify(request,nid):
       name=request.POST.get("courseName")
       pwd=request.POST.get("password")
       models.Course.objects.filter(courseNo=nid).update(courseNo=nid,courseName=name,grade=pwd)
-      return redirect("/managestudent/")
+      return redirect("/managecourse/")
 #管理员教师
 @check_login
 def manageTeacher(request):
