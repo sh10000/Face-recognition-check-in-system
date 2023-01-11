@@ -21,15 +21,15 @@ from django.conf import settings
 urlpatterns = [
     # path("admin/", admin.site.urls),
     path("", views.index),
-    path("index/", views.index),
-    path('admin/', admin.site.urls),
-    path('updateinfo/', views.updateinfo),
-    path("users/list/", views.user_list),
-    path("tpl/", views.tpl),
+    path("index", views.index),
+    path('admin', admin.site.urls),
+    path('updateinfo', views.updateinfo),
+    path("users/list", views.user_list),
+    path("tpl", views.tpl),
     path("login/", views.login),
     path("pic_upload", views.pic_upload),
     path("logout", views.logout),
-    path("register/",views.register),
+    path("register",views.register),
 
 #教师页面组
     path("teacher", views.teacher),
@@ -43,29 +43,29 @@ urlpatterns = [
     path("stopsign",views.stopsign),
 
 #管理员页面组
-    path("manage/", views.manageIndex),
-    path("manage/ManageTeacher/", views.manageTeacher),
-    path("manage/ManageStudent/", views.manageStudent),
-    path("manage/ManageCourse/", views.manageCourse),
+    path("manage", views.manageIndex),
+    path("manage/ManageTeacher", views.manageTeacher),
+    path("manage/ManageStudent", views.manageStudent),
+    path("manage/ManageCourse", views.manageCourse),
     #管理员管理学生
     path("managestudent/", views.manageStudent),
-    path("addstudent/", views.addstudent),
+    path("addstudent", views.addstudent),
     path("manage/student/delete/", views.manageStudentDelete),
-    path("manage/student/<int:nid>/modify/", views.manageStudentModify),
+    path("manage/student/<int:nid>/modify", views.manageStudentModify),
     #管理员管理老师
     path("manageteacher/", views.manageTeacher),
-    path("addteacher/", views.addteacher),
+    path("addteacher", views.addteacher),
     path("manage/teacher/delete/", views.manageTeacherDelete),
-    path("manage/teacher/<int:nid>/modify/", views.manageTeacherModify),
+    path("manage/teacher/<int:nid>/modify", views.manageTeacherModify),
     #管理员管理课程
     path("managecourse/", views.manageCourse),
-    path("addcourse/", views.addcourse),
+    path("addcourse", views.addcourse),
     path("manage/course/delete/", views.manageCourseDelete),
-    path("manage/course/<int:nid>/modify/", views.manageCourseModify),
+    path("manage/course/<int:nid>/modify", views.manageCourseModify),
 
 
 #学生签到页面组
-    path("student/", views.student),
+    path("student", views.student),
     path("addstudentcourse/", views.addCourse),
     path("addstudentcourselist/", views.addCourselist),
     path("sign/", views.sign),
@@ -84,5 +84,8 @@ urlpatterns = [
 
     # path("studentQianDao", views.studentQiandao),
     path("classInfo", views.classInfo),
+    
+# 测试
+    path("ajaxtest", views.ajaxtest)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

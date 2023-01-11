@@ -5,7 +5,9 @@ from django.core.files.base import ContentFile
 from django.contrib.auth import authenticate, login
 from functools import wraps
 from django.db import connection
+from django.views.decorators.csrf import csrf_exempt
 import datetime
+import json
 
 
 # Create your views here.
@@ -320,21 +322,18 @@ def manageStudent(request):
 @check_login
 def addstudent(request):
     admName = request.get_signed_cookie("username", salt="dsb")
-    if request.method == 'GET':
-        return render(request, "Manage/add-student.html")
-    user = request.POST.get("name")
-    pwd = request.POST.get("password")
-    studentNo = request.POST.get("studentNo")
+    if request.method=='GET':
+            return render(request,"Manage/add-student.html",{"admName": admName})
+    user=request.POST.get("name")
+    pwd=request.POST.get("password")
+    studentNo=request.POST.get("studentNo")
     img = request.FILES.get('img')
     if img != None:
         img_name = img.name
         models.Student.objects.create(studentNo=studentNo, name=user, password=pwd, photo=img, img_name=img_name)
         return redirect("/managestudent/")
     else:
-        return render(request, "Manage/add-student.html")
-
-
-# 管理员删除学生信息
+        return redirect("/addstudent?Qid="+str(1))
 @check_login
 def manageStudentDelete(request):
     nid = request.GET.get('nid')
@@ -344,27 +343,25 @@ def manageStudentDelete(request):
 
 # 管理员修改学生信息
 @check_login
-def manageStudentModify(request, nid):
-    admName = request.get_signed_cookie("username", salt="dsb")
-    if request.method == 'GET':
-        studentNo = models.Student.objects.filter(studentNo=nid).first()
-        return render(request, "Manage/modify-student.html", {"n1": studentNo, "nid": nid})
-    user = request.POST.get("name")
-    pwd = request.POST.get("password")
-    studentNo = request.POST.get("studentNo")
-    img = request.FILES.get('img')
-    print('打印图片', img)
-    if (img != None):
-        img_name = img.name
-        models.StudentPhoto.objects.create(photo=img)
-        models.Student.objects.filter(studentNo=nid).update(studentNo=nid, name=user, password=pwd, photo=img,
-                                                            img_name=img_name)
-    else:
-        models.Student.objects.filter(studentNo=nid).update(studentNo=nid, name=user, password=pwd)
-    return redirect("/managestudent/")
-
-
-# 管理员课程
+def manageStudentModify(request,nid):
+      admName = request.get_signed_cookie("username", salt="dsb")
+      if request.method=='GET':
+            studentNo=models.Student.objects.filter(studentNo=nid).first()
+            return render(request,"Manage/modify-student.html",{"n1":studentNo,"nid":nid})
+      user=request.POST.get("name")
+      pwd=request.POST.get("password")
+      studentNo=request.POST.get("studentNo")
+      img = request.FILES.get('img')
+      print('打印图片',img)
+      if (img!=None):
+           img_name=img.name 
+           models.StudentPhoto.objects.create(photo=img)
+           models.Student.objects.filter(studentNo=nid).update(studentNo=nid,name=user,password=pwd,photo=img,img_name=img_name)
+           return redirect("/managestudent/?Qid=" + str(1))
+      else:
+            models.Student.objects.filter(studentNo=nid).update(studentNo=nid,name=user,password=pwd)
+            return redirect("/addstudent?Qid=" + str(1))
+#管理员课程
 @check_login
 def manageCourse(request):
     admName = request.get_signed_cookie("username", salt="dsb")
@@ -399,19 +396,17 @@ def manageCourseDelete(request):
 
 
 @check_login
-def manageCourseModify(request, nid):
-    admName = request.get_signed_cookie("username", salt="dsb")
-    if request.method == 'GET':
-        studentNo = models.Course.objects.filter(courseNo=nid).first()
-        return render(request, "Manage/modify-course.html", {"n1": studentNo, "nid": nid})
-    nid = request.POST.get("nid")
-    name = request.POST.get("courseName")
-    pwd = request.POST.get("password")
-    models.Course.objects.filter(courseNo=nid).update(courseNo=nid, courseName=name, grade=pwd)
-    return redirect("/managestudent/")
-
-
-# 管理员教师
+def manageCourseModify(request,nid):
+      admName = request.get_signed_cookie("username", salt="dsb")
+      if request.method=='GET':
+            studentNo=models.Course.objects.filter(courseNo=nid).first()
+            return render(request,"Manage/modify-course.html",{"n1":studentNo,"nid":nid})
+      nid=request.POST.get("nid")
+      name=request.POST.get("courseName")
+      pwd=request.POST.get("password")
+      models.Course.objects.filter(courseNo=nid).update(courseNo=nid,courseName=name,grade=pwd)
+      return redirect("/managecourse/")
+#管理员教师
 @check_login
 def manageTeacher(request):
     admName = request.get_signed_cookie("username", salt="dsb")
@@ -439,27 +434,18 @@ def addteacher(request):
 
 
 @check_login
-def manageTeacherDelete(request):
-    nid = request.GET.get('nid')
-    models.Teacher.objects.filter(teacherNo=nid).delete()
-    return redirect("/manageteacher/")
-
-
-@check_login
-def manageTeacherModify(request, nid):
-    admName = request.get_signed_cookie("username", salt="dsb")
-    if request.method == 'GET':
-        studentNo = models.Teacher.objects.filter(teacherNo=nid).first()
-        return render(request, "Manage/modify-teacher.html", {"n1": studentNo, "nid": nid})
-    nid = request.POST.get("nid")
-    name = request.POST.get("name")
-    user = request.POST.get("user")
-    password = request.POST.get("password")
-    models.Course.objects.filter(teacherNo=nid).update(teacherNo=nid, name=name, password=password, user=user)
-    return redirect("/manageteacher/")
-
-
-# 管理员教师
+def manageTeacherModify(request,nid):
+      admName = request.get_signed_cookie("username", salt="dsb")
+      if request.method=='GET':
+            studentNo=models.Teacher.objects.filter(teacherNo=nid).first()
+            return render(request,"Manage/modify-teacher.html",{"n1":studentNo,"nid":nid})
+      nid=request.POST.get("nid")
+      name=request.POST.get("name")
+      user=request.POST.get("user")
+      password=request.POST.get("password")
+      models.Teacher.objects.filter(teacherNo=nid).update(teacherNo=nid,name=name,password=password,user=user)
+      return redirect("/manageteacher/")
+#管理员教师
 # 学生课程界面
 @check_login
 def student(request):
@@ -518,27 +504,37 @@ def sign(request):
     sql = "SELECT  a.id,now()  FROM  renLianShiBie1.app1_qiandao a,renLianShiBie1.app1_class_students b WHERE pubtime <= now() AND duetime >= now() and class1_id=" + classNo + " and a.class1_id=b.class_id and student_id =" + stuName
     cursor.execute(sql)
     res = cursor.fetchall()
-    if len(res) == 0:
-        return redirect("/student/?Qid=" + str(1))
+    if len(res)==0 :
+        return  redirect("/student?Qid=" + str(1))
     else:
         return render(request, "Student/Sign.html", {"stuName": stuName, 'classNo': classNo})
 
 
 @check_login
+@csrf_exempt
 def signed(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
     photo = request.POST.get("photo")
     print(photo)
-    classNo = request.GET.get('classNo')
-
+    classNo=request.GET.get('classNo')
+    return HttpResponse("success!!")
 
 @check_login
 def signinfo(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
     classNo = request.GET.get('classNo')
     cursor = connection.cursor()
-    sql = "select classNo,b.courseName,QTime from renLianShiBie1.app1_class a,renLianShiBie1.app1_course b,renLianShiBie1.app1_stuqiandao c,renLianShiBie1.app1_qiandao d where a.course_id=b.courseNo and c.QianDaoId_id=d.id and d.class1_id =a.classNo and studentNo_id=" + stuName + " and classNo=" + classNo + " order by c.id DESC"
+    sql ="select classNo,b.courseName,QTime,status from renLianShiBie1.app1_class a,renLianShiBie1.app1_course b,renLianShiBie1.app1_stuqiandao c,renLianShiBie1.app1_qiandao d where a.course_id=b.courseNo and c.QianDaoId_id=d.id and d.class1_id =a.classNo and studentNo_id="+stuName+" and classNo="+classNo+" order by c.id DESC"
     cursor.execute(sql)
     res = cursor.fetchall()
-    a = "已签到"
-    return render(request, "Student/SignInfo.html", {"stuName": stuName, "n1": a, "res": res})
+    return render(request, "Student/SignInfo.html",{"stuName": stuName,"res":res})
+
+    
+# 前端测试类
+@csrf_exempt
+def ajaxtest(request):
+    photo = request.POST.get("photo")
+    print(photo)
+    res = json.dumps(photo)
+    # classNo=request.GET.get('classNo')
+    return HttpResponse(res)

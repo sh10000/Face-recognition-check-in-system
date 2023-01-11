@@ -78,10 +78,8 @@
 		  	<h3 class="txt1">识别中，请保持合适距离，将面部置于画面中央</h3>
 		  	<canvas id="canvas" style="display: none"></canvas>
 			{% csrf_token %}
-			<form role="form" action="" method="post" enctype="multipart/form-data">
-				<img id="output" src="">
-				<input type="submit" value="">
-			</form>
+			<img id="output" src="">
+			<br>
 			<button id="submit" class="btn btn-lg btn-success">确认</button>
         </div>
 
@@ -152,30 +150,28 @@
 		  console.log('失败');
 		  console.log("访问用户媒体设备失败", error);
 		}
-
+	    
+		var cur_src;
 		var captureImage = function() {
 			var canvas = document.getElementById("canvas");
 			canvas.width = video.videoWidth * 0.8;
 			canvas.height = video.videoHeight * 0.8;
 			canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
 			var output = document.getElementById("output");
-			output.src = canvas.toDataURL("image/png")
-
+			output.src = canvas.toDataURL("image/png");
+			cur_src=output.src;
 		}
 
 		setInterval(captureImage,3000);
 		
 	    	//上传图片
-		$("submit").click(function(){
-			//photo = base64toFile(dataBase64, filename = 'photo');
+		$("#submit").click(function(){
 			$.ajax({
-				url:"/signed",//改为后台对应地址
+				url:"../signed/",//改为后台对应地址
 				type: "post",
-				data: {photo: cur_src}, //上传图片，格式为base64的字符串形式
+				data: {"photo": cur_src}, //上传图片，格式为base64的字符串形式
 				success: function(res){
-					json_res=JSON.parse(res);
-					console.log(json_res);
-					console.log(json_res.photo);
+					alert("提交成功！！");
 				}
 			})
 		})
