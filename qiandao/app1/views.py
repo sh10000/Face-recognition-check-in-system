@@ -252,7 +252,7 @@ def manageStudent(request):
 def addstudent(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method=='GET':
-            return render(request,"Manage/add-student.html")
+            return render(request,"Manage/add-student.html",{"admName": admName})
     user=request.POST.get("name")
     pwd=request.POST.get("password")
     studentNo=request.POST.get("studentNo")
@@ -262,7 +262,7 @@ def addstudent(request):
         models.Student.objects.create(studentNo=studentNo,name=user,password=pwd,photo=img,img_name=img_name)
         return redirect("/managestudent/")
     else:
-        return render(request,"Manage/add-student.html")
+        return redirect("/addstudent?Qid="+str(1))
 #管理员删除学生信息
 @check_login
 def manageStudentDelete(request):
@@ -288,7 +288,7 @@ def manageStudentModify(request,nid):
            return redirect("/managestudent/?Qid=" + str(1))
       else:
             models.Student.objects.filter(studentNo=nid).update(studentNo=nid,name=user,password=pwd)
-            return redirect("/managestudent/?Qid=" + str(1))
+            return redirect("/addstudent?Qid=" + str(1))
 #管理员课程
 @check_login
 def manageCourse(request):
@@ -424,7 +424,7 @@ def sign(request):
     cursor.execute(sql)
     res = cursor.fetchall()
     if len(res)==0 :
-        return  redirect("/student/?Qid=" + str(1))
+        return  redirect("/student?Qid=" + str(1))
     else:
         return render(request, "Student/Sign.html",{"stuName": stuName,'classNo': classNo})
 @check_login
