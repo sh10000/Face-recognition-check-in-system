@@ -367,7 +367,7 @@ def manageTeacherModify(request,nid):
       name=request.POST.get("name")
       user=request.POST.get("user")
       password=request.POST.get("password")
-      models.Course.objects.filter(teacherNo=nid).update(teacherNo=nid,name=name,password=password,user=user)
+      models.Teacher.objects.filter(teacherNo=nid).update(teacherNo=nid,name=name,password=password,user=user)
       return redirect("/manageteacher/")
 #管理员教师
 # 学生课程界面

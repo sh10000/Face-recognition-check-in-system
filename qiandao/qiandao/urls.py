@@ -45,29 +45,29 @@ urlpatterns = [
     path("manage/ManageStudent", views.manageStudent),
     path("manage/ManageCourse", views.manageCourse),
     #管理员管理学生
-    path("managestudent", views.manageStudent),
+    path("managestudent/", views.manageStudent),
     path("addstudent", views.addstudent),
-    path("manage/student/delete", views.manageStudentDelete),
+    path("manage/student/delete/", views.manageStudentDelete),
     path("manage/student/<int:nid>/modify", views.manageStudentModify),
     #管理员管理老师
-    path("manageteacher", views.manageTeacher),
+    path("manageteacher/", views.manageTeacher),
     path("addteacher", views.addteacher),
-    path("manage/teacher/delete", views.manageTeacherDelete),
+    path("manage/teacher/delete/", views.manageTeacherDelete),
     path("manage/teacher/<int:nid>/modify", views.manageTeacherModify),
     #管理员管理课程
-    path("managecourse", views.manageCourse),
+    path("managecourse/", views.manageCourse),
     path("addcourse", views.addcourse),
-    path("manage/course/delete", views.manageCourseDelete),
+    path("manage/course/delete/", views.manageCourseDelete),
     path("manage/course/<int:nid>/modify", views.manageCourseModify),
 
 
 #学生签到页面组
     path("student", views.student),
-    path("addstudentcourse", views.addCourse),
-    path("addstudentcourselist", views.addCourselist),
-    path("sign", views.sign),
+    path("addstudentcourse/", views.addCourse),
+    path("addstudentcourselist/", views.addCourselist),
+    path("sign/", views.sign),
     path("signed",views.signed),
-    path("signinfo",views.signinfo),
+    path("signinfo/",views.signinfo),
 
     # path("teacher", views.teacher),
     # path("teacher/publishSing", views.publishSign),
