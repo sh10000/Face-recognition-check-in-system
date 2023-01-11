@@ -80,6 +80,7 @@ DATABASES = {
         "PASSWORD": "123456",
         "HOST": "101.34.19.214",
         'PORT': '3306',
+        'charset': 'utf8mb4',
     }
 }
 

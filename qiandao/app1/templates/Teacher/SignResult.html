@@ -88,11 +88,11 @@
 				    </div>
 				  </div>
 				  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
-				  <button type="button" class="btn btn-warning"onclick="window.location.href='/unsignresult'"> 已签(当前)</button>
+				  <button type="button" class="btn btn-warning"onclick="window.location.href='/unsignresult/?Qid={{Qid}}'"> 已签(当前)</button>
 				</form>	
 
-				<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"id="finish"><i class=" glyphicon glyphicon-remove"></i> 结束考勤</button>
-				<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+				<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"id="finish" onclick="stopSign({{Qid}})"><i class=" glyphicon glyphicon-remove"></i> 结束考勤</button>
+				<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='/teacher'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 				<br>
 				<hr style="clear:both;">
 
@@ -104,6 +104,7 @@
 				      <th id="studentNo">学生学号</th>
 				      <th id="studentName">学生姓名</th>
 				      <th id="time">签到时间</th>
+				      <th id="status">签到状态</th>
 				      <th width="100">操作</th>
 				    </tr>
 				  </thead>
@@ -114,10 +115,11 @@
 					  <td>{{obj.0}}</td>
 					  <td>{{obj.1}}</td>
 					  <td>{{obj.2}}</td>
+					  <td>{{obj.3}}</td>
 					  <td>
 					      <!-- <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
 					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button> -->
-						  <button type="button" class="btn btn-danger btn-xs" id="Unsigned"><i class=" glyphicon glyphicon-remove"></i>取消签到</button>
+						  <button type="button" class="btn btn-danger btn-xs" id="Unsigned" onclick="cancelSign({{obj.0}},{{Qid}})"><i class=" glyphicon glyphicon-remove"></i>取消签到</button>
 					  </td>
 					</tr>
 				  {% endfor %}
@@ -152,6 +154,16 @@
 	<script src="../../static/script/docs.min.js"></script>
 
     <script type="text/javascript">
+    	function cancelSign(sid,qid) {
+        	alert("该学生将设为未签到");
+    		window.location.href = '/setunsign?sid=' + sid + '&qid=' +qid;
+		};
+
+    	function stopSign(qid) {
+        	alert("已终止考勤");
+    		window.location.href = '/stopsign?Qid=' + qid;
+		};
+
 
         $(function () {
 		    $(".list-group-item").click(function(){
@@ -173,12 +185,12 @@
         });
 
 		//按下左侧菜单栏“结束考勤”
-        $("#finish").click(function(){
-        	alert("已终止考勤");
-        })
-        $("#Unsigned").click(function(){
-        	alert("该学生将设为未签到");
-        })
+        //$("#finish").click(function(){
+        //	alert("已终止考勤");
+        //})
+        //$("#Unsigned").click(function(){
+        //	alert("该学生将设为未签到");
+        //})
 
 
 		function drawCircle(canvasId, data_arr, color_arr, text_arr){

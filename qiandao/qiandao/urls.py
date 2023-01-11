@@ -32,12 +32,15 @@ urlpatterns = [
     path("register/",views.register),
 
 #教师页面组
-    path("teacher/", views.teacher),
+    path("teacher", views.teacher),
     path("signpublish/", views.signpublish),
     path("signresult/", views.signresult),
     path("tcourse/", views.tcourse),
-    path("unsignresult/",views.unsign),
+    path("unsignresult/",views.unsignresult),
     path("teasigninfo/",views.teasigninfo),
+    path("setunsign",views.setunsign),
+    path("setsign",views.setsign),
+    path("stopsign",views.stopsign),
 
 #管理员页面组
     path("manage/", views.manageIndex),

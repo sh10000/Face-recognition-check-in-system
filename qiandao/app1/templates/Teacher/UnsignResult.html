@@ -88,11 +88,11 @@
 				    </div>
 				  </div>
 				  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
-				  <button type="button" class="btn btn-warning"onclick="window.location.href='/signresult'"> 未签(当前)</button>
-				</form>	
+				  <button type="button" class="btn btn-warning"onclick="window.location.href='/signresult/?Qid={{Qid}}'"> 未签(当前)</button>
+				</form>
 
-				<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"id="finish"><i class=" glyphicon glyphicon-remove"></i> 结束考勤</button>
-				<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+				<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"id="finish" onclick="stopSign({{Qid}})"><i class=" glyphicon glyphicon-remove"></i> 结束考勤</button>
+				<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='/teacher'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 				<br>
 				<hr style="clear:both;">
 
@@ -104,21 +104,25 @@
 				      <th id="studentNo">学生学号</th>
 				      <th id="studentName">学生姓名</th>
 				      <th id="time">签到时间</th>
+				      <th id="status">签到状态</th>
 				      <th width="100">操作</th>
 				    </tr>
 				  </thead>
 				  <tbody>
+				  {% for obj in res %}
 					<tr>
-					  <td>1</td>
-					  <td>20000001</td>
-					  <td>ipsum</td>
-					  <td>15:00</td>
+					  <td>{{forloop.counter}}</td>
+					  <td>{{obj.0}}</td>
+					  <td>{{obj.1}}</td>
+					  <td>{{obj.2}}</td>
+					  <td>{{obj.3}}</td>
 					  <td>
-					      <button type="button" class="btn btn-success btn-xs" id="signed"><i class=" glyphicon glyphicon-check"></i>手动签到</button>
-					      <!-- <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-						  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button> -->
+					      <!-- <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
+					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button> -->
+						  <button type="button" class="btn btn-success btn-xs" id="signed"onclick="setSign({{obj.0}},{{Qid}})"><i class=" glyphicon glyphicon-check"></i>手动签到</button>
 					  </td>
-					</tr>				  	
+					</tr>
+				  {% endfor %}
 				  </tbody>
 				  <tfoot>
 				     <tr >
@@ -134,9 +138,9 @@
 								 </ul>
 						 </td>
 					 </tr>
-				  </tfoot>				  
+				  </tfoot>
 				  </table>
-				</div>						  	
+				</div>
 
 			  </div>
 
@@ -150,6 +154,16 @@
 	<script src="../../static/script/docs.min.js"></script>
 
     <script type="text/javascript">
+    	function setSign(sid,qid) {
+        	alert("该学生将设为已签到");
+    		window.location.href = '/setsign?sid=' + sid + '&qid=' +qid;
+		};
+
+    	function stopSign(qid) {
+        	alert("已终止考勤");
+    		window.location.href = '/stopsign?Qid=' + qid;
+		};
+
 
         $(function () {
 		    $(".list-group-item").click(function(){
@@ -163,20 +177,20 @@
 				}
 			});
         });
-        // $("tbody .btn-success").click(function(){
-        //     window.location.href = "assignRole.html";
-        // });
-        // $("tbody .btn-primary").click(function(){
-        //     window.location.href = "edit.html";
-        // });
-        $("#signed").click(function(){
-        	alert("该学生将设为已签到");
-        })
+        //$("tbody .btn-success").click(function(){
+        //    window.location.href = "assignRole.html";
+        //});
+        $("tbody .btn-primary").click(function(){
+            window.location.href = "edit.html";
+        });
 
-		//按下红色按钮“结束考勤”
-        $("#finish").click(function(){
-        	alert("已终止考勤");
-        })
+		//按下左侧菜单栏“结束考勤”
+        //$("#finish").click(function(){
+        //	alert("已终止考勤");
+        //})
+        //$("#Unsigned").click(function(){
+        //	alert("该学生将设为未签到");
+        //})
 
 
 		function drawCircle(canvasId, data_arr, color_arr, text_arr){

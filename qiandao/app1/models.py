@@ -66,8 +66,8 @@ class QianDao(models.Model):
 class StuQianDao(models.Model):
     studentNo = models.ForeignKey(Student, on_delete=models.CASCADE)
     QianDaoId = models.ForeignKey(QianDao, on_delete=models.CASCADE)
-    QTime = models.DateTimeField(auto_now_add=True)
-    status = models.BooleanField(default=False)
+    QTime = models.DateTimeField(blank=True)
+    status = models.CharField(max_length=32, default="未签到")
 
 
 class QianDaoMessage(models.Model):
