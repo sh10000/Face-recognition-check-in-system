@@ -81,5 +81,8 @@ urlpatterns = [
 
     # path("studentQianDao", views.studentQiandao),
     path("classInfo", views.classInfo),
+    
+# 测试
+    path("ajaxtest", views.ajaxtest)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
