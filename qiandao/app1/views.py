@@ -424,7 +424,8 @@ def sign(request):
         return  redirect("/student/?Qid=" + str(1))
     else:
         return render(request, "Student/Sign.html",{"stuName": stuName,'classNo': classNo})
-
+def signed(request):
+    stuName = request.get_signed_cookie("username", salt="dsb")
 @check_login
 def signinfo(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
