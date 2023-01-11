@@ -437,7 +437,7 @@ def signinfo(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
     classNo=request.GET.get('classNo')
     cursor = connection.cursor()
-    sql ="select classNo,b.courseName,QTime from renLianShiBie1.app1_class a,renLianShiBie1.app1_course b,renLianShiBie1.app1_stuqiandao c,renLianShiBie1.app1_qiandao d where a.course_id=b.courseNo and c.QianDaoId_id=d.id and d.class1_id =a.classNo and studentNo_id="+stuName+" and classNo="+classNo
+    sql ="select classNo,b.courseName,QTime from renLianShiBie1.app1_class a,renLianShiBie1.app1_course b,renLianShiBie1.app1_stuqiandao c,renLianShiBie1.app1_qiandao d where a.course_id=b.courseNo and c.QianDaoId_id=d.id and d.class1_id =a.classNo and studentNo_id="+stuName+" and classNo="+classNo+" order by c.id DESC"
     cursor.execute(sql)
     res = cursor.fetchall()
     a="已签到"
