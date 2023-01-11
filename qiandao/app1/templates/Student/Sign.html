@@ -80,8 +80,9 @@
 			{% csrf_token %}
 			<form role="form" action="" method="post" enctype="multipart/form-data">
 				<img id="output" src="">
-				<input type="submit" value="提交">
+				<input type="submit" value="">
 			</form>
+			<button id="submit" class="btn btn-lg btn-success">确认</button>
         </div>
 
       </div>
@@ -163,8 +164,21 @@
 		}
 
 		setInterval(captureImage,3000);
-
-		// setTimeout(function(){alert("已成功签到！")},10000)
+		
+	    	//上传图片
+		$("#submit").click(function(){
+			//photo = base64toFile(dataBase64, filename = 'photo');
+			$.ajax({
+				url:"../../ajaxtest",//改为后台对应地址
+				type: "post",
+				data: {"photo": cur_src}, //上传图片，格式为base64的字符串形式
+				success: function(res){
+					json_res=JSON.parse(res);
+					console.log(json_res);
+					console.log(json_res.photo);
+				}
+			})
+		})
 
     </script>	
   </body>
