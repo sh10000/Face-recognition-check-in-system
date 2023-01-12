@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18096b32-c63e-4b39-b8ef-6472e068b394" name="Changes" comment="Changes" />
+    <list default="true" id="18096b32-c63e-4b39-b8ef-6472e068b394" name="Changes" comment="Changes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/qiandao/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/qiandao/urls.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -84,6 +87,7 @@
       <workItem from="1670503677930" duration="1298000" />
       <workItem from="1672831620496" duration="2701000" />
       <workItem from="1672963983658" duration="8309000" />
+      <workItem from="1673512364467" duration="399000" />
     </task>
     <task id="LOCAL-00001" summary="Changes">
       <created>1670310723639</created>
