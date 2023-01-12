@@ -76,6 +76,18 @@
 	</div>
 	<script src="../static/jquery/jquery-2.1.1.min.js"></script>
     <script src="../static/bootstrap/js/bootstrap.min.js"></script>
-	<script src="../static/script/docs.min.js"></script>	
+	<script src="../static/script/docs.min.js"></script>
+	<script>
+		$(function(){
+			var loc = location.href;
+			var n1 = loc.length;
+			var n2 = loc.indexOf('=');
+			var str = loc.slice(n2+1,n1);
+			console.log("Qid=" + str);
+			if (str=="1"){
+				alert("没有图片！");
+			}		
+		})
+	</script>
     </body>
 </html>
