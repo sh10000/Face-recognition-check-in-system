@@ -347,6 +347,7 @@ def manageStudent(request):
 
 # 管理员增加学生信息
 @check_login
+@check_duplicate('Student', 'studentNo')
 def addstudent(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
@@ -372,6 +373,7 @@ def manageStudentDelete(request):
 
 # 管理员修改学生信息
 @check_login
+@check_duplicate('Student', 'studentNo')
 def manageStudentModify(request, nid):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
@@ -407,6 +409,7 @@ def manageCourse(request):
 
 
 @check_login
+@check_duplicate('Course', 'courseNo')
 def addcourse(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
@@ -428,6 +431,7 @@ def manageCourseDelete(request):
 
 
 @check_login
+@check_duplicate('Course', 'courseNo')
 def manageCourseModify(request, nid):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
@@ -454,6 +458,7 @@ def manageTeacher(request):
 
 
 @check_login
+@check_duplicate('Teacher', 'teacherNo')
 def addteacher(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
@@ -475,6 +480,7 @@ def manageTeacherDelete(request):
 
 
 @check_login
+@check_duplicate('Teacher', 'teacherNo')
 def manageTeacherModify(request, nid):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
