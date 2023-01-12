@@ -33,6 +33,19 @@
   </div>
 {% endblock form %}
 
-{% block script %}{% endblock script %}
+{% block script %}
+<script>
+	$(function(){
+		var loc = location.href;
+		var n1 = loc.length;
+		var n2 = loc.indexOf('=');
+		var str = loc.slice(n2+1,n1);
+		console.log("Qid=" + str);
+		if (str=="1"){
+			alert("没有图片！");
+		}		
+	})
+</script>
+{% endblock script %}
 
 

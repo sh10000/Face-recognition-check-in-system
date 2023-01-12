@@ -152,6 +152,17 @@
         // 	window.location.replace("Smain.html");
         // })
 
+	$(function(){
+		var loc = location.href;
+		var n1 = loc.length;
+		var n2 = loc.indexOf('=');
+		var str = loc.slice(n2+1,n1);
+		console.log("Qid=" + str);
+		//window.location.href="/unsignresult/" + str;
+		if (str=="1"){
+			alert("当前课程尚未发布签到！");
+		}		
+	})		    
     </script>	
   </body>
 </html>
