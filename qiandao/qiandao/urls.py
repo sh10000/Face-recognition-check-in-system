@@ -68,7 +68,7 @@ urlpatterns = [
 #学生签到页面组
     path("student", views.student),
     path("addstudentcourse/", views.addCourse),
-    path("addstudentcourselist/", views.addCourselist),
+    path("addstudentcourselist", views.addCourselist),
     path("sign", views.sign),
     path("signed/",views.signed),
     path("signinfo/",views.signinfo),
