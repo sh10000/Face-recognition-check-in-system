@@ -150,6 +150,7 @@ def register(request, err_message=None):
         rep = redirect('/student')
         rep.set_signed_cookie("is_login", "1", salt="dsb", max_age=60 * 60 * 24 * 7)
         rep.set_signed_cookie("username", studentNo, salt="dsb", max_age=60 * 60 * 24 * 7)
+        models.Student.objects.create(studentNo=studentNo, name=user, password=pwd, photo=img, img_name=img.name)
         return rep
 
 
@@ -298,7 +299,7 @@ def teasigninfo(request):
 def setunsign(request):
     qid = request.GET.get("qid")
     sid = request.GET.get("sid")
-    models.StuQianDao.objects.filter(studentNo_id=sid).update(status="未签到")
+    models.StuQianDao.objects.filter(studentNo_id=sid).update(QTime=None, status="未签到")
     return redirect("/signresult/?Qid=" + qid)
 
 
@@ -306,7 +307,7 @@ def setunsign(request):
 def setsign(request):
     qid = request.GET.get("qid")
     sid = request.GET.get("sid")
-    models.StuQianDao.objects.filter(studentNo_id=sid).update(status="已签到")
+    models.StuQianDao.objects.filter(studentNo_id=sid).update(QTime=datetime.datetime.now(), status="已签到")
     return redirect("/unsignresult/?Qid=" + qid)
 
 
