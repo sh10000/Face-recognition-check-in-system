@@ -392,7 +392,7 @@ def addcourse(request):
 def manageCourseDelete(request):
     nid = request.GET.get('nid')
     models.Course.objects.filter(courseNo=nid).delete()
-    return redirect("/managecourse/")
+    return redirect("/managecourse")
 
 
 @check_login
