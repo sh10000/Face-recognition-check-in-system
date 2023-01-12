@@ -331,14 +331,14 @@ def addstudent(request):
     if img != None:
         img_name = img.name
         models.Student.objects.create(studentNo=studentNo, name=user, password=pwd, photo=img, img_name=img_name)
-        return redirect("/managestudent/")
+        return redirect("/managestudent")
     else:
         return redirect("/addstudent?Qid="+str(1))
 @check_login
 def manageStudentDelete(request):
     nid = request.GET.get('nid')
     models.Student.objects.filter(studentNo=nid).delete()
-    return redirect("/managestudent/")
+    return redirect("/managestudent")
 
 
 # 管理员修改学生信息
@@ -357,7 +357,7 @@ def manageStudentModify(request,nid):
            img_name=img.name 
            models.StudentPhoto.objects.create(photo=img)
            models.Student.objects.filter(studentNo=nid).update(studentNo=nid,name=user,password=pwd,photo=img,img_name=img_name)
-           return redirect("/managestudent/?Qid=" + str(1))
+           return redirect("/managestudent?Qid=" + str(1))
       else:
             models.Student.objects.filter(studentNo=nid).update(studentNo=nid,name=user,password=pwd)
             return redirect("/addstudent?Qid=" + str(1))
@@ -384,7 +384,7 @@ def addcourse(request):
     courseName = request.POST.get("courseName")
     grade = request.POST.get("grade")
     models.Course.objects.create(courseNo=courseNo, courseName=courseName, grade=grade)
-    return redirect("/managecourse/")
+    return redirect("/managecourse")
 
 
 # 管理员删除学生信息
@@ -405,7 +405,7 @@ def manageCourseModify(request,nid):
       name=request.POST.get("courseName")
       pwd=request.POST.get("password")
       models.Course.objects.filter(courseNo=nid).update(courseNo=nid,courseName=name,grade=pwd)
-      return redirect("/managecourse/")
+      return redirect("/managecourse")
 #管理员教师
 @check_login
 def manageTeacher(request):
@@ -430,13 +430,13 @@ def addteacher(request):
     user = request.POST.get("user")
     password = request.POST.get("password")
     models.Teacher.objects.create(teacherNo=teacherNo, name=name, user=user, password=password)
-    return redirect("/manageteacher/")
+    return redirect("/manageteacher")
     
 @check_login
 def manageTeacherDelete(request):
       nid=request.GET.get('nid')
       models.Teacher.objects.filter(teacherNo=nid).delete()
-      return redirect("/manageteacher/")
+      return redirect("/manageteacher")
 
 @check_login
 def manageTeacherModify(request,nid):
@@ -449,7 +449,7 @@ def manageTeacherModify(request,nid):
       user=request.POST.get("user")
       password=request.POST.get("password")
       models.Teacher.objects.filter(teacherNo=nid).update(teacherNo=nid,name=name,password=password,user=user)
-      return redirect("/manageteacher/")
+      return redirect("/manageteacher")
 #管理员教师
 # 学生课程界面
 @check_login
