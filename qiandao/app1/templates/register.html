@@ -63,6 +63,9 @@
 							<div class="input-group-addon">学生照片</div>
 							<input type="file" name="img">
 						  </div>
+							{% if err_message %}
+    						<p class="error" style="color: red">{{ err_message }}</p>
+							{% endif %}
 						  <button type="submit" class="btn btn-success"style="float:right">注册</button>
 						</form>
 		   	 	</div>
