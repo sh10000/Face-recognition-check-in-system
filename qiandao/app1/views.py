@@ -121,9 +121,9 @@ def register(request):
     if img != None:
         img_name = img.name
         models.Student.objects.create(studentNo=studentNo, name=user, password=pwd, photo=img, img_name=img_name)
-        return redirect("/login/")
+        return redirect("/login")
     else:
-        return render(request, "register.html")
+         return redirect("/register?Qid="+str(1))
 
 
 @check_login
@@ -431,7 +431,12 @@ def addteacher(request):
     password = request.POST.get("password")
     models.Teacher.objects.create(teacherNo=teacherNo, name=name, user=user, password=password)
     return redirect("/manageteacher/")
-
+    
+@check_login
+def manageTeacherDelete(request):
+      nid=request.GET.get('nid')
+      models.Teacher.objects.filter(teacherNo=nid).delete()
+      return redirect("/manageteacher/")
 
 @check_login
 def manageTeacherModify(request,nid):
