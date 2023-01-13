@@ -52,19 +52,16 @@ urlpatterns = [
     path("manage/ManageTeacher", views.manageTeacher),
     path("manage/ManageStudent", views.manageStudent),
     path("manage/ManageCourse", views.manageCourse),
-    # path("manage/ManageClass",views.manageClass),
-    # path("manage/ManageUser",views.manageUser),
-    # path("manage/ManageTeaching",views.manageTeaching),
+    path("manage/ManageClass",views.manageClass),
+    path("manage/ManageUser",views.manageUser),
+    path("manage/ManageTeaching",views.manageTeaching),
     #管理员管理学生
     path("managestudent", views.manageStudent),
-    path("managestudent/", views.manageStudent),
     path("addstudent", views.addstudent),
-    path("addstudent/", views.addstudent),
     path("manage/student/delete/", views.manageStudentDelete),
     path("manage/student/<int:nid>/modify", views.manageStudentModify),
     #管理员管理老师
     path("manageteacher", views.manageTeacher),
-    path("manageteacher/", views.manageTeacher),
     path("addteacher", views.addteacher),
     path("manage/teacher/delete/", views.manageTeacherDelete),
     path("manage/teacher/<int:nid>/modify", views.manageTeacherModify),
@@ -73,6 +70,18 @@ urlpatterns = [
     path("addcourse", views.addcourse),
     path("manage/course/delete/", views.manageCourseDelete),
     path("manage/course/<int:nid>/modify", views.manageCourseModify),
+
+    #管理员权限管理
+    #教师权限管理
+    path("manage/auth/teacher",views.authTeacher),
+    path("manage/auth/teacher/modify", views.modifyTeacherAuth),
+    path("manage/auth/teacher/add", views.adTeacherAuth),
+
+    #学生权限管理
+    path("manage/auth/student", views.authStudent),
+    path("manage/auth/student/modify", views.modifyStudentAuth),
+    path("manage/auth/student/add", views.addStudentAuth),
+
 
 
 
