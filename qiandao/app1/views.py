@@ -72,7 +72,6 @@ def check_duplicate(model_name, field_name):
             model = apps.get_model('app1', model_name)
             if model.objects.filter(**{field_name: form.get(field_name)}).exists():
                 kwargs['err_message'] = f'{field_name} 已经存在'
-            print(kwargs['err_message'])
             return view_func(request, *args, **kwargs)
 
         return _wrapped_view
@@ -397,10 +396,12 @@ def manageStudent(request):
 # 管理员增加学生信息
 @check_login
 @check_duplicate('Student', 'studentNo')
-def addstudent(request):
+def addstudent(request,err_message=None):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
         return render(request, "Manage/add-student.html", {"admName": admName})
+    if err_message:
+        return render(request, "Manage/add-student.html", {"admName": admName,"err_message": err_message})
     user = request.POST.get("name")
     pwd = request.POST.get("password")
     studentNo = request.POST.get("studentNo")
@@ -445,8 +446,7 @@ def manageStudentDelete(request):
 
 # 管理员修改学生信息
 @check_login
-#@check_duplicate('Student', 'studentNo')
-def manageStudentModify(request, nid):
+def manageStudentModify(request, nid,err_message=None):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
         studentNo = models.Student.objects.filter(studentNo=nid).first()
@@ -455,7 +455,6 @@ def manageStudentModify(request, nid):
     pwd = request.POST.get("password")
     studentNo = request.POST.get("studentNo")
     img = request.FILES.get('img')
-    print('打印图片', img)
     if (img != None):
         img_name = img.name
         models.StudentPhoto.objects.create(photo=img)
@@ -482,10 +481,12 @@ def manageCourse(request):
 
 @check_login
 @check_duplicate('Course', 'courseNo')
-def addcourse(request):
+def addcourse(request,err_message=None):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
-        return render(request, "Manage/add-course.html")
+        return render(request, "Manage/add-course.html",{"admName": admName})
+    if err_message:
+        return render(request, "Manage/add-course.html", {"admName": admName,"err_message": err_message})
     print(request.POST)
     courseNo = request.POST.get("courseNo")
     courseName = request.POST.get("courseName")
@@ -503,7 +504,6 @@ def manageCourseDelete(request):
 
 
 @check_login
-@check_duplicate('Course', 'courseNo')
 def manageCourseModify(request, nid):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
@@ -531,10 +531,12 @@ def manageTeacher(request):
 
 @check_login
 @check_duplicate('Teacher', 'teacherNo')
-def addteacher(request):
+def addteacher(request,err_message=None):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
-        return render(request, "Manage/add-teacher.html")
+        return render(request, "Manage/add-teacher.html",{"admName": admName})
+    if err_message:
+        return render(request, "Manage/add-teacher.html", {"admName": admName,"err_message": err_message})
     print(request.POST)
     teacherNo = request.POST.get("teacherNo")
     name = request.POST.get("name")
