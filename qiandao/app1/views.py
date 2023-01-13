@@ -744,10 +744,14 @@ def addTeacherAuth(request):
     if (ask != None):
         authNo = models.Authrity.objects.filter(name__contains=ask)
         return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": authNo})
-
     if (ask == None):
         auth_list = models.Authrity.all()
         return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list})
+
+    authID = request.GET.get("authId")
+    teaNo = request.GET.get("teaNo")
+    teaAuth = models.Tea_Auth(authNo=authID, teaNo=teaNo)
+    teaAuth.save()
 
 #学生权限管理
 def authStudent(request):
@@ -762,24 +766,25 @@ def authStudent(request):
 
 def modifyStudentAuth(request,sNo):
     admName = request.get_signed_cookie("username", salt="dsb")
-    ask = request.GET.get("ask")
-    if (ask != None):
-        authNo = models.Tea_Auth.all().filter()
-
-    if (ask == None):
-        auth_list = models.Tea_Auth.objects.all().filter(studentNo=sNo)
-        return render(request, "Manage/AuthStudentModify.html", {"admName":admName, "n1":auth_list})
+    auth_list = models.Tea_Auth.objects.all().filter(studentNo=sNo)
+    return render(request, "dmNameManage/AuthStudentModify.html", {"a":admName, "n1":auth_list})
 
 def addStudentAuth(request, err_message=None):
     admName = request.get_signed_cookie("username", salt='dsb')
     ask = request.GET.get("ask")
     if (ask != None):
-        print('test')
-
-
+        authNo = models.Authrity.objects.filter(name_contains=ask)
+        return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": authNo})
     if (ask == None):
         auth_list = models.Authrity.all()
         return render(request, "Manage/AuthStudentAdd.html", {"admName":admName, "n1": auth_list})
+
+    authID = request.GET.get("authId")
+    stuNo = request.GET.get("stuNo")
+    stuAuth = models.Stu_Auth(authNo = authID, studentNo = stuNo )
+    stuAuth.save()
+
+
 
 
 
