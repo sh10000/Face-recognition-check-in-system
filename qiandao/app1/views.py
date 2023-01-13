@@ -9,7 +9,19 @@ from django.views.decorators.csrf import csrf_exempt
 import datetime
 import json
 from django.apps import apps
+from PIL import Image
 import app1
+import requests
+import base64
+import os
+
+
+
+endpoint = 'face.cn-north-4.myhuaweicloud.com'
+project_id = 'fdde698702e2473f8f12d7c481bbbe5e'
+token = 'MIITuAYJKoZIhvcNAQcCoIITqTCCE6UCAQExDTALBglghkgBZQMEAgEwghHKBgkqhkiG9w0BBwGgghG7BIIRt3sidG9rZW4iOnsiZXhwaXJlc19hdCI6IjIwMjMtMDEtMTNUMDg6NDg6NTkuNjI4MDAwWiIsIm1ldGhvZHMiOlsicGFzc3dvcmQiXSwiY2F0YWxvZyI6W10sInJvbGVzIjpbeyJuYW1lIjoidGVfYWRtaW4iLCJpZCI6IjAifSx7Im5hbWUiOiJ0ZV9hZ2VuY3kiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9lY3Nfc3BvdF9pbnN0YW5jZSIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2l2YXNfdmNyX3ZjYSIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2FfY24tc291dGgtNGMiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9lY3Nfa2FlMSIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX0tvb1NlYXJjaENPQlQiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9kd3NfcG9jIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfY2JyX2ZpbGUiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9lY3Nfa2MxX3VzZXJfZGVmaW5lZCIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX21lZXRpbmdfZW5kcG9pbnRfYnV5IiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfbWFwX25scCIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2VnX2NuIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfcmVkaXM2LWdlbmVyaWMtaW50bCIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2Rjc19kY3MyLWVudGVycHJpc2UiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF92Y3AiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9jdnIiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9tdWx0aV9iaW5kIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfYV9hcC1zb3V0aGVhc3QtM2QiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9wcm9qZWN0X2RlbCIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2NlciIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2Nlc19yZXNvdXJjZWdyb3VwX3RhZyIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2V2c19yZXR5cGUiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9rb29tYXAiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9ldnNfZXNzZDIiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9lY3NfaXIzeCIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2FfY24tc291dGh3ZXN0LTJiIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfY3NlX25hY29zIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfdWNzX2NpYSIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2h3ZGV2IiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfc2ZzdHVyYm8iLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9odl92ZW5kb3IiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9hX2NuLW5vcnRoLTRlIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfcngzIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfYV9jbi1ub3J0aC00ZCIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2RheXVfZGxtX2NsdXN0ZXIiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9lY3NfYWM3IiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfY2NlX21jcF90aGFpIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfY29tcGFzcyIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2VkcyIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX3NlcnZpY2VzdGFnZV9tZ3JfZHRtIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfYV9jbi1ub3J0aC00ZiIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX29hIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfY3BoIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfZ2EiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9ybXMiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9zbW5fYXBwbGljYXRpb24iLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9nZWlwIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfb3JnYW5pemF0aW9ucyIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2Vjc19ncHVfZzVyIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfd2tzX2twIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfcmlfZHdzIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfYWFkX2JldGFfaWRjIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfY3Nic19yZXBfYWNjZWxlcmF0aW9uIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfdWNzLWludGwiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9lY3NfZGlza0FjYyIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2Rzc19tb250aCIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX29ic19kZWVwX2FyY2hpdmUiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9jc2ciLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9kZWNfbW9udGhfdXNlciIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2llZl9lZGdlYXV0b25vbXkiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF92aXBfYmFuZHdpZHRoIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfZWNzX29sZF9yZW91cmNlIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfd2VsaW5rYnJpZGdlX2VuZHBvaW50X2J1eSIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2Vjc190aGlyZF9pbWFnZSIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX3BzdG5fZW5kcG9pbnRfYnV5IiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfbWFwX29jciIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2Rsdl9vcGVuX2JldGEiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9vYnNfZHVhbHN0YWNrIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfZWRjbSIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2NzYnNfcmVzdG9yZSIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2l2c2NzIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfZWNzX2M2YSIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX3Zwbl92Z3ciLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9zbW5fY2FsbG5vdGlmeSIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX29wX2dhdGVkX2xha2Vmb3JtYXRpb25fYmV0IiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfY3Nic19wcm9ncmVzc2JhciIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2dhX2NuIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfaWR0X2RtZSIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2Vjc19vZmZsaW5lX2FjNyIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2V2c19wb29sX2NhIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfZWNzX29mZmxpbmVfZGlza180IiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfaW50bF9jb21wYXNzIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfZXBzIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfY3Nic19yZXN0b3JlX2FsbCIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2Zjc19wYXkiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9hX2FwLXNvdXRoZWFzdC0xZSIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX2FfcnUtbW9zY293LTFiIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfYV9hcC1zb3V0aGVhc3QtMWQiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9hX2FwLXNvdXRoZWFzdC0xZiIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX3JhbSIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX29wX2dhdGVkX21lc3NhZ2VvdmVyNWciLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9lY3NfYzciLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9nY2IiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9tYXBfdmlzaW9uIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfZWNzX3JpIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfdWNzX29ucHJlbWlzZXMiLCJpZCI6IjAifSx7Im5hbWUiOiJvcF9nYXRlZF9hX3J1LW5vcnRod2VzdC0yYyIsImlkIjoiMCJ9LHsibmFtZSI6Im9wX2dhdGVkX3JhbV9pbnRsIiwiaWQiOiIwIn0seyJuYW1lIjoib3BfZ2F0ZWRfaWVmX3BsYXRpbnVtIiwiaWQiOiIwIn1dLCJwcm9qZWN0Ijp7ImRvbWFpbiI6eyJuYW1lIjoic2hlbmNoYW5nMjAwMDIzODIiLCJpZCI6ImQ5ZGY2ZTNmNDY2MTQyZGNhMjFlOWQ2NjAxZTk2MzM3In0sIm5hbWUiOiJjbi1ub3J0aC00IiwiaWQiOiJmZGRlNjk4NzAyZTI0NzNmOGYxMmQ3YzQ4MWJiYmU1ZSJ9LCJpc3N1ZWRfYXQiOiIyMDIzLTAxLTEyVDA4OjQ4OjU5LjYyODAwMFoiLCJ1c2VyIjp7ImRvbWFpbiI6eyJuYW1lIjoic2hlbmNoYW5nMjAwMDIzODIiLCJpZCI6ImQ5ZGY2ZTNmNDY2MTQyZGNhMjFlOWQ2NjAxZTk2MzM3In0sIm5hbWUiOiJzY2ZhY2UxIiwicGFzc3dvcmRfZXhwaXJlc19hdCI6IiIsImlkIjoiYjM3YzRmN2M0MTg0NDA5MmE4NzhiODRhMzc4MzQ4ZGMifX19MYIBwTCCAb0CAQEwgZcwgYkxCzAJBgNVBAYTAkNOMRIwEAYDVQQIDAlHdWFuZ0RvbmcxETAPBgNVBAcMCFNoZW5aaGVuMS4wLAYDVQQKDCVIdWF3ZWkgU29mdHdhcmUgVGVjaG5vbG9naWVzIENvLiwgTHRkMQ4wDAYDVQQLDAVDbG91ZDETMBEGA1UEAwwKY2EuaWFtLnBraQIJANyzK10QYWoQMAsGCWCGSAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQAhyGB3mDl-j91OrLT7935Xg-XmPK-fuUgoWZafjRxmokmQ+x5JlVHGGcCYjuSbNOCZEywt94MYPMB26lgNk4qAKeZo-qrj4kv5qHYSlEqbPa-H8FfVXSRTs+hCa5Bfo0ex2fTorbfmZzSyxqYrbhiJps4T-o44iJO0lDVKn5R6Er+3jafFTsD6XXRZSanpH8KGyQvlEbAG-KhNFTfCzplbPLgaF1qy3iYQppZzV6zAsFG+JxQpNVilnI0VD8BT00m2mI+PCwUFDZUU2q7p-R7VBFMY+NII8yKyl2gGV5dOPar3IPa1SRe8KM2mFAF-8JkZ0sH+z1p+cSO66H01Hk-5'
+headers = {'Content-Type': 'application/json', 'X-Auth-Token': token}
+face_set_name = 'facelib'
 
 
 # Create your views here.
@@ -157,11 +169,37 @@ def register(request, err_message=None):
     user = request.POST.get("name")
     pwd = request.POST.get("password")
     studentNo = request.POST.get("studentNo")
+    img = request.FILES.get('img')
+    i = Image.open(img)
+    imgSize = i.size
+    n = imgSize[0] / imgSize[1]
+    width = 300
+    length = int(300 * n)
+    resized_image = i.resize((length, width), Image.LANCZOS)
+    resized_image.save('temp.jpg')
     rep = redirect('/student')
     rep.set_signed_cookie("is_login", "1", salt="dsb", max_age=60 * 60 * 24 * 7)
     rep.set_signed_cookie("username", studentNo, salt="dsb", max_age=60 * 60 * 24 * 7)
     models.Student.objects.create(studentNo=studentNo, name=user, password=pwd, photo=img, img_name=img.name)
+    url = "https://{endpoint}/v2/{project_id}/face-sets/{face_set_name}/faces".format(endpoint=endpoint,project_id=project_id,face_set_name=face_set_name)
+    imagepath = 'temp.jpg'
+    with open(imagepath, "rb") as bin_data:
+        image_data = bin_data.read()
+    image_base64 = base64.b64encode(image_data).decode("utf-8")
+    body = {
+        "image_base64": image_base64,
+        "external_image_id": "imageID",
+        "external_fields": {
+            "timestamp": 12,
+            "id": "home"
+        }
+    }
+    response = requests.post(url, headers=headers, json=body, verify=False)
+    print(response.text)
+    path = 'temp.jpg'
+    os.remove(path)
     return rep
+
 
 
 @check_login
@@ -367,9 +405,32 @@ def addstudent(request):
     pwd = request.POST.get("password")
     studentNo = request.POST.get("studentNo")
     img = request.FILES.get('img')
+    i = Image.open(img)
+    imgSize = i.size
+    n = imgSize[0] / imgSize[1]
+    width = 300
+    length = int(300 * n)
+    resized_image = i.resize((length, width), Image.LANCZOS)
+    resized_image.save('temp.jpg')
     if img != None:
         img_name = img.name
         models.Student.objects.create(studentNo=studentNo, name=user, password=pwd, photo=img, img_name=img_name)
+        url = "https://{endpoint}/v2/{project_id}/face-sets/{face_set_name}/faces".format(endpoint=endpoint,project_id=project_id,face_set_name=face_set_name)
+        imagepath = 'temp.jpg'
+        with open(imagepath, "rb") as bin_data:
+            image_data = bin_data.read()
+        image_base64 = base64.b64encode(image_data).decode("utf-8")
+        body = {
+            "image_base64": image_base64,
+            "external_image_id": "imageID",
+            "external_fields": {
+                "timestamp": 12,
+                "id": "home"
+            }
+        }
+        requests.post(url, headers=headers, json=body, verify=False)
+        path = 'temp.jpg'
+        os.remove(path)
         return redirect("/managestudent")
     else:
         return redirect("/addstudent?Qid=" + str(1))
@@ -561,7 +622,8 @@ def sign(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
     classNo = request.GET.get('classNo')
     cursor = connection.cursor()
-    sql = "SELECT  a.id,now()  FROM  renLianShiBie1.app1_qiandao a,renLianShiBie1.app1_class_students b WHERE pubtime <= now() AND duetime >= now() and class1_id=" + classNo + " and a.class1_id=b.class_id and student_id =" + stuName
+    sql = "SELECT  a.id,now()  FROM  renLianShiBie1.app1_qiandao a,renLianShiBie1.app1_class_students b WHERE pubtime <=" \
+          " now() AND duetime >= now() and class1_id=" + classNo + " and a.class1_id=b.class_id and student_id =" + stuName
     cursor.execute(sql)
     res = cursor.fetchall()
     if len(res) == 0:
@@ -575,9 +637,31 @@ def sign(request):
 def signed(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
     photo = request.POST.get("photo")
-    print(photo)
+    pbase64 = photo[22:]
     classNo = request.GET.get('classNo')
-    return HttpResponse("success!!")
+    c = '1'
+    print(classNo)
+    url = "https://{endpoint}/v2/{project_id}/face-sets/{face_set_name}/search".format(
+        endpoint=endpoint, project_id=project_id, face_set_name=face_set_name)
+    image_base64 = pbase64
+    body = {"image_base64": image_base64, "sort": [{"timestamp": "asc"}], "return_fields": ["timestamp", "id"],
+            "filter": "timestamp:12", "top_n": 1, "threshold": 0.93}
+    response = requests.post(url, headers=headers, json=body, verify=False)
+    data = response.json()
+    result = data.get('faces')
+    if result == []:
+        print('签到失败')
+        return HttpResponse(0)
+    elif result != None:
+        cursor = connection.cursor()
+        sql = "SELECT  a.id,now()  FROM  renLianShiBie1.app1_qiandao a,renLianShiBie1.app1_class_students b WHERE pubtime <=" \
+              " now() AND duetime >= now() and class1_id=" + c + " and a.class1_id=b.class_id and student_id =" + stuName
+        cursor.execute(sql)
+        res = cursor.fetchall()
+        sql2 = "insert into renLianShiBie1.app1_stuqiandao(studentNo_id,QianDaoID_id,QTime,status) values (" + stuName + "," + str(res[0][0]) + ",'" + str(res[0][1]) + "','已签到')"
+        cursor.execute(sql2)
+        print('签到成功')
+        return HttpResponse(1)
 
 
 @check_login
@@ -595,7 +679,6 @@ def signinfo(request):
 @csrf_exempt
 def ajaxtest(request):
     photo = request.POST.get("photo")
-    print(photo)
     res = json.dumps(photo)
     # classNo=request.GET.get('classNo')
     return HttpResponse(res)
