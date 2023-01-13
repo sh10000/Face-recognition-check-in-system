@@ -42,6 +42,10 @@ urlpatterns = [
     path("setunsign",views.setunsign),
     path("setsign",views.setsign),
     path("stopsign",views.stopsign),
+    path("teacourse/",views.teacourse),
+    path("teacourse",views.teacourse),
+    path("delstudent",views.delstudent),
+    path("Taddstudent",views.Taddstudent),
 
 #管理员页面组
     path("manage", views.manageIndex),

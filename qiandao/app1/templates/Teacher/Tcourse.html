@@ -37,6 +37,8 @@
 		        <button type="submit" class="btn btn-default searchbutton">search</button>
 		      </form>
 		      <ul class="nav navbar-nav navbar-right">
+				  <li><a href="#">欢迎用户：{{teaName}}</a></li>
+				  <li><a href="/logout">退出登录</a></li>
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">设置 <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
@@ -56,16 +58,16 @@
 			<div class="tree">
 				<ul style="padding-left:0px;" class="list-group">
 					<li class="list-group-item tree-closed" >
-						<a href="Tmain.html"><i class="glyphicon glyphicon-dashboard"></i> 教师主页</a> 
+						<a href="/teacher"><i class="glyphicon glyphicon-dashboard"></i> 教师主页</a>
 					</li>
 					<li class="list-group-item tree-closed">
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 考勤管理 <span class="badge" style="float:right">3</span></span> 
 						<ul style="margin-top:10px;display:none;">
 							<li style="height:30px;">
-								<a href="SignPublish.html" id="publish"><i class="glyphicon glyphicon glyphicon-tasks"></i> 发布考勤</a> 
+								<a href="/signpublish" id="publish"><i class="glyphicon glyphicon glyphicon-tasks"></i> 发布考勤</a>
 							</li>
 							<li style="height:30px;">
-								<a href="SignResult.html"><i class="glyphicon glyphicon-user"></i> 查看考勤统计</a> 
+								<a href="/signresult"><i class="glyphicon glyphicon-user"></i> 查看考勤统计</a>
 							</li>
 						</ul>
 					</li>
@@ -76,7 +78,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<div class="panel panel-default">
 			  <div class="panel-heading">
-				<h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 课程名称：软件文档写作</h3>
+				<h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> {{courseName}}</h3>
 			  </div>
 
 			  <div class="panel-body">
@@ -90,8 +92,7 @@
 				  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 				</form>	
 
-				<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-				<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add-student.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+				<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='/Taddstudent'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 				<br>
 				<hr style="clear:both;">
 
@@ -106,16 +107,18 @@
 				    </tr>
 				  </thead>
 				  <tbody>
+				  {% for obj in res %}
 					<tr>
-					  <td>1</td>
-					  <td>Lorem</td>
-					  <td>ipsum</td>
+					  <td>{{forloop.counter}}</td>
+					  <td>{{obj.0}}</td>
+					  <td>{{obj.1}}</td>
 					  <td>
 					      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
 					      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-						  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
+						  <button type="button" class="btn btn-danger btn-xs" onclick="delstudent({{obj.0}},{{classNo}},{{courseNo}})"><i class=" glyphicon glyphicon-remove"></i></button>
 					  </td>
-					</tr>				  	
+					</tr>
+				  {% endfor %}
 				  </tbody>
 				  <tfoot>
 				     <tr >
@@ -146,6 +149,15 @@
     <script src="../../static/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../../static/script/docs.min.js"></script>
     <script type="text/javascript">
+    	function delstudent(sid,cid,coid) {
+        	alert("将该学生移除课程");
+    		window.location.href = '/delstudent?sid=' + sid + '&cid=' + cid + '&coid=' + coid;
+		};
+
+    	function addstudent(cid,coid) {
+    		window.location.href = '/addstudent?cid=' + cid + '&coid=' + coid;
+		};
+
         $(function () {
 		    $(".list-group-item").click(function(){
 			    if ( $(this).find("ul") ) {

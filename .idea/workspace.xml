@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="18096b32-c63e-4b39-b8ef-6472e068b394" name="Changes" comment="Changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qiandao/app1/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/templates/Teacher/Tcourse.html" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/templates/Teacher/Tcourse.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/templates/Teacher/Tmain.html" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/templates/Teacher/Tmain.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qiandao/app1/templates/Teacher/add-student.html" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/templates/Teacher/add-student.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/qiandao/app1/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/app1/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/qiandao/qiandao/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/qiandao/qiandao/urls.py" afterDir="false" />
     </list>
@@ -34,19 +36,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Face-recognition-check-in-system" />
@@ -70,11 +72,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.manage" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -154,8 +151,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Changes" />
     <option name="LAST_COMMIT_MESSAGE" value="Changes" />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Face_recognition_check_in_system_iml$manage.coverage" NAME="manage 覆盖结果" MODIFIED="1672965563623" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/qiandao" />
   </component>
 </project>
