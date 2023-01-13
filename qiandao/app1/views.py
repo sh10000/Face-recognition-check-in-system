@@ -735,25 +735,19 @@ def authTeacher(request):
 
 def modifyTeacherAuth(request,tNo):
     admName = request.get_signed_cookie("username", salt="dsb")
-    ask = request.GET.get("ask")
-    if (ask != None):
-        authNo = models.Tea_Auth.all().filter()
+    auth_list = models.Tea_Auth.objects.all().filter(teacherNo=tNo)
+    return render(request, "Manage/AuthTeacherModify.html", {"admName":admName, "n1":auth_list})
 
-    if (ask == None):
-        auth_list = models.Tea_Auth.objects.all().filter(teacherNo=tNo)
-        return render(request, "Manage/AuthTeacherModify.html", {"admName":admName, "n1":auth_list})
-
-def addTeacherAuth(request, err_message=None):
+def addTeacherAuth(request):
     admName = request.get_signed_cookie("username", salt='dsb')
     ask = request.GET.get("ask")
     if (ask != None):
-        print("test")
-
-
+        authNo = models.Authrity.objects.filter(name__contains=ask)
+        return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": authNo})
 
     if (ask == None):
         auth_list = models.Authrity.all()
-        return render(request, "Manage/AuthTeacherAdd.html", {"admName":admName, "n1": auth_list})
+        return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list})
 
 #学生权限管理
 def authStudent(request):
