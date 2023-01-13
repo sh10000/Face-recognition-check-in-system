@@ -27,6 +27,9 @@
 		  <label for="user">密码</label>
 		  <input type="password" class="form-control" id="password" placeholder="请输入密码" name="password">
 		</div>
+		{% if err_message %}
+    	<p class="error" style="color: red">{{ err_message }}</p>
+		{% endif %}
 		<button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 	  </form>
 	</div>

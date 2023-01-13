@@ -431,10 +431,12 @@ def manageStudent(request):
 # 管理员增加学生信息
 @check_login
 @check_duplicate('Student', 'studentNo')
-def addstudent(request):
+def addstudent(request,err_message=None):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
         return render(request, "Manage/add-student.html", {"admName": admName})
+    if err_message:
+        return render(request, "Manage/add-student.html", {"admName": admName,"err_message": err_message})
     user = request.POST.get("name")
     pwd = request.POST.get("password")
     studentNo = request.POST.get("studentNo")
@@ -479,17 +481,15 @@ def manageStudentDelete(request):
 
 # 管理员修改学生信息
 @check_login
-@check_duplicate('Student', 'studentNo')
-def manageStudentModify(request, nid):
+def manageStudentModify(request, nid,err_message=None):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
         studentNo = models.Student.objects.filter(studentNo=nid).first()
-        return render(request, "Manage/modify-student.html", {"n1": studentNo, "nid": nid})
+        return render(request, "Manage/modify-student.html", {"admName": admName,"n1": studentNo, "nid": nid})
     user = request.POST.get("name")
     pwd = request.POST.get("password")
     studentNo = request.POST.get("studentNo")
     img = request.FILES.get('img')
-    print('打印图片', img)
     if (img != None):
         img_name = img.name
         models.StudentPhoto.objects.create(photo=img)
@@ -516,10 +516,12 @@ def manageCourse(request):
 
 @check_login
 @check_duplicate('Course', 'courseNo')
-def addcourse(request):
+def addcourse(request,err_message=None):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
-        return render(request, "Manage/add-course.html")
+        return render(request, "Manage/add-course.html",{"admName": admName})
+    if err_message:
+        return render(request, "Manage/add-course.html", {"admName": admName,"err_message": err_message})
     print(request.POST)
     courseNo = request.POST.get("courseNo")
     courseName = request.POST.get("courseName")
@@ -537,12 +539,11 @@ def manageCourseDelete(request):
 
 
 @check_login
-@check_duplicate('Course', 'courseNo')
 def manageCourseModify(request, nid):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
         studentNo = models.Course.objects.filter(courseNo=nid).first()
-        return render(request, "Manage/modify-course.html", {"n1": studentNo, "nid": nid})
+        return render(request, "Manage/modify-course.html", {"admName": admName,"n1": studentNo, "nid": nid})
     nid = request.POST.get("nid")
     name = request.POST.get("courseName")
     pwd = request.POST.get("password")
@@ -569,9 +570,9 @@ def addteacher(request, err_message=None):
 
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
-        return render(request, "Manage/add-teacher.html")
+        return render(request, "Manage/add-teacher.html",{"admName": admName})
     if err_message:
-        return render(request, "Manage/add-teacher.html", {"err_message": err_message})
+        return render(request, "Manage/add-teacher.html", {"admName": admName,"err_message": err_message})
     print(request.POST)
     teacherNo = request.POST.get("teacherNo")
     name = request.POST.get("name")
@@ -594,7 +595,7 @@ def manageTeacherModify(request, nid):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
         studentNo = models.Teacher.objects.filter(teacherNo=nid).first()
-        return render(request, "Manage/modify-teacher.html", {"n1": studentNo, "nid": nid})
+        return render(request, "Manage/modify-teacher.html", {"admName": admName,"n1": studentNo, "nid": nid})
     nid = request.POST.get("nid")
     name = request.POST.get("name")
     user = request.POST.get("user")
@@ -675,8 +676,8 @@ def signed(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
     photo = request.POST.get("photo")
     pbase64 = photo[22:]
-    classNo = request.GET.get('classNo')
-    c = '1'
+    classNo = request.POST.get('classNo')
+    c = classNo
     print(classNo)
     url = "https://{endpoint}/v2/{project_id}/face-sets/{face_set_name}/search".format(
         endpoint=endpoint, project_id=project_id, face_set_name=face_set_name)

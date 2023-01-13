@@ -27,6 +27,9 @@
 		  <label for="photo">学生照片</label>
 		  <input type="file" name="img">
 		</div>
+		{% if err_message %}
+    	<p class="error" style="color: red">{{ err_message }}</p>
+		{% endif %}
 		<button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 	  </form>
 	</div>
