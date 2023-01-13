@@ -60,6 +60,7 @@ urlpatterns = [
     path("manage/student/<int:nid>/modify", views.manageStudentModify),
     #管理员管理老师
     path("manageteacher", views.manageTeacher),
+    path("manageteacher/", views.manageTeacher),
     path("addteacher", views.addteacher),
     path("manage/teacher/delete/", views.manageTeacherDelete),
     path("manage/teacher/<int:nid>/modify", views.manageTeacherModify),

@@ -72,7 +72,6 @@ def check_duplicate(model_name, field_name):
             model = apps.get_model('app1', model_name)
             if model.objects.filter(**{field_name: form.get(field_name)}).exists():
                 kwargs['err_message'] = f'{field_name} 已经存在'
-            print(kwargs['err_message'])
             return view_func(request, *args, **kwargs)
 
         return _wrapped_view
@@ -531,10 +530,13 @@ def manageTeacher(request):
 
 @check_login
 @check_duplicate('Teacher', 'teacherNo')
-def addteacher(request):
+def addteacher(request, err_message=None):
+
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
         return render(request, "Manage/add-teacher.html")
+    if err_message:
+        return render(request, "Manage/add-teacher.html", {"err_message": err_message})
     print(request.POST)
     teacherNo = request.POST.get("teacherNo")
     name = request.POST.get("name")
