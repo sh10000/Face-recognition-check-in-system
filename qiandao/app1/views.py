@@ -531,12 +531,13 @@ def manageTeacher(request):
 
 @check_login
 @check_duplicate('Teacher', 'teacherNo')
-def addteacher(request,err_message=None):
+def addteacher(request, err_message=None):
+
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
         return render(request, "Manage/add-teacher.html",{"admName": admName})
     if err_message:
-        return render(request, "Manage/add-teacher.html", {"admName": admName,"err_message": err_message})
+        return render(request, "Manage/add-teacher.html", {"err_message": err_message})
     print(request.POST)
     teacherNo = request.POST.get("teacherNo")
     name = request.POST.get("name")
