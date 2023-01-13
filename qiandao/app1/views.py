@@ -450,7 +450,7 @@ def manageStudentModify(request, nid,err_message=None):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
         studentNo = models.Student.objects.filter(studentNo=nid).first()
-        return render(request, "Manage/modify-student.html", {"n1": studentNo, "nid": nid})
+        return render(request, "Manage/modify-student.html", {"admName": admName,"n1": studentNo, "nid": nid})
     user = request.POST.get("name")
     pwd = request.POST.get("password")
     studentNo = request.POST.get("studentNo")
@@ -508,7 +508,7 @@ def manageCourseModify(request, nid):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
         studentNo = models.Course.objects.filter(courseNo=nid).first()
-        return render(request, "Manage/modify-course.html", {"n1": studentNo, "nid": nid})
+        return render(request, "Manage/modify-course.html", {"admName": admName,"n1": studentNo, "nid": nid})
     nid = request.POST.get("nid")
     name = request.POST.get("courseName")
     pwd = request.POST.get("password")
@@ -537,7 +537,7 @@ def addteacher(request, err_message=None):
     if request.method == 'GET':
         return render(request, "Manage/add-teacher.html",{"admName": admName})
     if err_message:
-        return render(request, "Manage/add-teacher.html", {"err_message": err_message})
+        return render(request, "Manage/add-teacher.html", {"admName": admName,"err_message": err_message})
     print(request.POST)
     teacherNo = request.POST.get("teacherNo")
     name = request.POST.get("name")
@@ -560,7 +560,7 @@ def manageTeacherModify(request, nid):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
         studentNo = models.Teacher.objects.filter(teacherNo=nid).first()
-        return render(request, "Manage/modify-teacher.html", {"n1": studentNo, "nid": nid})
+        return render(request, "Manage/modify-teacher.html", {"admName": admName,"n1": studentNo, "nid": nid})
     nid = request.POST.get("nid")
     name = request.POST.get("name")
     user = request.POST.get("user")
