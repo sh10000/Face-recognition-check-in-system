@@ -32,7 +32,7 @@ def check_login(func):
 
     return inner
 
-
+'''
 def check_duplicate(model_name, field_name):
     def _decorator(view_func):
         def _wrapped_view(request, *args, **kwargs):
@@ -41,6 +41,26 @@ def check_duplicate(model_name, field_name):
             print(model)
             if model.objects.filter(**{field_name: form.get(field_name)}).exists():
                 kwargs['err_message'] = f'{field_name} already exists.'
+            return view_func(request, *args, **kwargs)
+
+        return _wrapped_view
+
+    return _decorator
+'''
+
+
+def check_duplicate(model_name, field_name):
+    def _decorator(view_func):
+        def _wrapped_view(request, *args, **kwargs):
+            form = request.POST
+            for k, v in form.items():
+                if not v:
+                    kwargs['err_message'] = f'{k} 不能为空'
+                    break
+            model = apps.get_model('app1', model_name)
+            if model.objects.filter(**{field_name: form.get(field_name)}).exists():
+                kwargs['err_message'] = f'{field_name} 已经存在'
+            print(kwargs['err_message'])
             return view_func(request, *args, **kwargs)
 
         return _wrapped_view
@@ -137,21 +157,11 @@ def register(request, err_message=None):
     user = request.POST.get("name")
     pwd = request.POST.get("password")
     studentNo = request.POST.get("studentNo")
-    img = request.FILES.get('img')
-    if studentNo == "":
-        return render(request, "register.html", {'err_message': "学号不得为空！"})
-    elif user == "":
-        return render(request, "register.html", {'err_message': "姓名不得为空！"})
-    elif pwd == "":
-        return render(request, "register.html", {'err_message': "密码不得为空！"})
-    elif img is None:
-        return render(request, "register.html", {'err_message': "请上传照片！"})
-    else:
-        rep = redirect('/student')
-        rep.set_signed_cookie("is_login", "1", salt="dsb", max_age=60 * 60 * 24 * 7)
-        rep.set_signed_cookie("username", studentNo, salt="dsb", max_age=60 * 60 * 24 * 7)
-        models.Student.objects.create(studentNo=studentNo, name=user, password=pwd, photo=img, img_name=img.name)
-        return rep
+    rep = redirect('/student')
+    rep.set_signed_cookie("is_login", "1", salt="dsb", max_age=60 * 60 * 24 * 7)
+    rep.set_signed_cookie("username", studentNo, salt="dsb", max_age=60 * 60 * 24 * 7)
+    models.Student.objects.create(studentNo=studentNo, name=user, password=pwd, photo=img, img_name=img.name)
+    return rep
 
 
 @check_login
