@@ -559,8 +559,8 @@ def manageTeacherDelete(request):
 def manageTeacherModify(request, nid):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
-        studentNo = models.Teacher.objects.filter(teacherNo=nid).first()
-        return render(request, "Manage/modify-teacher.html", {"admName": admName,"n1": studentNo, "nid": nid})
+        teacherNo = models.Teacher.objects.filter(teacherNo=nid).first()
+        return render(request, "Manage/modify-teacher.html", {"admName": admName,"n1": teacherNo, "nid": nid})
     nid = request.POST.get("nid")
     name = request.POST.get("name")
     user = request.POST.get("user")
@@ -569,7 +569,8 @@ def manageTeacherModify(request, nid):
     return redirect("/manageteacher")
 
 
-# 管理员教师
+# 管理员开课班
+
 # 学生课程界面
 @check_login
 def student(request):
@@ -685,3 +686,82 @@ def ajaxtest(request):
     res = json.dumps(photo)
     # classNo=request.GET.get('classNo')
     return HttpResponse(res)
+
+#教师权限管理界面
+def authTeacher(request):
+    admName = request.get_signed_cookie("username", salt="dsb")
+    ask = request.GET.get("ask")
+    if (ask != None):
+        teacherNo = models.Teacher.objects.filter(name__contains=ask)
+        return render(request, "Manage/AuthTeacher.html", {"admName": admName, "n1": teacherNo})
+    if (ask == None):
+        teacher_list = models.Teacher.objects.all()
+        return render(request,"Manage/AuthTeacher.html", {"admName":admName, "n1":teacher_list})
+
+def modifyTeacherAuth(request,tNo):
+    admName = request.get_signed_cookie("username", salt="dsb")
+    ask = request.GET.get("ask")
+    if (ask != None):
+        authNo = models.Tea_Auth.all().filter()
+
+    if (ask == None):
+        auth_list = models.Tea_Auth.objects.all().filter(teacherNo=tNo)
+        return render(request, "Manage/AuthTeacherModify.html", {"admName":admName, "n1":auth_list})
+
+def addTeacherAuth(request, err_message=None):
+    admName = request.get_signed_cookie("username", salt='dsb')
+    ask = request.GET.get("ask")
+    if (ask != None):
+        print("test")
+
+
+
+    if (ask == None):
+        auth_list = models.Authrity.all()
+        return render(request, "Manage/AuthTeacherAdd.html", {"admName":admName, "n1": auth_list})
+
+#学生权限管理
+def authStudent(request):
+    admName = request.get_signed_cookie("username", salt="dsb")
+    ask = request.GET.get("ask")
+    if (ask != None):
+        studentNo = models.Student.objects.filter(name__contains=ask)
+        return render(request, "Manage/AuthStudent.html", {"admName": admName, "n1": studentNo})
+    if (ask == None):
+        student_list = models.Student.objects.all()
+        return render(request,"Manage/AuthStudent.html", {"admName":admName, "n1":student_list})
+
+def modifyStudentAuth(request,sNo):
+    admName = request.get_signed_cookie("username", salt="dsb")
+    ask = request.GET.get("ask")
+    if (ask != None):
+        authNo = models.Tea_Auth.all().filter()
+
+    if (ask == None):
+        auth_list = models.Tea_Auth.objects.all().filter(studentNo=sNo)
+        return render(request, "Manage/AuthStudentModify.html", {"admName":admName, "n1":auth_list})
+
+def addStudentAuth(request, err_message=None):
+    admName = request.get_signed_cookie("username", salt='dsb')
+    ask = request.GET.get("ask")
+    if (ask != None):
+        print('test')
+
+
+    if (ask == None):
+        auth_list = models.Authrity.all()
+        return render(request, "Manage/AuthStudentAdd.html", {"admName":admName, "n1": auth_list})
+
+
+
+
+
+
+
+
+
+
+
+
+
+

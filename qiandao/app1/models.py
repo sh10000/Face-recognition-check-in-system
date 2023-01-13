@@ -33,11 +33,13 @@ class StudentPhoto(models.Model):
 class Stu_Auth(models.Model):
     studentNo = models.ForeignKey(Student, on_delete=models.CASCADE)
     authNo = models.ForeignKey(Authority, on_delete=models.CASCADE)
+    authName = models.CharField(max_length=32)
 
 # 教师权限联系
 class Tea_Auth(models.Model):
     teacherNo = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     authNo = models.ForeignKey(Authority, on_delete=models.CASCADE)
+    authName = models.CharField(max_length=32)
 
 # 课程
 class Course(models.Model):
