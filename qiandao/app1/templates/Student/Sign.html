@@ -171,7 +171,12 @@
 				type: "post",
 				data: {"photo": cur_src,"classNo":"{{ classNo }}"}, //上传图片，格式为base64的字符串形式
 				success: function(res){
-					alert("提交成功！！");
+					if(res==0){
+					alert("签到失败！！");
+					}
+					else if(res==1){
+					alert("签到成功！！");
+					}
 				}
 			})
 		})
