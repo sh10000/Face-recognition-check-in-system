@@ -240,6 +240,46 @@ def teacher(request):
         res = cursor.fetchall()
     return render(request, "Teacher/Tmain.html", {"teaName": teaName, "res": res})
 
+@check_login
+def teacourse(request):
+    teaName = request.get_signed_cookie("username", salt="dsb")
+    classNo = request.GET.get('classNo')
+    courseNo = request.GET.get('courseNo')
+    courseName = models.Course.objects.filter(courseNo=courseNo).first().courseName
+    print(courseName)
+    print(classNo)
+    cursor = connection.cursor()
+    sql = "SELECT studentNo, `name` " \
+          "FROM renLianShiBie1.app1_student a, renLianShiBie1.app1_class_students b " \
+          "WHERE a.studentNo = b.student_id AND b.class_id = " + classNo + ";"
+    print(sql)
+    cursor.execute(sql)
+    res = cursor.fetchall()
+    return render(request, "Teacher/Tcourse.html", {"teaName": teaName, "res": res, "courseName": courseName, "classNo": classNo, "courseNo": courseNo})
+
+@check_login
+def delstudent(request):
+    sid = request.GET.get('sid')
+    cid = request.GET.get('cid')
+    coid = request.GET.get('coid')
+    print("1:", sid, cid, coid)
+    cursor = connection.cursor()
+    sql = "DELETE FROM renLianShiBie1.app1_class_students WHERE student_id = " + sid + ";"
+    cursor.execute(sql)
+    return redirect("/teacourse?classNo=" + cid + "&courseNo=" + coid)
+
+@check_login
+def Taddstudent(request):
+    cid = request.GET.get('cid')
+    coid = request.GET.get('coid')
+    print("1:", cid, coid)
+    return render(request, "Teacher/add-student.html")
+    '''
+    cursor = connection.cursor()
+    sql = "DELETE FROM renLianShiBie1.app1_class_students WHERE student_id = " + sid + ";"
+    cursor.execute(sql)
+    return redirect("/teacourse?classNo=" + cid + "&courseNo=" + coid)
+    '''
 
 @check_login
 def classInfo(request):
