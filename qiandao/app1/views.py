@@ -245,13 +245,19 @@ def teacourse(request):
     teaName = request.get_signed_cookie("username", salt="dsb")
     classNo = request.GET.get('classNo')
     courseNo = request.GET.get('courseNo')
+    ask = request.GET.get('ask')
     courseName = models.Course.objects.filter(courseNo=courseNo).first().courseName
     print(courseName)
     print(classNo)
     cursor = connection.cursor()
-    sql = "SELECT studentNo, `name` " \
-          "FROM renLianShiBie1.app1_student a, renLianShiBie1.app1_class_students b " \
-          "WHERE a.studentNo = b.student_id AND b.class_id = " + classNo + ";"
+    if ask:
+        sql = "SELECT studentNo, `name` " \
+              "FROM renLianShiBie1.app1_student a, renLianShiBie1.app1_class_students b " \
+              "WHERE a.name like '%" + ask + "%' AND a.studentNo = b.student_id AND b.class_id = " + classNo + ";"
+    else:
+        sql = "SELECT studentNo, `name` " \
+              "FROM renLianShiBie1.app1_student a, renLianShiBie1.app1_class_students b " \
+              "WHERE a.studentNo = b.student_id AND b.class_id = " + classNo + ";"
     print(sql)
     cursor.execute(sql)
     res = cursor.fetchall()
@@ -270,16 +276,34 @@ def delstudent(request):
 
 @check_login
 def Taddstudent(request):
+    teaName = request.get_signed_cookie("username", salt="dsb")
     cid = request.GET.get('cid')
+    sid = request.GET.get('sid')
     coid = request.GET.get('coid')
-    print("1:", cid, coid)
-    return render(request, "Teacher/add-student.html")
-    '''
+    ask = request.GET.get('ask')
+    courseName = models.Course.objects.filter(courseNo=coid).first().courseName
+    print("1:", cid, sid, courseName)
     cursor = connection.cursor()
-    sql = "DELETE FROM renLianShiBie1.app1_class_students WHERE student_id = " + sid + ";"
+    if sid:
+        sql = "INSERT INTO renLianShiBie1.app1_class_students VALUES (null, %s, %s);" % (cid, sid)
+        cursor.execute(sql)
+    if ask:
+        sql = "SELECT studentNo,`name` " \
+              "FROM renLianShiBie1.app1_student a " \
+              "WHERE a.name like '%" + ask + "%' AND a.studentNo NOT IN " \
+              "(SELECT student_id FROM renLianShiBie1.app1_class_students b " \
+              "WHERE b.class_id=" + cid + ");"
+        print(sql)
+    else:
+        sql = "SELECT studentNo,`name` " \
+              "FROM renLianShiBie1.app1_student a " \
+              "WHERE a.studentNo NOT IN " \
+              "(SELECT student_id FROM renLianShiBie1.app1_class_students b " \
+              "WHERE b.class_id=%s);" % cid
     cursor.execute(sql)
-    return redirect("/teacourse?classNo=" + cid + "&courseNo=" + coid)
-    '''
+    res = cursor.fetchall()
+    return render(request, "Teacher/add-student.html", {"res": res, "cid": cid, "coid": coid, "courseName": courseName, "teaName": teaName})
+
 
 @check_login
 def classInfo(request):
@@ -369,8 +393,10 @@ def signresult(request):
                   "where a.studentNo = b.studentNo_id and b.status='已签到' and b.QianDaoId_id= " + Qid + ";"
             cursor.execute(sql)
             res = cursor.fetchall()
+    signcnt = models.StuQianDao.objects.filter(status="已签到", QianDaoId_id=Qid).count()
+    unsigncnt = models.StuQianDao.objects.filter(status="未签到", QianDaoId_id=Qid).count()
     teaName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "Teacher/SignResult.html", {"teaName": teaName, "res": res, "Qid": Qid})
+    return render(request, "Teacher/SignResult.html", {"teaName": teaName, "res": res, "Qid": Qid, "signcnt": signcnt, "unsigncnt": unsigncnt})
 
 
 @check_login
@@ -393,8 +419,10 @@ def unsignresult(request):
                   "where a.studentNo = b.studentNo_id and b.status='未签到' and b.QianDaoId_id= " + Qid + ";"
             cursor.execute(sql)
             res = cursor.fetchall()
+    signcnt = models.StuQianDao.objects.filter(status="已签到", QianDaoId_id=Qid).count()
+    unsigncnt = models.StuQianDao.objects.filter(status="未签到", QianDaoId_id=Qid).count()
     teaName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "Teacher/UnSignResult.html", {"teaName": teaName, "res": res, "Qid": Qid})
+    return render(request, "Teacher/UnSignResult.html", {"teaName": teaName, "res": res, "Qid": Qid, "signcnt": signcnt, "unsigncnt": unsigncnt})
 
 
 @check_login
