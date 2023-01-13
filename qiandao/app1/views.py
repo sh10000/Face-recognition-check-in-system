@@ -222,12 +222,22 @@ def updateinfo(request):
 @check_login
 def teacher(request):
     teaName = request.get_signed_cookie("username", salt="dsb")
-    cursor = connection.cursor()
-    sql = "SELECT classNo, courseNo, courseName, grade " \
-          "FROM renLianShiBie1.app1_class a, renLianShiBie1.app1_course b " \
-          "WHERE a.course_id = b.courseNo AND a.teacher_id = " + teaName + ";"
-    cursor.execute(sql)
-    res = cursor.fetchall()
+    ask = request.GET.get("ask")
+    print(ask)
+    if ask:
+        cursor = connection.cursor()
+        sql = "SELECT classNo, courseNo, courseName, grade " \
+              "FROM renLianShiBie1.app1_class a, renLianShiBie1.app1_course b " \
+              "WHERE a.course_id = b.courseNo AND a.teacher_id = " + teaName + " AND b.courseName like '%" + ask + "%';"
+        cursor.execute(sql)
+        res = cursor.fetchall()
+    else:
+        cursor = connection.cursor()
+        sql = "SELECT classNo, courseNo, courseName, grade " \
+              "FROM renLianShiBie1.app1_class a, renLianShiBie1.app1_course b " \
+              "WHERE a.course_id = b.courseNo AND a.teacher_id = " + teaName + ";"
+        cursor.execute(sql)
+        res = cursor.fetchall()
     return render(request, "Teacher/Tmain.html", {"teaName": teaName, "res": res})
 
 
@@ -302,15 +312,23 @@ def signpublish(request):
 @check_login
 def signresult(request):
     Qid = request.GET.get("Qid")
+    ask = request.GET.get("ask")
     print(Qid)
     if Qid is None:
         return redirect("/teasigninfo/")
     else:
-        cursor = connection.cursor()
-        sql = "SELECT studentNo, `name`, QTime, status from renLianShiBie1.app1_student a, renLianShiBie1.app1_stuqiandao b " \
-              "where a.studentNo = b.studentNo_id and b.status='已签到' and b.QianDaoId_id= " + Qid + ";"
-        cursor.execute(sql)
-        res = cursor.fetchall()
+        if ask:
+            cursor = connection.cursor()
+            sql = "SELECT studentNo, `name`, QTime, status from renLianShiBie1.app1_student a, renLianShiBie1.app1_stuqiandao b " \
+                  "where a.studentNo = b.studentNo_id and b.status='已签到' and b.QianDaoId_id= " + Qid + " and a.`name` like '%" + ask + "%';"
+            cursor.execute(sql)
+            res = cursor.fetchall()
+        else:
+            cursor = connection.cursor()
+            sql = "SELECT studentNo, `name`, QTime, status from renLianShiBie1.app1_student a, renLianShiBie1.app1_stuqiandao b " \
+                  "where a.studentNo = b.studentNo_id and b.status='已签到' and b.QianDaoId_id= " + Qid + ";"
+            cursor.execute(sql)
+            res = cursor.fetchall()
     teaName = request.get_signed_cookie("username", salt="dsb")
     return render(request, "Teacher/SignResult.html", {"teaName": teaName, "res": res, "Qid": Qid})
 
@@ -318,27 +336,44 @@ def signresult(request):
 @check_login
 def unsignresult(request):
     Qid = request.GET.get("Qid")
-    print("qid:", Qid)
+    ask = request.GET.get("ask")
+    print(Qid)
     if Qid is None:
         return redirect("/teasigninfo/")
     else:
-        cursor = connection.cursor()
-        sql = "SELECT studentNo, `name`, QTime, status from renLianShiBie1.app1_student a, renLianShiBie1.app1_stuqiandao b " \
-              "where a.studentNo = b.studentNo_id and b.status='未签到' and b.QianDaoId_id= " + Qid + ";"
-        cursor.execute(sql)
-        res = cursor.fetchall()
+        if ask:
+            cursor = connection.cursor()
+            sql = "SELECT studentNo, `name`, QTime, status from renLianShiBie1.app1_student a, renLianShiBie1.app1_stuqiandao b " \
+                  "where a.studentNo = b.studentNo_id and b.status='未签到' and b.QianDaoId_id= " + Qid + " and a.`name` like '%" + ask + "%';"
+            cursor.execute(sql)
+            res = cursor.fetchall()
+        else:
+            cursor = connection.cursor()
+            sql = "SELECT studentNo, `name`, QTime, status from renLianShiBie1.app1_student a, renLianShiBie1.app1_stuqiandao b " \
+                  "where a.studentNo = b.studentNo_id and b.status='未签到' and b.QianDaoId_id= " + Qid + ";"
+            cursor.execute(sql)
+            res = cursor.fetchall()
     teaName = request.get_signed_cookie("username", salt="dsb")
     return render(request, "Teacher/UnSignResult.html", {"teaName": teaName, "res": res, "Qid": Qid})
 
 
 @check_login
 def teasigninfo(request):
+    ask = request.GET.get('ask')
+    print(ask)
     teaName = request.get_signed_cookie("username", salt="dsb")
-    cursor = connection.cursor()
-    sql = "SELECT id, qianDaoName, courseName, class1_id, pubtime from renLianShiBie1.app1_qiandao a where " \
-          "teacherNo_id=" + teaName + " order by pubtime desc;"
-    cursor.execute(sql)
-    res = cursor.fetchall()
+    if ask:
+        cursor = connection.cursor()
+        sql = "SELECT id, qianDaoName, courseName, class1_id, pubtime from renLianShiBie1.app1_qiandao a where " \
+              "teacherNo_id=" + teaName + " and courseName like '%" + ask + "%' order by pubtime desc;"
+        cursor.execute(sql)
+        res = cursor.fetchall()
+    else:
+        cursor = connection.cursor()
+        sql = "SELECT id, qianDaoName, courseName, class1_id, pubtime from renLianShiBie1.app1_qiandao a where " \
+              "teacherNo_id=" + teaName + " order by pubtime desc;"
+        cursor.execute(sql)
+        res = cursor.fetchall()
     return render(request, "Teacher/Signrecord.html", {"teaName": teaName, "res": res})
 
 

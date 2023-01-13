@@ -81,13 +81,14 @@
 
 			  <div class="panel-body">
 				<form class="form-inline" role="form" style="float:left;">
+					{% csrf_token %}
 				  <div class="form-group has-feedback">
 				    <div class="input-group">
-				      <div class="input-group-addon">查询条件</div>
-				      <input class="form-control has-success" type="text" placeholder="请输入查询条件">
+				      <div class="input-group-addon">查询签到</div>
+				      <input class="form-control has-success" type="text" placeholder="请输入课程名">
 				    </div>
 				  </div>
-				  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+				  <button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 				  <button type="button" class="btn btn-warning"onclick="window.location.href='/unsignresult'"> 已签(当前)</button>
 				</form>
 

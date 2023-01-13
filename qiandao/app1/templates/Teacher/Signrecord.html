@@ -85,15 +85,16 @@
 
 			  <div class="panel-body">
 				<form class="form-inline" role="form" style="float:left;">
+					{% csrf_token %}
 				  <div class="form-group has-feedback">
 				    <div class="input-group">
-				      <div class="input-group-addon">查询条件</div>
-				      <input class="form-control has-success" type="text" placeholder="请输入需要添加学生的学号">
+				      <div class="input-group-addon">查询签到</div>
+				      <input class="form-control has-success" type="text" placeholder="请输入课程号" name="ask">
 				    </div>
 				  </div>
-				  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+				  <button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 				</form>	
-				<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"onclick="window.location.href='Tmain.html'"><i class=" glyphicon glyphicon-remove"></i> 返回</button>
+				<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"onclick="window.location.href='/teacher'"><i class=" glyphicon glyphicon-remove"></i> 返回</button>
 				<br>
 				<hr style="clear:both;">
 
