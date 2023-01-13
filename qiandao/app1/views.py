@@ -445,7 +445,7 @@ def manageStudentDelete(request):
 
 # 管理员修改学生信息
 @check_login
-@check_duplicate('Student', 'studentNo')
+#@check_duplicate('Student', 'studentNo')
 def manageStudentModify(request, nid):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
@@ -638,8 +638,8 @@ def signed(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
     photo = request.POST.get("photo")
     pbase64 = photo[22:]
-    classNo = request.GET.get('classNo')
-    c = '1'
+    classNo = request.POST.get('classNo')
+    c = classNo
     print(classNo)
     url = "https://{endpoint}/v2/{project_id}/face-sets/{face_set_name}/search".format(
         endpoint=endpoint, project_id=project_id, face_set_name=face_set_name)

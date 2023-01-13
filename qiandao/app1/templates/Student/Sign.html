@@ -80,7 +80,7 @@
 			{% csrf_token %}
 			<img id="output" src="">
 			<br>
-			<button id="submit" class="btn btn-lg btn-success">确认</button>
+			<button id="submit" class="btn btn-lg btn-success" >确认</button>>
         </div>
 
       </div>
@@ -169,7 +169,7 @@
 			$.ajax({
 				url:"../signed/",//改为后台对应地址
 				type: "post",
-				data: {"photo": cur_src}, //上传图片，格式为base64的字符串形式
+				data: {"photo": cur_src,"classNo":"{{ classNo }}"}, //上传图片，格式为base64的字符串形式
 				success: function(res){
 					alert("提交成功！！");
 				}
