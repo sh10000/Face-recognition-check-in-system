@@ -873,10 +873,6 @@ def addStudentAuth(request, err_message=None):
         auth_list = models.Authrity.all()
         return render(request, "Manage/AuthStudentAdd.html", {"admName":admName, "n1": auth_list})
 
-    authID = request.GET.get("authId")
-    stuNo = request.GET.get("stuNo")
-    stuAuth = models.Stu_Auth(authNo = authID, studentNo = stuNo )
-    stuAuth.save()
 
     def addOneAuthStudent(request):
         authID = request.GET.get("authId")
