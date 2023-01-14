@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
-from app1 import models
+import models
 from django.core.files.base import ContentFile
 from django.contrib.auth import authenticate, login
 from functools import wraps
@@ -10,7 +10,6 @@ import datetime
 import json
 from django.apps import apps
 from PIL import Image
-import app1
 import requests
 import base64
 import os
