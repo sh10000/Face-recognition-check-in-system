@@ -884,7 +884,7 @@ def addTeacherAuth(request):
                                            "WHERE b.authNo=a.authNo_id and a.teacherNo_id=" + tid + " )"
         cursor.execute(sql)
         auth_list = cursor.fetchall()
-        return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list})
+        return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list,'name':tid})
     if (ask == None):
         cursor = connection.cursor()
         sql = "SELECT authNo,`name` " \
@@ -896,13 +896,14 @@ def addTeacherAuth(request):
                                            "WHERE b.authNo=a.authNo_id and a.teacherNo_id=" + tid + ")"
         cursor.execute(sql)
         auth_list = cursor.fetchall()
-        return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list})
+        return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list,'name':tid})
 
 
 def addOneAuthTeacher(request):
     authID = request.GET.get("authId")
     teaNo = request.GET.get("teaNo")
-    teaAuth = models.Tea_Auth(authNo=authID, teaNo=teaNo)
+    authname=request.GET.get("name")
+    teaAuth = models.Tea_Auth(authNo=authID, teaNo=teaNo,authName=authname)
     teaAuth.save()
     return render(request, "Manage/AuthTeacherAdd.html")
 
@@ -939,7 +940,7 @@ def addStudentAuth(request, err_message=None):
                 "WHERE b.authNo=a.authNo_id and a.studentNo_id=" + nid +" )"
         cursor.execute(sql)
         auth_list = cursor.fetchall()
-        return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": auth_list})
+        return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": auth_list,'name':nid})
     if (ask == None):
         cursor = connection.cursor()
         sql = "SELECT authNo,`name` " \
@@ -951,12 +952,13 @@ def addStudentAuth(request, err_message=None):
                                            "WHERE b.authNo=a.authNo_id and a.studentNo_id=" + nid + " )"
         cursor.execute(sql)
         auth_list = cursor.fetchall()
-        return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": auth_list})
+        return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": auth_list,'name':nid})
 
 
 def addOneAuthStudent(request):
     authID = request.GET.get("authId")
     stuNo = request.GET.get("stuNo")
-    stuAuth = models.Stu_Auth(authNo=authID, studentNo=stuNo)
+    authname=request.GET.get("name")
+    stuAuth = models.Stu_Auth(authNo=authID, studentNo=stuNo,authName=authname)
     stuAuth.save()
     return render(request, "Manage/AuthStudentAdd.html")

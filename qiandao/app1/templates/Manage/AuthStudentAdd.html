@@ -26,7 +26,6 @@
       <table class="table  table-bordered">
         <thead>
           <tr>
-            <th width="30">#</th>
             <th>权限编号</th>
             <th>权限名称</th>
             <th width="100">操作</th>
@@ -39,7 +38,7 @@
           <td>{{ obj.0 }}</td>
           <td>{{ obj.1 }}</td>
           <td>
-              <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manageauthteacher/{{ obj.teacherNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i>添加该权限</button>
+              <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/authstudent/addone?authId={{obj.0}}&teaNo={{name}}&name={{ obj.1 }}'"><i class=" glyphicon glyphicon-pencil"></i>添加该权限</button>
           </td> 
          </tr>
         {% endfor %}
