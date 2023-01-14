@@ -37,13 +37,13 @@
           <tr>
             <td>{{ obj.teacherNo }}</td>
             <td>{{ obj.password }}</td>
-            <td>{{ obj.password }}</td>
+            <td>{{ obj.user }}</td>
             <td>
-              <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='manage/auth/teacher/{{ obj.teacherNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i>定义权限</button>
+              <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/auth/teacher/{{ obj.teacherNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i></button>
           </td>
           </tr>	
           {% endfor %}			  	
-       
+            </tbody>
            <tr >
                <td colspan="6" align="center">
                   <ul class="pagination">
