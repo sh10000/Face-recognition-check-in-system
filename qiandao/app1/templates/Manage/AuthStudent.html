@@ -26,6 +26,7 @@
       <table class="table  table-bordered">
         <thead>
           <tr>
+            <th>学号</th>
             <th>用户名</th>
             <th>密码</th>
             <th width="100">操作</th>
@@ -35,11 +36,11 @@
           {% for obj in n1 %}
           <tr>
             <tr>
+              <td>{{ obj.studentNo }}</td>
               <td>{{ obj.name }}</td>
               <td>{{ obj.password }}</td>
-              <td>{{ obj.studentNo }}</td>
             <td>
-              <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/authstudent/{{ obj.studentNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i></button>
+              <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/authstudent/{{ obj.studentNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i>定义权限</button>
           </td>
           </tr>	
           {% endfor %}			  	
