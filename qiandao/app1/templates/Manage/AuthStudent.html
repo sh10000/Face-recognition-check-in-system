@@ -28,7 +28,6 @@
           <tr>
             <th>用户名</th>
             <th>密码</th>
-            <th>角色</th>
             <th width="100">操作</th>
           </tr>
         </thead>
@@ -40,7 +39,7 @@
               <td>{{ obj.password }}</td>
               <td>{{ obj.studentNo }}</td>
             <td>
-              <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manageauthstudent/{{ obj.studentNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i></button>
+              <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/authstudent/{{ obj.studentNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i></button>
           </td>
           </tr>	
           {% endfor %}			  	
@@ -70,11 +69,7 @@
 {% endblock form %}
 
 {% block script %}
-<script>
-    $("tbody .btn-primary").click(function(){
-        window.location.href ="/manage/auth/student/modify";
-    });
-</script>
+
 {% endblock script %}
 
 
