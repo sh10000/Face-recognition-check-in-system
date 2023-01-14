@@ -15,8 +15,7 @@
           </div>
         </div>
         <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
-      </form>	
-      <button type="button" class="btn btn-success" style="float:right;margin-left:10px;"onclick="window.location.href='/manage/authteacher/add'"><i class=" glyphicon glyphicon-check"></i> 添加权限</button>
+      </form>
     
       
       <br>
@@ -36,14 +35,16 @@
               {% for obj in n1 %}
               <tr>
             <td>{{ obj.teacherNo }}</td>
-            <td>{{ obj.password }}</td>
-            <td>{{ obj.user }}</td>
+            <td>{{ obj.name }}</td>
+            <td> {{ obj.password }}</td>
             <td>
-              <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/authteacher/{{ obj.teacherNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i></button>
-          </td>
-          </tr>	
-          {% endfor %}			  	
-            </tbody>
+                <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i>定义权限</button>
+            </td>
+           </tr>
+          {% endfor %}
+          </tr>				  	
+        </tbody>
+        <tfoot>
            <tr >
                <td colspan="6" align="center">
                   <ul class="pagination">

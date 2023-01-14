@@ -813,7 +813,7 @@ def ajaxtest(request):
     res = json.dumps(photo)
     # classNo=request.GET.get('classNo')
     return HttpResponse(res)
-@check_login
+
 #教师权限管理界面
 def authTeacher(request):
     admName = request.get_signed_cookie("username", salt="dsb")
@@ -824,12 +824,12 @@ def authTeacher(request):
     if (ask == None):
         teacher_list = models.Teacher.objects.all()
         return render(request,"Manage/AuthTeacher.html", {"admName":admName, "n1":teacher_list})
-@check_login
+
 def modifyTeacherAuth(request,tNo):
     admName = request.get_signed_cookie("username", salt="dsb")
     auth_list = models.Tea_Auth.objects.all().filter(teacherNo=tNo)
     return render(request, "Manage/AuthTeacherModify.html", {"admName":admName, "n1":auth_list})
-@check_login
+
 def addTeacherAuth(request):
     admName = request.get_signed_cookie("username", salt='dsb')
     ask = request.GET.get("ask")
@@ -837,16 +837,16 @@ def addTeacherAuth(request):
         authNo = models.Authority.objects.filter(name__contains=ask)
         return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": authNo})
 
-    auth_list = models.Authority.objects.all()
+    auth_list = models.Authrity.all()
     return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list})
-@check_login
+
 def addOneAuthTeacher(request):
     authID = request.GET.get("authId")
     teaNo = request.GET.get("teaNo")
     teaAuth = models.Tea_Auth(authNo=authID, teaNo=teaNo)
     teaAuth.save()
     return  render(request, "Manage/AuthTeacherAdd.html")
-@check_login
+
 #学生权限管理
 def authStudent(request):
     admName = request.get_signed_cookie("username", salt="dsb")
@@ -857,12 +857,12 @@ def authStudent(request):
     if (ask == None):
         student_list = models.Student.objects.all()
         return render(request,"Manage/AuthStudent.html", {"admName":admName, "n1":student_list})
-@check_login
+
 def modifyStudentAuth(request,sNo):
     admName = request.get_signed_cookie("username", salt="dsb")
     auth_list = models.Tea_Auth.objects.all().filter(studentNo=sNo)
     return render(request, "dmNameManage/AuthStudentModify.html", {"a":admName, "n1":auth_list})
-@check_login
+
 def addStudentAuth(request, err_message=None):
     admName = request.get_signed_cookie("username", salt='dsb')
     ask = request.GET.get("ask")
@@ -870,21 +870,21 @@ def addStudentAuth(request, err_message=None):
         authNo = models.Authority.objects.filter(name_contains=ask)
         return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": authNo})
     if (ask == None):
-        auth_list = models.Authority.objects.all()
+        auth_list = models.Authrity.all()
         return render(request, "Manage/AuthStudentAdd.html", {"admName":admName, "n1": auth_list})
 
     authID = request.GET.get("authId")
     stuNo = request.GET.get("stuNo")
     stuAuth = models.Stu_Auth(authNo = authID, studentNo = stuNo )
     stuAuth.save()
-@check_login
-def addOneAuthStudent(request):
+
+    def addOneAuthStudent(request):
         authID = request.GET.get("authId")
         stuNo = request.GET.get("stuNo")
         stuAuth = models.Stu_Auth(authNo=authID, studentNo=stuNo)
         stuAuth.save()
 
-        return render(request, "Manage/AuthStudentAdd.html")
+    return render(request, "Manage/AuthStudentAdd.html")
 
 
 
