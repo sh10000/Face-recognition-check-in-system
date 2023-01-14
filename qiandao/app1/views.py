@@ -268,6 +268,7 @@ def teacher(request):
 
 @check_login
 def teacourse(request):
+
     teaName = request.get_signed_cookie("username", salt="dsb")
     classNo = request.GET.get('classNo')
     courseNo = request.GET.get('courseNo')
@@ -294,6 +295,15 @@ def teacourse(request):
 @check_login
 @permission_required('用户管理', 'teacher')
 def delstudent(request):
+
+    tid = request.GET.get('tid')
+    sql = "SELECT id FROM tea_auth WHERE " \
+            "teacherNo_id = " + tid + "authNo_id = 003"
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    res = cursor.fetchall()
+    if res == None:
+        return render()
     sid = request.GET.get('sid')
     cid = request.GET.get('cid')
     coid = request.GET.get('coid')
