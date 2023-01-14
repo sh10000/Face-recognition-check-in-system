@@ -836,14 +836,16 @@ def addTeacherAuth(request):
     if (ask != None):
         authNo = models.Authrity.objects.filter(name__contains=ask)
         return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": authNo})
-    if (ask == None):
-        auth_list = models.Authrity.all()
-        return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list})
 
+    auth_list = models.Authrity.all()
+    return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list})
+
+def addOneAuthTeacher(request):
     authID = request.GET.get("authId")
     teaNo = request.GET.get("teaNo")
     teaAuth = models.Tea_Auth(authNo=authID, teaNo=teaNo)
     teaAuth.save()
+    return  render(request, "Manage/AuthTeacherAdd.html")
 
 #学生权限管理
 def authStudent(request):
@@ -875,6 +877,14 @@ def addStudentAuth(request, err_message=None):
     stuNo = request.GET.get("stuNo")
     stuAuth = models.Stu_Auth(authNo = authID, studentNo = stuNo )
     stuAuth.save()
+
+    def addOneAuthStudent(request):
+        authID = request.GET.get("authId")
+        stuNo = request.GET.get("stuNo")
+        stuAuth = models.Stu_Auth(authNo=authID, studentNo=stuNo)
+        stuAuth.save()
+
+    return render(request, "Manage/AuthStudentAdd.html")
 
 
 
