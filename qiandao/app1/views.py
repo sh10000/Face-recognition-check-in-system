@@ -13,8 +13,7 @@ from PIL import Image
 import requests
 import base64
 import os
-
-
+from django.http import JsonResponse
 
 endpoint = 'face.cn-north-4.myhuaweicloud.com'
 project_id = 'fdde698702e2473f8f12d7c481bbbe5e'
@@ -42,6 +41,7 @@ def check_login(func):
             # return redirect("/login/?next={}".format(next_url))
 
     return inner
+
 
 '''
 def check_duplicate(model_name, field_name):
@@ -76,6 +76,30 @@ def check_duplicate(model_name, field_name):
         return _wrapped_view
 
     return _decorator
+
+
+def check_permission(user, permission_name, user_type):
+    if user_type == 'student':
+        return models.Stu_Auth.objects.filter(studentNo_id=user, authName=permission_name).exists()
+    elif user_type == 'teacher':
+        # return models.Tea_Auth.objects.filter(teacherNo_id=user, authNo_id='0001').exists()
+        return models.Tea_Auth.objects.filter(teacherNo_id=user, authName=permission_name).exists()
+    return False
+
+
+# 装饰器检查用户权限
+def permission_required(permission_name, user_type):
+    def decorator(view_func):
+        @wraps(view_func)
+        def _wrapped_view(request, *args, **kwargs):
+            if not check_permission(request.get_signed_cookie("username", salt="dsb"), permission_name, user_type):
+                # 权限不足，弹出提示窗口
+                return redirect("/login")
+            return view_func(request, *args, **kwargs)
+
+        return _wrapped_view
+
+    return decorator
 
 
 # 主页，处理教师和管理员登录，学生签到
@@ -179,7 +203,9 @@ def register(request, err_message=None):
     rep.set_signed_cookie("is_login", "1", salt="dsb", max_age=60 * 60 * 24 * 7)
     rep.set_signed_cookie("username", studentNo, salt="dsb", max_age=60 * 60 * 24 * 7)
     models.Student.objects.create(studentNo=studentNo, name=user, password=pwd, photo=img, img_name=img.name)
-    url = "https://{endpoint}/v2/{project_id}/face-sets/{face_set_name}/faces".format(endpoint=endpoint,project_id=project_id,face_set_name=face_set_name)
+    url = "https://{endpoint}/v2/{project_id}/face-sets/{face_set_name}/faces".format(endpoint=endpoint,
+                                                                                      project_id=project_id,
+                                                                                      face_set_name=face_set_name)
     imagepath = 'temp.jpg'
     with open(imagepath, "rb") as bin_data:
         image_data = bin_data.read()
@@ -197,7 +223,6 @@ def register(request, err_message=None):
     path = 'temp.jpg'
     os.remove(path)
     return rep
-
 
 
 @check_login
@@ -239,6 +264,7 @@ def teacher(request):
         res = cursor.fetchall()
     return render(request, "Teacher/Tmain.html", {"teaName": teaName, "res": res})
 
+
 @check_login
 def teacourse(request):
     teaName = request.get_signed_cookie("username", salt="dsb")
@@ -260,9 +286,12 @@ def teacourse(request):
     print(sql)
     cursor.execute(sql)
     res = cursor.fetchall()
-    return render(request, "Teacher/Tcourse.html", {"teaName": teaName, "res": res, "courseName": courseName, "classNo": classNo, "courseNo": courseNo})
+    return render(request, "Teacher/Tcourse.html",
+                  {"teaName": teaName, "res": res, "courseName": courseName, "classNo": classNo, "courseNo": courseNo})
+
 
 @check_login
+@permission_required('用户管理', 'teacher')
 def delstudent(request):
     sid = request.GET.get('sid')
     cid = request.GET.get('cid')
@@ -272,6 +301,7 @@ def delstudent(request):
     sql = "DELETE FROM renLianShiBie1.app1_class_students WHERE student_id = " + sid + ";"
     cursor.execute(sql)
     return redirect("/teacourse?classNo=" + cid + "&courseNo=" + coid)
+
 
 @check_login
 def Taddstudent(request):
@@ -290,8 +320,8 @@ def Taddstudent(request):
         sql = "SELECT studentNo,`name` " \
               "FROM renLianShiBie1.app1_student a " \
               "WHERE a.name like '%" + ask + "%' AND a.studentNo NOT IN " \
-              "(SELECT student_id FROM renLianShiBie1.app1_class_students b " \
-              "WHERE b.class_id=" + cid + ");"
+                                             "(SELECT student_id FROM renLianShiBie1.app1_class_students b " \
+                                             "WHERE b.class_id=" + cid + ");"
         print(sql)
     else:
         sql = "SELECT studentNo,`name` " \
@@ -301,7 +331,8 @@ def Taddstudent(request):
               "WHERE b.class_id=%s);" % cid
     cursor.execute(sql)
     res = cursor.fetchall()
-    return render(request, "Teacher/add-student.html", {"res": res, "cid": cid, "coid": coid, "courseName": courseName, "teaName": teaName})
+    return render(request, "Teacher/add-student.html",
+                  {"res": res, "cid": cid, "coid": coid, "courseName": courseName, "teaName": teaName})
 
 
 @check_login
@@ -395,7 +426,8 @@ def signresult(request):
     signcnt = models.StuQianDao.objects.filter(status="已签到", QianDaoId_id=Qid).count()
     unsigncnt = models.StuQianDao.objects.filter(status="未签到", QianDaoId_id=Qid).count()
     teaName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "Teacher/SignResult.html", {"teaName": teaName, "res": res, "Qid": Qid, "signcnt": signcnt, "unsigncnt": unsigncnt})
+    return render(request, "Teacher/SignResult.html",
+                  {"teaName": teaName, "res": res, "Qid": Qid, "signcnt": signcnt, "unsigncnt": unsigncnt})
 
 
 @check_login
@@ -421,7 +453,8 @@ def unsignresult(request):
     signcnt = models.StuQianDao.objects.filter(status="已签到", QianDaoId_id=Qid).count()
     unsigncnt = models.StuQianDao.objects.filter(status="未签到", QianDaoId_id=Qid).count()
     teaName = request.get_signed_cookie("username", salt="dsb")
-    return render(request, "Teacher/UnSignResult.html", {"teaName": teaName, "res": res, "Qid": Qid, "signcnt": signcnt, "unsigncnt": unsigncnt})
+    return render(request, "Teacher/UnSignResult.html",
+                  {"teaName": teaName, "res": res, "Qid": Qid, "signcnt": signcnt, "unsigncnt": unsigncnt})
 
 
 @check_login
@@ -498,12 +531,12 @@ def manageStudent(request):
 # 管理员增加学生信息
 @check_login
 @check_duplicate('Student', 'studentNo')
-def addstudent(request,err_message=None):
+def addstudent(request, err_message=None):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
         return render(request, "Manage/add-student.html", {"admName": admName})
     if err_message:
-        return render(request, "Manage/add-student.html", {"admName": admName,"err_message": err_message})
+        return render(request, "Manage/add-student.html", {"admName": admName, "err_message": err_message})
     user = request.POST.get("name")
     pwd = request.POST.get("password")
     studentNo = request.POST.get("studentNo")
@@ -518,7 +551,9 @@ def addstudent(request,err_message=None):
     if img != None:
         img_name = img.name
         models.Student.objects.create(studentNo=studentNo, name=user, password=pwd, photo=img, img_name=img_name)
-        url = "https://{endpoint}/v2/{project_id}/face-sets/{face_set_name}/faces".format(endpoint=endpoint,project_id=project_id,face_set_name=face_set_name)
+        url = "https://{endpoint}/v2/{project_id}/face-sets/{face_set_name}/faces".format(endpoint=endpoint,
+                                                                                          project_id=project_id,
+                                                                                          face_set_name=face_set_name)
         imagepath = 'temp.jpg'
         with open(imagepath, "rb") as bin_data:
             image_data = bin_data.read()
@@ -548,11 +583,11 @@ def manageStudentDelete(request):
 
 # 管理员修改学生信息
 @check_login
-def manageStudentModify(request, nid,err_message=None):
+def manageStudentModify(request, nid, err_message=None):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
         studentNo = models.Student.objects.filter(studentNo=nid).first()
-        return render(request, "Manage/modify-student.html", {"admName": admName,"n1": studentNo, "nid": nid})
+        return render(request, "Manage/modify-student.html", {"admName": admName, "n1": studentNo, "nid": nid})
     user = request.POST.get("name")
     pwd = request.POST.get("password")
     studentNo = request.POST.get("studentNo")
@@ -609,12 +644,12 @@ def manageCourse(request):
 
 @check_login
 @check_duplicate('Course', 'courseNo')
-def addcourse(request,err_message=None):
+def addcourse(request, err_message=None):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
-        return render(request, "Manage/add-course.html",{"admName": admName})
+        return render(request, "Manage/add-course.html", {"admName": admName})
     if err_message:
-        return render(request, "Manage/add-course.html", {"admName": admName,"err_message": err_message})
+        return render(request, "Manage/add-course.html", {"admName": admName, "err_message": err_message})
     print(request.POST)
     courseNo = request.POST.get("courseNo")
     courseName = request.POST.get("courseName")
@@ -636,7 +671,7 @@ def manageCourseModify(request, nid):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
         studentNo = models.Course.objects.filter(courseNo=nid).first()
-        return render(request, "Manage/modify-course.html", {"admName": admName,"n1": studentNo, "nid": nid})
+        return render(request, "Manage/modify-course.html", {"admName": admName, "n1": studentNo, "nid": nid})
     nid = request.POST.get("nid")
     name = request.POST.get("courseName")
     pwd = request.POST.get("password")
@@ -660,12 +695,11 @@ def manageTeacher(request):
 @check_login
 @check_duplicate('Teacher', 'teacherNo')
 def addteacher(request, err_message=None):
-
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
-        return render(request, "Manage/add-teacher.html",{"admName": admName})
+        return render(request, "Manage/add-teacher.html", {"admName": admName})
     if err_message:
-        return render(request, "Manage/add-teacher.html", {"admName": admName,"err_message": err_message})
+        return render(request, "Manage/add-teacher.html", {"admName": admName, "err_message": err_message})
     print(request.POST)
     teacherNo = request.POST.get("teacherNo")
     name = request.POST.get("name")
@@ -688,7 +722,7 @@ def manageTeacherModify(request, nid):
     admName = request.get_signed_cookie("username", salt="dsb")
     if request.method == 'GET':
         teacherNo = models.Teacher.objects.filter(teacherNo=nid).first()
-        return render(request, "Manage/modify-teacher.html", {"admName": admName,"n1": teacherNo, "nid": nid})
+        return render(request, "Manage/modify-teacher.html", {"admName": admName, "n1": teacherNo, "nid": nid})
     nid = request.POST.get("nid")
     name = request.POST.get("name")
     user = request.POST.get("user")
@@ -789,7 +823,8 @@ def signed(request):
               " now() AND duetime >= now() and class1_id=" + c + " and a.class1_id=b.class_id and student_id =" + stuName
         cursor.execute(sql)
         res = cursor.fetchall()
-        sql2 = "insert into renLianShiBie1.app1_stuqiandao(studentNo_id,QianDaoID_id,QTime,status) values (" + stuName + "," + str(res[0][0]) + ",'" + str(res[0][1]) + "','已签到')"
+        sql2 = "insert into renLianShiBie1.app1_stuqiandao(studentNo_id,QianDaoID_id,QTime,status) values (" + stuName + "," + str(
+            res[0][0]) + ",'" + str(res[0][1]) + "','已签到')"
         cursor.execute(sql2)
         print('签到成功')
         return HttpResponse(1)
@@ -814,7 +849,8 @@ def ajaxtest(request):
     # classNo=request.GET.get('classNo')
     return HttpResponse(res)
 
-#教师权限管理界面
+
+# 教师权限管理界面
 def authTeacher(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     ask = request.GET.get("ask")
@@ -823,12 +859,14 @@ def authTeacher(request):
         return render(request, "Manage/AuthTeacher.html", {"admName": admName, "n1": teacherNo})
     if (ask == None):
         teacher_list = models.Teacher.objects.all()
-        return render(request,"Manage/AuthTeacher.html", {"admName":admName, "n1":teacher_list})
+        return render(request, "Manage/AuthTeacher.html", {"admName": admName, "n1": teacher_list})
 
-def modifyTeacherAuth(request,tNo):
+
+def modifyTeacherAuth(request, tNo):
     admName = request.get_signed_cookie("username", salt="dsb")
     auth_list = models.Tea_Auth.objects.all().filter(teacherNo=tNo)
-    return render(request, "Manage/AuthTeacherModify.html", {"admName":admName, "n1":auth_list})
+    return render(request, "Manage/AuthTeacherModify.html", {"admName": admName, "n1": auth_list})
+
 
 def addTeacherAuth(request):
     admName = request.get_signed_cookie("username", salt='dsb')
@@ -840,14 +878,16 @@ def addTeacherAuth(request):
     auth_list = models.Authrity.all()
     return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list})
 
+
 def addOneAuthTeacher(request):
     authID = request.GET.get("authId")
     teaNo = request.GET.get("teaNo")
     teaAuth = models.Tea_Auth(authNo=authID, teaNo=teaNo)
     teaAuth.save()
-    return  render(request, "Manage/AuthTeacherAdd.html")
+    return render(request, "Manage/AuthTeacherAdd.html")
 
-#学生权限管理
+
+# 学生权限管理
 def authStudent(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     ask = request.GET.get("ask")
@@ -856,9 +896,10 @@ def authStudent(request):
         return render(request, "Manage/AuthStudent.html", {"admName": admName, "n1": studentNo})
     if (ask == None):
         student_list = models.Student.objects.all()
-        return render(request,"Manage/AuthStudent.html", {"admName":admName, "n1":student_list})
+        return render(request, "Manage/AuthStudent.html", {"admName": admName, "n1": student_list})
 
-def modifyStudentAuth(request,sNo):
+
+def modifyStudentAuth(request, sNo):
     admName = request.get_signed_cookie("username", salt="dsb")
     auth_list = models.Stu_Auth.objects.all().filter(studentNo=sNo)
     return render(request, "Manage/AuthStudentModify.html", {"a":admName, "n1":auth_list})
@@ -871,8 +912,12 @@ def addStudentAuth(request, err_message=None):
         return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": authNo})
     if (ask == None):
         auth_list = models.Authrity.all()
-        return render(request, "Manage/AuthStudentAdd.html", {"admName":admName, "n1": auth_list})
+        return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": auth_list})
 
+    authID = request.GET.get("authId")
+    stuNo = request.GET.get("stuNo")
+    stuAuth = models.Stu_Auth(authNo=authID, studentNo=stuNo)
+    stuAuth.save()
 
     def addOneAuthStudent(request):
         authID = request.GET.get("authId")
@@ -881,19 +926,3 @@ def addStudentAuth(request, err_message=None):
         stuAuth.save()
 
     return render(request, "Manage/AuthStudentAdd.html")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

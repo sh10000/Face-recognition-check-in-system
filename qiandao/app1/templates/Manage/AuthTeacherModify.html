@@ -26,7 +26,6 @@
       <table class="table  table-bordered">
         <thead>
           <tr>
-            <th width="30">#</th>
             <th>权限编号</th>
             <th>权限名称</th>
             <th>权限信息</th>
@@ -34,15 +33,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Lorem</td>
-            <td>ipsum</td>
-            <td>dolor</td>
+          {% for obj in n1 %}
+            <td>{{ obj.authNo_id }}</td>
+            <td> {{ obj.teacherNo_id}}</td>
+            <td> {{ obj.teacherNo_id}}</td>
             <td>
-                <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i>删除该权限</button>
+                <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manageauthteacher/{{ obj.teacherNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i>删除该权限</button>
             </td>
-          </tr>				  	
+           </tr>
+          {% endfor %}				  	
         </tbody>
         <tfoot>
            <tr >
