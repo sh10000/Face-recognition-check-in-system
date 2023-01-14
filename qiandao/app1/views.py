@@ -877,26 +877,26 @@ def addTeacherAuth(request):
         cursor = connection.cursor()
         sql = "SELECT authNo,`name`" \
               "From renLianShiBie1.app1_authority" \
-              "where `name` LIKE " + ask + " and authNo not " \
+              "where `name` LIKE '%" + ask + "%' and authNo not " \
                                            "in ( SELECT b.authNo " \
                                            "from  renLianShiBie1.app1_tea_auth a, " \
                                            "renLianShiBie1.app1_authority b " \
-                                           "WHERE b.authNo=a.authNo_id and a.teachertNo_id=" + tid + " )"
+                                           "WHERE b.authNo=a.authNo_id and a.teacherNo_id=" + tid + " )"
         cursor.execute(sql)
         auth_list = cursor.fetchall()
-        return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": auth_list})
+        return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list})
     if (ask == None):
         cursor = connection.cursor()
-        sql = "SELECT authNo,`name`" \
-              "From renLianShiBie1.app1_authority" \
-              "where `name` LIKE " + ask + " and authNo not " \
+        sql = "SELECT authNo,`name` " \
+              "From renLianShiBie1.app1_authority " \
+              "where authNo not " \
                                            "in ( SELECT b.authNo " \
                                            "from  renLianShiBie1.app1_tea_auth a, " \
                                            "renLianShiBie1.app1_authority b " \
-                                           "WHERE b.authNo=a.authNo_id and a.teachertNo_id=" + tid + " )"
+                                           "WHERE b.authNo=a.authNo_id and a.teacherNo_id=" + tid + ")"
         cursor.execute(sql)
         auth_list = cursor.fetchall()
-        return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": auth_list})
+        return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list})
 
 
 def addOneAuthTeacher(request):
