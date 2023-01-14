@@ -15,7 +15,10 @@
           </div>
         </div>
         <button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
-      </form>
+      </form>	
+      <button type="button" class="btn btn-success" style="float:right;margin-left:10px;"onclick="window.location.href='/manage/authstudent/add'"><i class=" glyphicon glyphicon-check"></i> 添加权限</button>
+    
+      
       <br>
       <hr style="clear:both;">
 
@@ -23,7 +26,6 @@
       <table class="table  table-bordered">
         <thead>
           <tr>
-            <th>学号</th>
             <th>用户名</th>
             <th>密码</th>
             <th width="100">操作</th>
@@ -33,11 +35,11 @@
           {% for obj in n1 %}
           <tr>
             <tr>
-              <td>{{ obj.studentNo }}</td>
               <td>{{ obj.name }}</td>
               <td>{{ obj.password }}</td>
+              <td>{{ obj.studentNo }}</td>
             <td>
-              <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/authstudent/{{ obj.studentNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i>定义权限</button>
+              <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/authstudent/{{ obj.studentNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i></button>
           </td>
           </tr>	
           {% endfor %}			  	
