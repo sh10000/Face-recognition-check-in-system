@@ -83,6 +83,8 @@ urlpatterns = [
     path("manage/auth/teacher",views.authTeacher),
     path("manage/auth/teacher/<int:tNo>/modify", views.modifyTeacherAuth),
     path("manage/auth/teacher/add", views.addTeacherAuth),
+    path("manage/auth/teacher/add/one",views.addOneAuthTeacher),
+
 
     #学生权限管理
     path("manage/auth/student", views.authStudent),
