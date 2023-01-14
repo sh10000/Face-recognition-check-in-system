@@ -867,7 +867,7 @@ def addStudentAuth(request, err_message=None):
     admName = request.get_signed_cookie("username", salt='dsb')
     ask = request.GET.get("ask")
     if (ask != None):
-        authNo = models.Authrity.objects.filter(name_contains=ask)
+        authNo = models.Authority.objects.filter(name_contains=ask)
         return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": authNo})
     if (ask == None):
         auth_list = models.Authrity.all()
