@@ -203,6 +203,7 @@ def register(request, err_message=None):
     rep = redirect('/student')
     rep.set_signed_cookie("is_login", "1", salt="dsb", max_age=60 * 60 * 24 * 7)
     rep.set_signed_cookie("username", studentNo, salt="dsb", max_age=60 * 60 * 24 * 7)
+    models.Stu_Auth.objects.create(authNo=7, studentNo=studentNo,authName='增选课程stu')
     models.Student.objects.create(studentNo=studentNo, name=user, password=pwd, photo=img, img_name=img.name)
     url = "https://{endpoint}/v2/{project_id}/face-sets/{face_set_name}/faces".format(endpoint=endpoint,
                                                                                       project_id=project_id,
@@ -561,6 +562,7 @@ def addstudent(request, err_message=None):
     resized_image.save('temp.jpg')
     if img != None:
         img_name = img.name
+        models.Stu_Auth.objects.create(authNo=7, studentNo=studentNo,authName='增选课程stu')
         models.Student.objects.create(studentNo=studentNo, name=user, password=pwd, photo=img, img_name=img_name)
         url = "https://{endpoint}/v2/{project_id}/face-sets/{face_set_name}/faces".format(endpoint=endpoint,
                                                                                           project_id=project_id,
