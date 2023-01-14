@@ -34,11 +34,11 @@
         </thead>
         <tbody>
           {% for obj in n1 %}
-            <td>{{ obj.authNo_id }}</td>
+            <td>{{ obj.authNo }}</td>
             <td> {{ obj.authName}}</td>
-            <td> {{ obj.teacherNo_id}}</td>
+            <td> {{ obj.teacherNo}}</td>
             <td>
-                <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/authstudent/delete?id={{ obj.authNo_id }}&nid={{ obj.teacherNo_id }}'"><i class=" glyphicon glyphicon-pencil"></i>删除该权限</button>
+                <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/authteacher/delete?id={{ obj.authNo }}&nid={{ obj.teacherNo }}'"><i class=" glyphicon glyphicon-pencil"></i>删除该权限</button>
             </td>
            </tr>
           {% endfor %}				  	

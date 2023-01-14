@@ -862,6 +862,7 @@ def ajaxtest(request):
 
 
 # 教师权限管理界面
+@check_login
 def authTeacher(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     ask = request.GET.get("ask")
@@ -872,13 +873,13 @@ def authTeacher(request):
         teacher_list = models.Teacher.objects.all()
         return render(request, "Manage/AuthTeacher.html", {"admName": admName, "n1": teacher_list})
 
-
+@check_login
 def modifyTeacherAuth(request, tNo):
     admName = request.get_signed_cookie("username", salt="dsb")
     auth_list = models.Tea_Auth.objects.all().filter(teacherNo=tNo)
     return render(request, "Manage/AuthTeacherModify.html", {"admName": admName, "n1": auth_list})
 
-
+@check_login
 def addTeacherAuth(request):
     admName = request.get_signed_cookie("username", salt='dsb')
     ask = request.GET.get("ask")
@@ -891,7 +892,7 @@ def addTeacherAuth(request):
                                            "in ( SELECT b.authNo " \
                                            "from  renLianShiBie1.app1_tea_auth a, " \
                                            "renLianShiBie1.app1_authority b " \
-                                           "WHERE b.authNo=a.authNo_id and a.teacherNo_id=" + tid + " )"
+                                           "WHERE b.authNo=a.authNo and a.teacherNo=" + tid + " )"
         cursor.execute(sql)
         auth_list = cursor.fetchall()
         return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list,'name':tid})
@@ -903,22 +904,23 @@ def addTeacherAuth(request):
                                            "in ( SELECT b.authNo " \
                                            "from  renLianShiBie1.app1_tea_auth a, " \
                                            "renLianShiBie1.app1_authority b " \
-                                           "WHERE b.authNo=a.authNo_id and a.teacherNo_id=" + tid + ")"
+                                           "WHERE b.authNo=a.authNo and a.teacherNo=" + tid + ")"
         cursor.execute(sql)
         auth_list = cursor.fetchall()
         return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list,'name':tid})
 
-
+@check_login
 def addOneAuthTeacher(request):
     authID = request.GET.get("authId")
-    teaNo = request.GET.get("teaNo")
+    teaNo = request.GET.get("stuNo")
     authname=request.GET.get("name")
-    teaAuth = models.Tea_Auth(authNo=authID, teaNo=teaNo,authName=authname)
+    teaAuth = models.Tea_Auth(authNo=authID, teacherNo=teaNo,authName=authname)
     teaAuth.save()
-    return render(request, "Manage/AuthTeacherAdd.html")
+    return redirect("/manage/authteacher/add?nid="+teaNo)
 
 
 # 学生权限管理
+@check_login
 def authStudent(request):
     admName = request.get_signed_cookie("username", salt="dsb")
     ask = request.GET.get("ask")
@@ -928,35 +930,35 @@ def authStudent(request):
     if (ask == None):
         student_list = models.Student.objects.all()
         return render(request, "Manage/AuthStudent.html", {"admName": admName, "n1": student_list})
-
+@check_login
 def deleteAuthTeacher(request):
     nid = request.GET.get("nid")
     id=request.GET.get("id")
     cursor = connection.cursor()
-    sql =  "DELETE FROM tea_auth WHERE " \
-    "teacherNo_id = " + nid + "authNo_id = "+id
+    sql =  "DELETE FROM renLianShiBie1.app1_tea_auth WHERE " \
+    "teacherNo= " + nid + " and  authNo = "+id
     cursor.execute(sql)
     auth_list = cursor.fetchall()
-    return redirect("manageauthteacher/"+nid+"/modify")
-
+    return redirect("/manageauthteacher/"+nid+"/modify")
+@check_login
 def modifyStudentAuth(request, sNo):
     admName = request.get_signed_cookie("username", salt="dsb")
     auth_list = models.Stu_Auth.objects.all().filter(studentNo=sNo)
-    return render(request, "Manage/AuthStudentModify.html", {"a":admName, "n1":auth_list})
-
+    return render(request, "Manage/AuthStudentModify.html", {"admName": admName, "n1":auth_list})
+@check_login
 def addStudentAuth(request, err_message=None):
     admName = request.get_signed_cookie("username", salt='dsb')
     ask = request.GET.get("ask")
     nid = request.GET.get("nid")
     if (ask != None):
         cursor = connection.cursor()
-        sql = "SELECT authNo,`name`" \
+        sql = "SELECT b.authNo,`name`" \
                 "From renLianShiBie1.app1_authority "\
                 "where `name` LIKE '%" + ask + "%' and authNo not " \
                 "in ( SELECT b.authNo " \
                 "from  renLianShiBie1.app1_stu_auth a, " \
                 "renLianShiBie1.app1_authority b " \
-                "WHERE b.authNo=a.authNo_id and a.studentNo_id=" + nid +" )"
+                "WHERE b.authNo=a.authNo and a.studentNo=" + nid +" )"
         cursor.execute(sql)
         auth_list = cursor.fetchall()
         return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": auth_list,'name':nid})
@@ -968,19 +970,19 @@ def addStudentAuth(request, err_message=None):
                                            "in ( SELECT b.authNo " \
                                            "from  renLianShiBie1.app1_stu_auth a, " \
                                            "renLianShiBie1.app1_authority b " \
-                                           "WHERE b.authNo=a.authNo_id and a.studentNo_id=" + nid + " )"
+                                           "WHERE b.authNo=a.authNo and a.studentNo=" + nid + " )"
         cursor.execute(sql)
         auth_list = cursor.fetchall()
         return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": auth_list,'name':nid})
 
-
+@check_login
 def addOneAuthStudent(request):
     authID = request.GET.get("authId")
-    stuNo = request.GET.get("stuNo")
+    stuNo = request.GET.get("teaNo")
     authname=request.GET.get("name")
     stuAuth = models.Stu_Auth(authNo=authID, studentNo=stuNo,authName=authname)
     stuAuth.save()
-    return render(request, "Manage/AuthStudentAdd.html")
+    return redirect("/manage/authstudent/add?nid="+stuNo)
 
 def deleteAuthStudent(request):
     admName = request.get_signed_cookie("username", salt='dsb')
@@ -988,8 +990,8 @@ def deleteAuthStudent(request):
     nid = request.GET.get("nid")
     id=request.GET.get("id")
     cursor = connection.cursor()
-    sql =  "DELETE FROM stu_auth WHERE " \
-    "studentNo_id = " + nid + "authNo_id = "+id
+    sql =  "DELETE FROM renLianShiBie1.app1_stu_auth WHERE " \
+    "studentNo= " + nid + " and  authNo = "+id
     cursor.execute(sql)
     auth_list = cursor.fetchall()
-    return redirect("manageauthstudent/"+nid+"/modify")
+    return redirect("/manageauthstudent/"+nid+"/modify")
