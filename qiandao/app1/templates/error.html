@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>错误界面</title>
+	<link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../static/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../static/css/main.css">
+  </head>
+
+  <body>
+  	<div class="container">
+  		<!-- 网站头部 -->
+		    <div class="row">
+		   	 	<div class="col-xs-12" style="border: 2px soid blueviolet;">
+		   	 		<h1>欢迎来到XX在线学习平台</h1>
+		   	 	</div>
+		   	</div> 
+
+		   	 
+
+
+
+		   	<!-- 注册页面主体-->
+		   	<div class="row" style="height: 300px; background-image: url(../static/img/bgtp.gif)">
+		   	 	<div class="col-sm-4 col-sm-offset-8" style="height: 300px;border:5px solid gainsboro;background-color:whitesmoke;">
+
+
+		   	 		
+					<span style="color: red">{{errmsg}}</span>
+					<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"onclick="javascript:history.back(-1);"><i class=" glyphicon glyphicon-remove"></i> 返回</button>
+
+					
+		   	 	</div>
+		   	</div>
+
+		    <!-- 网站底部 -->
+		   	<div class="row">
+		   	 	<div class="col-xs-12">
+		   	 	</div>
+		   	</div>
+	</div>
+    <script src="../static/jquery/jquery-2.1.1.min.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../static/script/docs.min.js"></script>	
+	<script type="text/javascript">
+	</script>   
+    </body>
+</html>

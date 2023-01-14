@@ -82,8 +82,8 @@ def check_permission(user, permission_name, user_type):
     if user_type == 'student':
         return models.Stu_Auth.objects.filter(studentNo_id=user, authName=permission_name).exists()
     elif user_type == 'teacher':
-        # return models.Tea_Auth.objects.filter(teacherNo_id=user, authNo_id='0001').exists()
-        return models.Tea_Auth.objects.filter(teacherNo_id=user, authName=permission_name).exists()
+        return models.Tea_Auth.objects.filter(teacherNo_id=user, authNo_id='0001').exists()
+        # return models.Tea_Auth.objects.filter(teacherNo_id=user, authName=permission_name).exists()
     return False
 
 
@@ -94,7 +94,7 @@ def permission_required(permission_name, user_type):
         def _wrapped_view(request, *args, **kwargs):
             if not check_permission(request.get_signed_cookie("username", salt="dsb"), permission_name, user_type):
                 # 权限不足，弹出提示窗口
-                return redirect("/login")
+                return render(request, 'error.html', {"errmsg": "您没有该权限！"})
                 # return JsonResponse({'error': 'Permission denied'})
             return view_func(request, *args, **kwargs)
 
