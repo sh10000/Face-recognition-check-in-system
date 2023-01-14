@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
-import models
+from app1 import models
 from django.core.files.base import ContentFile
 from django.contrib.auth import authenticate, login
 from functools import wraps
