@@ -837,7 +837,7 @@ def addTeacherAuth(request):
         authNo = models.Authority.objects.filter(name__contains=ask)
         return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": authNo})
 
-    auth_list = models.Authrity.all()
+    auth_list = models.Authority.all()
     return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list})
 
 def addOneAuthTeacher(request):
@@ -870,7 +870,7 @@ def addStudentAuth(request, err_message=None):
         authNo = models.Authority.objects.filter(name_contains=ask)
         return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": authNo})
     if (ask == None):
-        auth_list = models.Authrity.all()
+        auth_list = models.Authority.all()
         return render(request, "Manage/AuthStudentAdd.html", {"admName":admName, "n1": auth_list})
 
     authID = request.GET.get("authId")
