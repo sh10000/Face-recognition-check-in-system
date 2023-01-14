@@ -860,7 +860,7 @@ def authStudent(request):
 
 def modifyStudentAuth(request,sNo):
     admName = request.get_signed_cookie("username", salt="dsb")
-    auth_list = models.Tea_Auth.objects.all().filter(studentNo=sNo)
+    auth_list = models.Stu_Auth.objects.all().filter(studentNo=sNo)
     return render(request, "dmNameManage/AuthStudentModify.html", {"a":admName, "n1":auth_list})
 
 def addStudentAuth(request, err_message=None):
