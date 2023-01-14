@@ -38,8 +38,9 @@
             <td>{{ obj.name }}</td>
             <td> {{ obj.password }}</td>
             <td>
-                <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manageauthteacher/{{ obj.teacherNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i>定义权限</button>
-            </td>
+                <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manageauthteacher/{{ obj.teacherNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i>删除权限</button>
+                <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='manage/authteacher/add'"><i class=" glyphicon glyphicon-pencil"></i>新增权限</button>
+            </td> 
            </tr>
           {% endfor %}
           </tr>				  	
