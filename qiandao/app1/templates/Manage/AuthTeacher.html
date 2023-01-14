@@ -11,10 +11,10 @@
         <div class="form-group has-feedback">
           <div class="input-group">
             <div class="input-group-addon">查询条件</div>
-            <input class="form-control has-success" type="text" placeholder="请输入查询条件" name="ask">
+            <input class="form-control has-success" type="text" placeholder="请输入查询条件">
           </div>
         </div>
-        <button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+        <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
       </form>	
       <button type="button" class="btn btn-success" style="float:right;margin-left:10px;"onclick="window.location.href='/manage/auth/teacher/add'"><i class=" glyphicon glyphicon-check"></i> 添加权限</button>
     
@@ -26,24 +26,26 @@
       <table class="table  table-bordered">
         <thead>
           <tr>
+            <th width="30">教师号</th>
             <th>用户名</th>
             <th>密码</th>
-            <th>角色</th>
-            <th width="100">操作</th>
           </tr>
         </thead>
         <tbody>
-          {% for obj in n1 %}
           <tr>
+              {% for obj in n1 %}
+              <tr>
             <td>{{ obj.teacherNo }}</td>
-            <td>{{ obj.password }}</td>
-            <td>{{ obj.password }}</td>
+            <td>{{ obj.name }}</td>
+            <td> {{ obj.password }}</td>
             <td>
-              <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='manage/auth/teacher/{{ obj.teacherNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i>定义权限</button>
-          </td>
-          </tr>	
-          {% endfor %}			  	
-       
+                <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i>定义权限</button>
+            </td>
+           </tr>
+          {% endfor %}
+          </tr>				  	
+        </tbody>
+        <tfoot>
            <tr >
                <td colspan="6" align="center">
                   <ul class="pagination">
