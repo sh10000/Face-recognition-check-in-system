@@ -89,7 +89,7 @@ urlpatterns = [
     #学生权限管理
     path("manage/auth/student", views.authStudent),
     path("manage/auth/student/modify", views.modifyStudentAuth),
-    path("manage/authstudent/<int:sNo>/add", views.addStudentAuth),
+    path("manage/authstudent/add", views.addStudentAuth),
 
 
 
