@@ -837,7 +837,7 @@ def addTeacherAuth(request):
         authNo = models.Authority.objects.filter(name__contains=ask)
         return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": authNo})
 
-    auth_list = models.Authority.all()
+    auth_list = models.Authority.objects.all()
     return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list})
 
 def addOneAuthTeacher(request):
