@@ -38,7 +38,7 @@
             <td>{{ obj.name }}</td>
             <td> {{ obj.password }}</td>
             <td>
-                <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i>定义权限</button>
+                <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/authteacher/{{ obj.teacherNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i>定义权限</button>
             </td>
            </tr>
           {% endfor %}
@@ -68,11 +68,6 @@
 {% endblock form %}
 
 {% block script %}
-<script>
-    $("tbody .btn-primary").click(function(){
-        window.location.href ="/manage/auth/teacher/modify";
-    });
-</script>
 {% endblock script %}
 
 

@@ -15,10 +15,8 @@
           </div>
         </div>
         <button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
-      </form>	
-      <button type="button" class="btn btn-success" style="float:right;margin-left:10px;"onclick="window.location.href='/manage/authstudent/add'"><i class=" glyphicon glyphicon-check"></i> 添加权限</button>
-    
-      
+      </form>
+
       <br>
       <hr style="clear:both;">
 
@@ -26,9 +24,8 @@
       <table class="table  table-bordered">
         <thead>
           <tr>
+            <th>学号</th>
             <th>用户名</th>
-            <th>密码</th>
-            <th>角色</th>
             <th width="100">操作</th>
           </tr>
         </thead>
@@ -36,9 +33,8 @@
           {% for obj in n1 %}
           <tr>
             <tr>
-              <td>{{ obj.name }}</td>
-              <td>{{ obj.password }}</td>
               <td>{{ obj.studentNo }}</td>
+              <td>{{ obj.name }}</td>
             <td>
               <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/authstudent/{{ obj.studentNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i></button>
           </td>
@@ -70,11 +66,7 @@
 {% endblock form %}
 
 {% block script %}
-<script>
-    $("tbody .btn-primary").click(function(){
-        window.location.href ="/manage/auth/student/modify";
-    });
-</script>
+
 {% endblock script %}
 
 
