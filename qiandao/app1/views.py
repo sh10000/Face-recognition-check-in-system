@@ -929,6 +929,15 @@ def authStudent(request):
         student_list = models.Student.objects.all()
         return render(request, "Manage/AuthStudent.html", {"admName": admName, "n1": student_list})
 
+def deleteAuthTeacher(request):
+    nid = request.GET.get("nid")
+    id=request.GET.get("id")
+    cursor = connection.cursor()
+    sql =  "DELETE FROM tea_auth WHERE " \
+    "teacherNo_id = " + nid + "authNo_id = "+id
+    cursor.execute(sql)
+    auth_list = cursor.fetchall()
+    return redirect("manageauthteacher/"+nid+"/modify")
 
 def modifyStudentAuth(request, sNo):
     admName = request.get_signed_cookie("username", salt="dsb")
@@ -972,3 +981,15 @@ def addOneAuthStudent(request):
     stuAuth = models.Stu_Auth(authNo=authID, studentNo=stuNo,authName=authname)
     stuAuth.save()
     return render(request, "Manage/AuthStudentAdd.html")
+
+def deleteAuthStudent(request):
+    admName = request.get_signed_cookie("username", salt='dsb')
+    ask = request.GET.get("ask")
+    nid = request.GET.get("nid")
+    id=request.GET.get("id")
+    cursor = connection.cursor()
+    sql =  "DELETE FROM stu_auth WHERE " \
+    "studentNo_id = " + nid + "authNo_id = "+id
+    cursor.execute(sql)
+    auth_list = cursor.fetchall()
+    return redirect("manageauthstudent/"+nid+"/modify")

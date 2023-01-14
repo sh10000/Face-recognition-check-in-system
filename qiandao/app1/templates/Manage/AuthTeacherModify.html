@@ -38,7 +38,7 @@
             <td> {{ obj.authName}}</td>
             <td> {{ obj.teacherNo_id}}</td>
             <td>
-                <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manageauthteacher/{{ obj.teacherNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i>删除该权限</button>
+                <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/authstudent/delete?id={{ obj.authNo_id }}&nid={{ obj.teacherNo_id }}'"><i class=" glyphicon glyphicon-pencil"></i>删除该权限</button>
             </td>
            </tr>
           {% endfor %}				  	
