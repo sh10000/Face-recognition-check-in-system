@@ -31,14 +31,14 @@ class StudentPhoto(models.Model):
 
 # 学生权限联系
 class Stu_Auth(models.Model):
-    studentNo = models.ForeignKey(Student, on_delete=models.CASCADE)
-    authNo = models.ForeignKey(Authority, on_delete=models.CASCADE)
+    studentNo = models.CharField(Student, on_delete=models.CASCADE)
+    authNo = models.CharField(Authority, on_delete=models.CASCADE)
     authName = models.CharField(max_length=32, default="null")
 
 # 教师权限联系
 class Tea_Auth(models.Model):
-    teacherNo = models.ForeignKey(Teacher, on_delete=models.CASCADE)
-    authNo = models.ForeignKey(Authority, on_delete=models.CASCADE)
+    teacherNo = models.CharField(Teacher, on_delete=models.CASCADE)
+    authNo = models.CharField(Authority, on_delete=models.CASCADE)
     authName = models.CharField(max_length=32, default="null")
 
 # 课程
