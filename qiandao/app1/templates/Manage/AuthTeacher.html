@@ -11,10 +11,10 @@
         <div class="form-group has-feedback">
           <div class="input-group">
             <div class="input-group-addon">查询条件</div>
-            <input class="form-control has-success" type="text" placeholder="请输入查询条件">
+            <input class="form-control has-success" type="text" placeholder="请输入查询条件" name="ask">
           </div>
         </div>
-        <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+        <button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
       </form>
     
       
@@ -38,8 +38,9 @@
             <td>{{ obj.name }}</td>
             <td> {{ obj.password }}</td>
             <td>
-                <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manageauthteacher/{{ obj.teacherNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i>定义权限</button>
-            </td>
+                <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manageauthteacher/{{ obj.teacherNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i>删除权限</button>
+                <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/authteacher/add?nid={{obj.teacherNo}}'"><i class=" glyphicon glyphicon-pencil"></i>新增权限</button>
+            </td> 
            </tr>
           {% endfor %}
           </tr>				  	

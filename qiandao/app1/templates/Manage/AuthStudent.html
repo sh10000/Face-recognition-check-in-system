@@ -36,7 +36,9 @@
               <td>{{ obj.studentNo }}</td>
               <td>{{ obj.name }}</td>
             <td>
-              <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manageauthstudent/{{ obj.studentNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i></button>
+              <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manageauthstudent/{{ obj.studentNo }}/modify'"><i class=" glyphicon glyphicon-pencil">删除权限</i></button>
+              <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/authstudent/add?nid={{obj.studentNo}}'"><i class=" glyphicon glyphicon-pencil"></i>新增权限</button>
+            </td> 
           </td>
           </tr>	
           {% endfor %}			  	
