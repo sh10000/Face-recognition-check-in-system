@@ -27,7 +27,7 @@
           <tr>
             <th width="30">教师号</th>
             <th>用户名</th>
-            <th>密码</th>
+            <th>操作</th>
           </tr>
         </thead>
         <tbody>
@@ -36,7 +36,6 @@
               <tr>
             <td>{{ obj.teacherNo }}</td>
             <td>{{ obj.name }}</td>
-            <td> {{ obj.password }}</td>
             <td>
                 <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manageauthteacher/{{ obj.teacherNo }}/modify'"><i class=" glyphicon glyphicon-pencil"></i>删除权限</button>
                 <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/manage/authteacher/add?tid={{obj.teacherNo}}'"><i class=" glyphicon glyphicon-pencil"></i>新增权限</button>
