@@ -878,11 +878,12 @@ def addStudentAuth(request, err_message=None):
     stuAuth = models.Stu_Auth(authNo = authID, studentNo = stuNo )
     stuAuth.save()
 
-def addOneAuthStudent(request):
-    authID = request.GET.get("authId")
-    stuNo = request.GET.get("stuNo")
-    stuAuth = models.Stu_Auth(authNo=authID, studentNo=stuNo)
-    stuAuth.save()
+    def addOneAuthStudent(request):
+        authID = request.GET.get("authId")
+        stuNo = request.GET.get("stuNo")
+        stuAuth = models.Stu_Auth(authNo=authID, studentNo=stuNo)
+        stuAuth.save()
+
     return render(request, "Manage/AuthStudentAdd.html")
 
 
