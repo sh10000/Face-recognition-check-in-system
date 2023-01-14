@@ -872,12 +872,31 @@ def modifyTeacherAuth(request, tNo):
 def addTeacherAuth(request):
     admName = request.get_signed_cookie("username", salt='dsb')
     ask = request.GET.get("ask")
+    tid = request.GET.get("tid")
     if (ask != None):
-        authNo = models.Authority.objects.filter(name__contains=ask)
-        return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": authNo})
-
-    auth_list = models.Authority.objects.all()
-    return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list})
+        cursor = connection.cursor()
+        sql = "SELECT authNo,`name`" \
+              "From renLianShiBie1.app1_authority" \
+              "where `name` LIKE " + ask + " and authNo not " \
+                                           "in ( SELECT b.authNo " \
+                                           "from  renLianShiBie1.app1_tea_auth a, " \
+                                           "renLianShiBie1.app1_authority b " \
+                                           "WHERE b.authNo=a.authNo_id and a.teachertNo_id=" + tid + " )"
+        cursor.execute(sql)
+        auth_list = cursor.fetchall()
+        return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": auth_list})
+    if (ask == None):
+        cursor = connection.cursor()
+        sql = "SELECT authNo,`name`" \
+              "From renLianShiBie1.app1_authority" \
+              "where `name` LIKE " + ask + " and authNo not " \
+                                           "in ( SELECT b.authNo " \
+                                           "from  renLianShiBie1.app1_tea_auth a, " \
+                                           "renLianShiBie1.app1_authority b " \
+                                           "WHERE b.authNo=a.authNo_id and a.teachertNo_id=" + tid + " )"
+        cursor.execute(sql)
+        auth_list = cursor.fetchall()
+        return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": auth_list})
 
 
 def addOneAuthTeacher(request):
@@ -908,11 +927,30 @@ def modifyStudentAuth(request, sNo):
 def addStudentAuth(request, err_message=None):
     admName = request.get_signed_cookie("username", salt='dsb')
     ask = request.GET.get("ask")
+    nid = request.GET.get("nid")
     if (ask != None):
-        authNo = models.Authority.objects.filter(name_contains=ask)
-        return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": authNo})
+        cursor = connection.cursor()
+        sql = "SELECT authNo,`name`" \
+                "From renLianShiBie1.app1_authority"\
+                "where `name` LIKE " + ask + " and authNo not " \
+                "in ( SELECT b.authNo " \
+                "from  renLianShiBie1.app1_stu_auth a, " \
+                "renLianShiBie1.app1_authority b " \
+                "WHERE b.authNo=a.authNo_id and a.studentNo_id=" + nid +" )"
+        cursor.execute(sql)
+        auth_list = cursor.fetchall()
+        return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": auth_list})
     if (ask == None):
-        auth_list = models.Authority.objects.all()
+        cursor = connection.cursor()
+        sql = "SELECT authNo,`name`" \
+              "From renLianShiBie1.app1_authority" \
+              "where `name` LIKE " + ask + " and authNo not " \
+                                           "in ( SELECT b.authNo " \
+                                           "from  renLianShiBie1.app1_stu_auth a, " \
+                                           "renLianShiBie1.app1_authority b " \
+                                           "WHERE b.authNo=a.authNo_id and a.studentNo_id=" + nid + " )"
+        cursor.execute(sql)
+        auth_list = cursor.fetchall()
         return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": auth_list})
 
 
@@ -921,5 +959,4 @@ def addOneAuthStudent(request):
     stuNo = request.GET.get("stuNo")
     stuAuth = models.Stu_Auth(authNo=authID, studentNo=stuNo)
     stuAuth.save()
-
     return render(request, "Manage/AuthStudentAdd.html")

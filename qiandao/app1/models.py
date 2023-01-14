@@ -5,7 +5,7 @@ class Teacher(models.Model):
     user = models.CharField(max_length=32)
     name = models.CharField(max_length=32)
     teacherNo = models.CharField(max_length=32, primary_key=True)
-    password = models.CharField(max_length=32)
+    password = models.CharField(max_length=32,default="null")
 
 # 管理员
 class Admin(models.Model):
