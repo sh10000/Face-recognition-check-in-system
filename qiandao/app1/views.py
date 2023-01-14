@@ -95,6 +95,7 @@ def permission_required(permission_name, user_type):
             if not check_permission(request.get_signed_cookie("username", salt="dsb"), permission_name, user_type):
                 # 权限不足，弹出提示窗口
                 return redirect("/login")
+                # return JsonResponse({'error': 'Permission denied'})
             return view_func(request, *args, **kwargs)
 
         return _wrapped_view
@@ -914,14 +915,11 @@ def addStudentAuth(request, err_message=None):
         auth_list = models.Authrity.all()
         return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": auth_list})
 
+
+def addOneAuthStudent(request):
     authID = request.GET.get("authId")
     stuNo = request.GET.get("stuNo")
     stuAuth = models.Stu_Auth(authNo=authID, studentNo=stuNo)
     stuAuth.save()
 
-def addOneAuthStudent(request):
-        authID = request.GET.get("authId")
-        stuNo = request.GET.get("stuNo")
-        stuAuth = models.Stu_Auth(authNo=authID, studentNo=stuNo)
-        stuAuth.save()
-        return render(request, "Manage/AuthStudentAdd.html")
+    return render(request, "Manage/AuthStudentAdd.html")
