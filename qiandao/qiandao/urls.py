@@ -62,9 +62,6 @@ urlpatterns = [
     path("manage/ManageTeacher", views.manageTeacher),
     path("manage/ManageStudent", views.manageStudent),
     path("manage/ManageCourse", views.manageCourse),
-    # path("manage/ManageClass",views.manageClass),
-    # path("manage/ManageUser",views.manageUser),
-    # path("manage/ManageTeaching",views.manageTeaching),
     #管理员管理学生
     path("managestudent", views.manageStudent),
     path("addstudent", views.addstudent),
@@ -84,8 +81,8 @@ urlpatterns = [
     #管理员权限管理
     #教师权限管理
     path("manage/auth/teacher",views.authTeacher),
-    path("manage/auth/teacher/modify", views.modifyTeacherAuth),
-    # path("manage/auth/teacher/add", views.adTeacherAuth),
+    path("manage/auth/teacher/<int:nid>/modify", views.modifyTeacherAuth),
+    path("manage/auth/teacher/add", views.addTeacherAuth),
 
     #学生权限管理
     path("manage/auth/student", views.authStudent),
@@ -102,18 +99,6 @@ urlpatterns = [
     path("sign", views.sign),
     path("signed/",views.signed),
     path("signinfo/",views.signinfo),
-
-    # path("teacher", views.teacher),
-    # path("teacher/publishSing", views.publishSign),
-    # path("teacher/signResult",),
-
-    # path("manager",),
-    # path("manager/manageTeacher"),
-    # path("manager/manageStudent"),
-    # path("manage/manageCourse"),
-    # path("manage/teacherCourse"),
-
-    # path("studentQianDao", views.studentQiandao),
     path("classInfo", views.classInfo),
     
 # 测试
