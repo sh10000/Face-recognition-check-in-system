@@ -931,8 +931,8 @@ def addStudentAuth(request, err_message=None):
     if (ask != None):
         cursor = connection.cursor()
         sql = "SELECT authNo,`name`" \
-                "From renLianShiBie1.app1_authority"\
-                "where `name` LIKE " + ask + " and authNo not " \
+                "From renLianShiBie1.app1_authority "\
+                "where `name` LIKE '%" + ask + "%' and authNo not " \
                 "in ( SELECT b.authNo " \
                 "from  renLianShiBie1.app1_stu_auth a, " \
                 "renLianShiBie1.app1_authority b " \
@@ -942,9 +942,9 @@ def addStudentAuth(request, err_message=None):
         return render(request, "Manage/AuthStudentAdd.html", {"admName": admName, "n1": auth_list})
     if (ask == None):
         cursor = connection.cursor()
-        sql = "SELECT authNo,`name`" \
-              "From renLianShiBie1.app1_authority" \
-              "where `name` LIKE " + ask + " and authNo not " \
+        sql = "SELECT authNo,`name` " \
+              "From renLianShiBie1.app1_authority " \
+              "where  authNo not " \
                                            "in ( SELECT b.authNo " \
                                            "from  renLianShiBie1.app1_stu_auth a, " \
                                            "renLianShiBie1.app1_authority b " \
