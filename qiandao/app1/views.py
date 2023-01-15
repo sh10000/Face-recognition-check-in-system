@@ -769,7 +769,7 @@ def student(request):
 
 # 学生添加课程界面
 @check_login
-@permission_required('增选课程stu',student)
+@permission_required('增选课程stu','student')
 def addCourselist(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
     cursor = connection.cursor()
