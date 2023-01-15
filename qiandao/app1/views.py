@@ -80,9 +80,9 @@ def check_duplicate(model_name, field_name):
 
 def check_permission(user, permission_name, user_type):
     if user_type == 'student':
-        return models.Stu_Auth.objects.filter(studentNo_id=user, authName=permission_name).exists()
+        return models.Stu_Auth.objects.filter(studentNo=user, authName=permission_name).exists()
     elif user_type == 'teacher':
-        return models.Tea_Auth.objects.filter(teacherNo_id=user, authNo_id='0001').exists()
+        return models.Tea_Auth.objects.filter(teacherNo=user, authName=permission_name).exists()
         # return models.Tea_Auth.objects.filter(teacherNo_id=user, authName=permission_name).exists()
     return False
 
