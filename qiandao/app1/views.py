@@ -295,7 +295,7 @@ def teacourse(request):
 @check_login
 @permission_required('删除学生tea', 'teacher')
 def delstudent(request):
-
+    '''
     tid = request.GET.get('tid')
     sql = "SELECT id FROM tea_auth WHERE " \
             "teacherNo_id = " + tid + "authNo_id = 003"
@@ -304,6 +304,7 @@ def delstudent(request):
     res = cursor.fetchall()
     if res == None:
         return render()
+    '''
     sid = request.GET.get('sid')
     cid = request.GET.get('cid')
     coid = request.GET.get('coid')
@@ -905,10 +906,10 @@ def addTeacherAuth(request):
         sql = "SELECT authNo,`name` " \
               "From renLianShiBie1.app1_authority " \
               "where authNo not " \
-                                           "in ( SELECT b.authNo " \
-                                           "from  renLianShiBie1.app1_tea_auth a, " \
-                                           "renLianShiBie1.app1_authority b " \
-                                           "WHERE b.authNo=a.authNo and a.teacherNo=" + tid + ")"
+                "in ( SELECT b.authNo " \
+                "from  renLianShiBie1.app1_tea_auth a, " \
+                "renLianShiBie1.app1_authority b " \
+                "WHERE b.authNo=a.authNo and a.teacherNo=" + tid + ")"
         cursor.execute(sql)
         auth_list = cursor.fetchall()
         return render(request, "Manage/AuthTeacherAdd.html", {"admName": admName, "n1": auth_list,'name':tid})
@@ -920,7 +921,7 @@ def addOneAuthTeacher(request):
     authname=request.GET.get("name")
     teaAuth = models.Tea_Auth(authNo=authID, teacherNo=teaNo,authName=authname)
     teaAuth.save()
-    return redirect("/manage/authteacher/add?nid="+teaNo)
+    return redirect("/manage/authteacher/add?tid="+teaNo)
 
 
 # 学生权限管理
