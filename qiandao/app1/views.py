@@ -269,7 +269,6 @@ def teacher(request):
 
 @check_login
 def teacourse(request):
-
     teaName = request.get_signed_cookie("username", salt="dsb")
     classNo = request.GET.get('classNo')
     courseNo = request.GET.get('courseNo')
@@ -294,7 +293,7 @@ def teacourse(request):
 
 
 @check_login
-@permission_required('用户管理', 'teacher')
+@permission_required('删除学生tea', 'teacher')
 def delstudent(request):
 
     tid = request.GET.get('tid')
@@ -316,6 +315,7 @@ def delstudent(request):
 
 
 @check_login
+@permission_required('增加学生tea', 'teacher')
 def Taddstudent(request):
     teaName = request.get_signed_cookie("username", salt="dsb")
     cid = request.GET.get('cid')
@@ -355,6 +355,7 @@ def classInfo(request):
 
 
 @check_login
+@permission_required('发布签到tea', 'teacher')
 def signpublish(request):
     teaName = request.get_signed_cookie("username", salt="dsb")
     courseNo = request.GET.get("courseNo")
@@ -767,6 +768,7 @@ def student(request):
 
 # 学生添加课程界面
 @check_login
+@permission_required('增选课程stu',student)
 def addCourselist(request):
     stuName = request.get_signed_cookie("username", salt="dsb")
     cursor = connection.cursor()
